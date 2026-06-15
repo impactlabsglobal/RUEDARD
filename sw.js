@@ -1,16 +1,30 @@
-const CACHE_NAME = 'ruedard-mobile-v24';
+const CACHE_NAME = 'ruedard-layout-v30';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './assets/ruedard-hero-dominicana.png'];
 
-const MOBILE_PATCH = `
-<style id="ruedard-mobile-patch">
-@media(max-width:767px){
-  .topbar{height:64px!important;padding-left:14px!important;padding-right:14px!important;gap:8px!important;display:grid!important;grid-template-columns:48px 1fr 48px!important;}
+const LAYOUT_FIX = `
+<style id="ruedard-layout-fix">
+.topbar{gap:18px!important;padding-left:clamp(16px,3vw,44px)!important;padding-right:clamp(16px,3vw,44px)!important;}
+.top-left{min-width:max-content!important;}
+.t-right{flex-shrink:0!important;}
+.public-nav{display:flex!important;align-items:center!important;justify-content:center!important;gap:clamp(14px,2vw,28px)!important;margin-left:auto!important;margin-right:auto!important;min-width:0!important;flex:1!important;}
+.public-nav button,.public-actions button{white-space:nowrap!important;}
+.public-actions{flex-shrink:0!important;}
+#pg-login.vis{max-width:none!important;width:calc(100% + 28px)!important;margin:-108px -14px -80px!important;min-height:calc(100dvh - 58px)!important;overflow:hidden!important;}
+#pg-login .login-shell{width:100%!important;min-height:calc(100dvh - 58px)!important;display:grid!important;grid-template-columns:minmax(320px,440px) minmax(0,1fr)!important;gap:clamp(34px,6vw,78px)!important;align-items:center!important;padding:clamp(28px,5vw,58px) max(24px,calc((100vw - 1180px)/2))!important;background-size:cover!important;background-position:center!important;}
+#pg-login .login-box{width:100%!important;max-width:440px!important;}
+@media(max-width:1099px){
+  .topbar{height:64px!important;display:grid!important;grid-template-columns:48px 1fr 48px!important;padding-left:14px!important;padding-right:14px!important;gap:8px!important;}
   .top-left{grid-column:2!important;justify-content:center!important;min-width:0!important;}
   .t-logo{font-size:1.2rem!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
   .t-right{grid-column:3!important;justify-content:flex-end!important;gap:0!important;}
   .mobile-menu-btn{display:flex!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;width:44px!important;height:44px!important;border:0!important;background:transparent!important;color:#fff!important;font-size:1.65rem!important;align-items:center!important;justify-content:center!important;}
   .mobile-quick-btn{display:flex!important;width:44px!important;height:44px!important;border:0!important;background:transparent!important;color:#fff!important;font-size:1.45rem!important;align-items:center!important;justify-content:center!important;}
   .public-nav,.public-actions,.session-badge,#usr-info,#account-btn,#switch-btn,#logout-btn,#mode-btn,.t-lang,.t-theme,.header-back.show{display:none!important;}
+  #pg-login.vis{width:calc(100% + 28px)!important;margin:-114px -14px -80px!important;min-height:calc(100dvh - 64px)!important;}
+  #pg-login .login-shell{grid-template-columns:minmax(320px,460px)!important;justify-content:center!important;align-content:center!important;min-height:calc(100dvh - 64px)!important;padding:36px 22px 70px!important;background-position:center!important;}
+  #pg-login .login-shell::before{background:rgba(5,20,39,.62)!important;}
+  #pg-login .login-box{width:100%!important;max-width:460px!important;}
+  #pg-login .login-hero-copy{display:none!important;}
   .mobile-drawer{position:fixed!important;top:64px!important;left:0!important;right:0!important;bottom:0!important;z-index:950!important;display:none;background:#0B2545!important;color:#fff!important;overflow:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0 0 calc(18px + env(safe-area-inset-bottom))!important;}
   .mobile-drawer.open{display:block!important;}
   .mobile-menu-head{background:#123B68;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(255,255,255,.08);}
@@ -28,8 +42,11 @@ const MOBILE_PATCH = `
   .mobile-menu-item.danger{font-weight:800;background:#0B2545!important;}
   .mobile-menu-item .mi-arrow{margin-left:auto;font-size:1.35rem;color:rgba(255,255,255,.7);}
 }
+@media(min-width:1100px){
+  .mobile-menu-btn,.mobile-quick-btn,.mobile-drawer{display:none!important;}
+}
 </style>
-<script id="ruedard-mobile-patch-js">
+<script id="ruedard-layout-fix-js">
 (function(){
   function ready(fn){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn):fn();}
   ready(function(){
@@ -83,20 +100,19 @@ self.addEventListener('install', (event) => {
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => Promise.all(
-      keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
-    )).then(() => self.clients.claim()).then(() => self.clients.matchAll({ type: 'window' }))
-      .then((clients) => Promise.all(clients.map((client) => client.navigate(client.url))))
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
-async function patchedHtml(response) {
+async function fixedHtml(response) {
   const type = response.headers.get('content-type') || '';
   if (!type.includes('text/html')) return response;
   let html = await response.text();
-  if (!html.includes('ruedard-mobile-patch')) {
-    html = html.replace('</body>', MOBILE_PATCH + '</body>');
-  }
+  html = html.replace(/<style id="ruedard-layout-fix">[\s\S]*?<\/script>/, '');
+  html = html.replace(/<style id="ruedard-mobile-patch">[\s\S]*?<\/script>/, '');
+  html = html.replace('</body>', LAYOUT_FIX + '</body>');
   return new Response(html, {
     status: response.status,
     statusText: response.statusText,
@@ -109,16 +125,10 @@ self.addEventListener('fetch', (event) => {
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request, { cache: 'no-store' })
-        .then((response) => {
-          const copy = response.clone();
-          caches.open(CACHE_NAME).then((cache) => cache.put('./index.html', copy));
-          return patchedHtml(response);
-        })
-        .catch(() => caches.match('./index.html').then((cached) => cached ? patchedHtml(cached) : Response.error()))
+        .then((response) => fixedHtml(response))
+        .catch(() => caches.match('./index.html').then((cached) => cached ? fixedHtml(cached) : Response.error()))
     );
     return;
   }
-  event.respondWith(
-    fetch(event.request).catch(() => caches.match(event.request))
-  );
+  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
 });
