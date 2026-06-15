@@ -1,0 +1,11 @@
+{
+  "name": "RuedaRD",
+  "short_name": "RuedaRD",
+  "description": "Renta de vehiculos entre particulares en Republica Dominicana.",
+  "lang": "es-DO",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#F8FAFC",
+  "theme_color": "#0B2545"
+}
