@@ -1,0 +1,192 @@
+name: Restore stable demo
+
+on:
+  push:
+    paths:
+      - '.github/workflows/restore-stable-demo.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore stable index
+        shell: bash
+        run: |
+          cat > /tmp/restore-index.patch <<'PATCH'
+diff --git a/index.html b/index.html
+index 2c16dda..7bb1aa9 100644
+--- a/index.html
++++ b/index.html
+@@ -56,24 +56,13 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
+ .t-theme:hover{background:rgba(255,255,255,.16);}
+ .t-lang{height:30px;min-width:48px;border-radius:18px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:white;padding:0 9px;font-size:.67rem;font-weight:800;letter-spacing:.04em;display:flex;align-items:center;justify-content:center;}
+ .t-lang:hover{background:rgba(255,255,255,.18);}
+-.mobile-menu-btn{display:none;width:44px;height:44px;border:0;background:transparent;color:#fff;font-size:1.65rem;font-weight:900;align-items:center;justify-content:center;}
+-.mobile-quick-btn{display:none;width:44px;height:44px;border:0;background:transparent;color:#fff;font-size:1.45rem;align-items:center;justify-content:center;}
+-.mobile-drawer{position:fixed;top:58px;left:0;right:0;bottom:0;z-index:950;display:none;background:#0B2545;color:#fff;overflow:auto;padding-bottom:calc(18px + env(safe-area-inset-bottom));}
++.mobile-menu-btn{display:none;width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-size:1.25rem;font-weight:900;align-items:center;justify-content:center;}
++.mobile-drawer{position:fixed;top:58px;left:10px;right:10px;z-index:950;display:none;background:#0B2545;border:1px solid rgba(255,255,255,.14);border-radius:0 0 18px 18px;box-shadow:0 24px 50px rgba(0,0,0,.32);padding:12px;}
+ .mobile-drawer.open{display:block;animation:fup .16s ease both;}
+-.mobile-menu-head{background:#123B68;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(255,255,255,.08);}
+-.mobile-menu-welcome{font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#8FC1FF;margin-bottom:3px;}
+-.mobile-menu-name{font-size:1.42rem;font-weight:800;letter-spacing:-.02em;}
+-.mobile-menu-status{text-align:right;font-size:.68rem;color:rgba(255,255,255,.72);font-weight:750;line-height:1.35;}
+-.mobile-menu-status strong{display:block;color:#fff;font-size:1.05rem;}
+-.mobile-menu-section{background:#08203B;padding:9px 22px;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#8FC1FF;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);}
+-.mobile-menu-list{display:grid;}
+-.mobile-menu-item{width:100%;min-height:68px;border:0;border-bottom:1px solid rgba(255,255,255,.09);background:#0E335B;color:#fff;padding:0 22px;font:inherit;text-align:left;display:flex;align-items:center;gap:17px;font-size:1.08rem;font-weight:650;}
+-.mobile-menu-item:nth-child(even){background:#103A67;}
+-.mobile-menu-item .mi-icon{width:28px;text-align:center;font-size:1.25rem;opacity:.96;}
+-.mobile-menu-item .mi-copy{display:flex;flex-direction:column;gap:2px;line-height:1.2;}
+-.mobile-menu-item small{font-size:.68rem;color:rgba(255,255,255,.64);font-weight:650;}
+-.mobile-menu-item.danger{font-weight:800;background:#0B2545;}
+-.mobile-menu-item .mi-arrow{margin-left:auto;font-size:1.35rem;color:rgba(255,255,255,.7);}
++.mobile-drawer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
++.mobile-drawer button{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:12px 10px;font:inherit;font-size:.77rem;font-weight:800;text-align:left;}
++.mobile-drawer button.primary{background:#60A5FA;color:#061A32;border-color:#60A5FA;}
++.mobile-drawer .drawer-wide{grid-column:1/-1;text-align:center;}
+ 
+ /* STEPPER */
+ .stepper{position:fixed;top:58px;left:0;right:0;z-index:899;background:var(--white);border-bottom:1px solid var(--border);padding:0 18px;transition:background .2s;}
+@@ -705,21 +694,19 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
+ }
+ 
+ @media(max-width:767px){
+-  .topbar{height:64px;padding-left:14px;padding-right:14px;gap:8px;display:grid;grid-template-columns:48px 1fr 48px;}
++  .topbar{height:64px;padding-left:12px;padding-right:12px;gap:8px;}
+   .stepper{top:64px;}
+   .main{margin-top:114px;}
+   .mobile-drawer{top:64px;}
+-  .top-left{grid-column:2;justify-content:center;min-width:0;}
+-  .t-logo{font-size:1.2rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+-  .t-right{grid-column:3;justify-content:flex-end;gap:0;}
++  .top-left{flex:1;min-width:0;}
++  .t-logo{font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
++  .t-right{gap:7px;}
+   .mobile-menu-btn{display:flex;flex-shrink:0;}
+-  .mobile-quick-btn{display:flex;}
+-  .mobile-menu-btn{grid-column:1;grid-row:1;justify-self:start;}
+   .public-nav,.public-actions,.session-badge,#account-btn,#switch-btn,#logout-btn,#mode-btn,.t-lang,.t-theme{display:none!important;}
+-  #usr-info{display:none!important;}
++  #usr-info{display:flex!important;gap:6px!important;min-width:0;}
+   .t-name{display:none!important;}
+   .t-av{width:34px;height:34px;}
+-  .header-back.show{display:none!important;}
++  .header-back.show{max-width:78px;padding:8px 10px;border-radius:16px;font-size:.68rem;line-height:1.1;white-space:normal;}
+ }
+ 
+ @media(min-width:768px) and (max-width:1099px){
+@@ -778,7 +765,6 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
+ <body>
+ 
+ <header class="topbar">
+-  <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú">☰</button>
+   <div class="top-left"><button class="t-pill header-back" id="header-back" onclick="appBack()">&#x2190; Atrás</button><div class="t-logo">Rueda<em>RD</em>&#x1F1E9;&#x1F1F4;</div></div>
+   <nav class="public-nav" id="public-nav">
+     <button onclick="goPublicSection('featured')" data-es="Buscar carros" data-en="Find cars">Buscar carros</button>
+@@ -799,30 +785,18 @@ button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-vis
+     <div class="session-badge" id="session-badge"><span class="session-dot"></span><span id="session-text">Sesi&#xF3;n verificada</span></div>
+     <button class="t-lang" onclick="toggleLanguage()" id="lang-btn" title="Cambiar idioma">ES</button>
+     <button class="t-theme" onclick="toggleTheme()" id="theme-btn">&#x2600;&#xFE0F;</button>
+-    <button class="mobile-quick-btn" onclick="mobileQuickAction()" aria-label="Cuenta">&#x260E;</button>
++    <button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú">☰</button>
+   </div>
+ </header>
+ <div class="mobile-drawer" id="mobile-drawer">
+-  <div class="mobile-menu-head">
+-    <div><div class="mobile-menu-welcome" id="mobile-menu-welcome">Welcome</div><div class="mobile-menu-name" id="mobile-menu-name">RuedaRD</div></div>
+-    <div class="mobile-menu-status"><span id="mobile-menu-role">Guest</span><strong id="mobile-menu-points">0</strong></div>
+-  </div>
+-  <div class="mobile-menu-section">Reservation</div>
+-  <div class="mobile-menu-list">
+-    <button class="mobile-menu-item" id="mobile-back-row" onclick="mobileAction('back')" style="display:none"><span class="mi-icon">←</span><span class="mi-copy">Back<small>Return to previous step</small></span><span class="mi-arrow">›</span></button>
+-    <button class="mobile-menu-item" onclick="mobileAction('find')"><span class="mi-icon">🚗</span><span class="mi-copy">Start reservation<small>Dates, car, protection and payment</small></span><span class="mi-arrow">›</span></button>
+-    <button class="mobile-menu-item" onclick="mobileAction('account')"><span class="mi-icon">👤</span><span class="mi-copy">My account<small>Receipts, contracts and profile</small></span><span class="mi-arrow">›</span></button>
+-  </div>
+-  <div class="mobile-menu-section">Owners</div>
+-  <div class="mobile-menu-list">
+-    <button class="mobile-menu-item" onclick="mobileAction('publish')"><span class="mi-icon">🔑</span><span class="mi-copy">List my car<small>Individual partner or rent car company</small></span><span class="mi-arrow">›</span></button>
+-    <button class="mobile-menu-item" onclick="mobileAction('switch')"><span class="mi-icon">⇄</span><span class="mi-copy">Switch profile<small>Renter, owner or company panel</small></span><span class="mi-arrow">›</span></button>
+-  </div>
+-  <div class="mobile-menu-section">Tools</div>
+-  <div class="mobile-menu-list">
+-    <button class="mobile-menu-item" onclick="mobileAction('lang')" id="drawer-lang"><span class="mi-icon">🌐</span><span class="mi-copy">Language<small>English / Español</small></span><span class="mi-arrow">›</span></button>
+-    <button class="mobile-menu-item" onclick="mobileAction('theme')"><span class="mi-icon">☀️</span><span class="mi-copy">Display mode<small>Light or dark view</small></span><span class="mi-arrow">›</span></button>
+-    <button class="mobile-menu-item danger" onclick="mobileAction('logout')"><span class="mi-icon">⎋</span><span class="mi-copy">Sign out<small>Close this demo session</small></span><span class="mi-arrow">›</span></button>
++  <div class="mobile-drawer-grid">
++    <button class="primary" onclick="mobileAction('account')">👤 Mi cuenta</button>
++    <button onclick="mobileAction('switch')">⇄ Cambiar perfil</button>
++    <button onclick="mobileAction('find')">🚗 Buscar carros</button>
++    <button onclick="mobileAction('publish')">🔑 Publicar carro</button>
++    <button onclick="mobileAction('lang')" id="drawer-lang">🌐 Idioma</button>
++    <button onclick="mobileAction('theme')">☀️ Tema</button>
++    <button class="drawer-wide" onclick="mobileAction('logout')">Salir</button>
+   </div>
+ </div>
+ 
+@@ -1510,28 +1484,14 @@ function goNext(){
+   showPage(S.step+1);
+ }
+ function goBack(){showPage(S.step-1);}
+-function updateBackButton(show){closeMobileMenu();var b=document.getElementById('header-back');if(b)b.className='t-pill header-back'+(show?' show':'');var mb=document.getElementById('mobile-back-row');if(mb)mb.style.display=show?'flex':'none';}
+-function renderMobileChrome(){
+-  var name=document.getElementById('mobile-menu-name'),role=document.getElementById('mobile-menu-role'),points=document.getElementById('mobile-menu-points'),welcome=document.getElementById('mobile-menu-welcome'),quick=document.querySelector('.mobile-quick-btn');
+-  var user=S.user||null,roleName=user&&user.role==='fleet'?'Company':user&&user.role==='owner'?'Owner':user?'Renter':'Guest';
+-  if(welcome)welcome.textContent=user?'Welcome':'Welcome';
+-  if(name)name.textContent=user?(user.name||'RuedaRD').split(' ')[0]:'RuedaRD';
+-  if(role)role.textContent=roleName;
+-  if(points)points.textContent=user?'Verified':'Start';
+-  if(quick){quick.innerHTML=user?(user.init||'JP'):'&#x260E;';quick.style.fontSize=user?'1rem':'1.45rem';}
+-}
++function updateBackButton(show){closeMobileMenu();var b=document.getElementById('header-back');if(b)b.className='t-pill header-back'+(show?' show':'');}
+ function toggleMobileMenu(){
+   var d=document.getElementById('mobile-drawer');if(!d)return;
+-  renderMobileChrome();
+-  var open=d.className.indexOf(' open')>-1;
+-  d.className=open?'mobile-drawer':'mobile-drawer open';
+-  var btn=document.querySelector('.mobile-menu-btn');if(btn)btn.textContent=open?'☰':'×';
++  d.className=d.className.indexOf(' open')>-1?'mobile-drawer':'mobile-drawer open';
+ }
+-function closeMobileMenu(){var d=document.getElementById('mobile-drawer');if(d)d.className='mobile-drawer';var btn=document.querySelector('.mobile-menu-btn');if(btn)btn.textContent='☰';}
+-function mobileQuickAction(){if(S.user)showAccount();else openPublicLogin();}
++function closeMobileMenu(){var d=document.getElementById('mobile-drawer');if(d)d.className='mobile-drawer';}
+ function mobileAction(action){
+   closeMobileMenu();
+-  if(action==='back'){appBack();return;}
+   if(action==='account'){if(S.user)showAccount();else openPublicLogin();return;}
+   if(action==='switch'){if(S.user)showProfileSwitcher();else openPublicSignup('r');return;}
+   if(action==='find'){if(S.user)showPage(1);else goPublicSection('featured');return;}
+@@ -1999,14 +1959,12 @@ function afterAuth(mode){
+   if(resume===4&&S.car&&S.ins)buildPayPage();
+   if(mode==='owner')showOwner();
+   else showPage(resume||1);
+-  renderMobileChrome();
+   toast('\uD83D\uDE97 Bienvenido','Hola '+S.user.name.split(' ')[0]+'!');
+ }
+ function logout(){
+   try{localStorage.removeItem('ruedard-session');localStorage.removeItem('ruedard-demo-session');}catch(e){}S.user=null;S.mode='renter';
+   var ui=document.getElementById('usr-info'),badge=document.getElementById('session-badge'),pn=document.getElementById('public-nav'),pa=document.getElementById('public-actions');
+   if(ui)ui.style.display='none';if(badge)badge.style.display='none';if(pn)pn.style.display='';if(pa)pa.style.display='';
+-  renderMobileChrome();
+   updateBackButton(false);showPage(0);toast('Sesión cerrada','Puedes entrar con otra cuenta o perfil.');
+ }
+ function showProfileSwitcher(){
+PATCH
+          git apply /tmp/restore-index.patch || true
+          python3 - <<'PY2'
+from pathlib import Path
+p = Path('sw.js')
+s = p.read_text()
+s = s.replace("ruedard-stable-v32", "ruedard-stable-v33")
+p.write_text(s)
+PY2
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Restaurar demo estable [skip ci]"
+          git push
