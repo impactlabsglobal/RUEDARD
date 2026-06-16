@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=45">
+  <link rel="stylesheet" href="styles.css?v=46">
 </head>
 <body>
   <header class="topbar">
@@ -42,50 +42,54 @@
   </aside>
 
   <main>
-    <section class="hero page active" id="page-home">
-      <div class="hero-copy">
-        <p class="eyebrow">MVP real de prueba</p>
-        <h1>Renta o publica carros verificados en República Dominicana.</h1>
-        <p>Demo funcional con cuentas, roles, subida de carros, documentos, reservas, hold de depósito y contratos descargables.</p>
-        <div class="hero-actions">
-          <button class="primary" data-go="search">Probar como cliente</button>
-          <button class="white" data-go="add-car">Subir un carro</button>
+    <section class="portal-home page active" id="page-home">
+      <div class="demo-strip">△ DEMO ENVIRONMENT · FOR DEMONSTRATION PURPOSES ONLY · NO REAL CLIENT DATA DISPLAYED</div>
+      <div class="portal-stage">
+        <div class="portal-logo">
+          <span class="logo-mark">RD</span>
+          <strong>Rueda<span>RD</span></strong>
         </div>
-        <div class="trust-row">
-          <span>🔒 Login demo</span>
-          <span>📄 Contrato PDF</span>
-          <span>💳 Hold $300</span>
-        </div>
-        <div class="process-rail hero-rail">
-          <span class="done">1 Login</span>
-          <span>2 Panel</span>
-          <span>3 Pago</span>
-          <span>4 Firma</span>
-        </div>
-      </div>
-      <form class="booking-card" id="quickSearch">
-        <h2>Reserva tu carro</h2>
-        <label>Zona</label>
-        <select id="quickZone">
-          <option>Piantini, Santo Domingo</option>
-          <option>Aeropuerto Las Américas (AILA)</option>
-          <option>Punta Cana</option>
-          <option>Santiago</option>
-        </select>
-        <div class="two">
-          <div><label>Inicio</label><input id="quickStart" type="date"></div>
-          <div><label>Devolución</label><input id="quickEnd" type="date"></div>
-        </div>
-        <button class="primary full" type="submit">Ver vehículos disponibles</button>
-        <p class="mini">Seguro y depósito se confirman en el flujo.</p>
-        <div class="home-login">
-          <span>Login rápido</span>
-          <div>
-            <button type="button" data-demo="renter">Cliente</button>
-            <button type="button" data-demo="fleet">Empresa</button>
+        <form class="portal-card" id="quickSearch">
+          <div class="portal-card-head">
+            <p class="eyebrow">MVP real de prueba</p>
+            <h1>Portal de renta y flotas</h1>
+            <p>Acceso para clientes, socios individuales y empresas rent car. Todo el flujo queda registrado.</p>
           </div>
-        </div>
-      </form>
+          <div class="portal-tabs">
+            <button type="button" class="active" data-demo="renter">Cliente</button>
+            <button type="button" data-demo="fleet">Empresa / socio</button>
+          </div>
+          <label>Email o teléfono</label>
+          <input placeholder="correo@ejemplo.com · 809-000-0000">
+          <label>Contraseña demo</label>
+          <input type="password" placeholder="••••••••">
+          <button class="primary full portal-access" type="button" data-demo="renter">Entrar al portal →</button>
+          <div class="divider">o inicia una reserva rápida</div>
+          <label>Zona de recogida</label>
+          <select id="quickZone">
+            <option>Piantini, Santo Domingo</option>
+            <option>Aeropuerto Las Américas (AILA)</option>
+            <option>Punta Cana</option>
+            <option>Santiago</option>
+          </select>
+          <div class="two">
+            <div><label>Inicio</label><input id="quickStart" type="date"></div>
+            <div><label>Devolución</label><input id="quickEnd" type="date"></div>
+          </div>
+          <button class="primary full" type="submit">Ver vehículos disponibles</button>
+          <div class="portal-badges">
+            <span>Login demo</span>
+            <span>Hold $300</span>
+            <span>Contrato firmado</span>
+          </div>
+        </form>
+      </div>
+      <div class="portal-bottom">
+        <span>1 Login</span>
+        <span>2 Panel</span>
+        <span>3 Pago / hold</span>
+        <span>4 Firma y contrato</span>
+      </div>
     </section>
 
     <section class="page shell" id="page-auth">
