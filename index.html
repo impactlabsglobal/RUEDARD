@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=43">
+  <link rel="stylesheet" href="styles.css?v=45">
 </head>
 <body>
   <header class="topbar">
@@ -55,6 +55,12 @@
           <span>🔒 Login demo</span>
           <span>📄 Contrato PDF</span>
           <span>💳 Hold $300</span>
+        </div>
+        <div class="process-rail hero-rail">
+          <span class="done">1 Login</span>
+          <span>2 Panel</span>
+          <span>3 Pago</span>
+          <span>4 Firma</span>
         </div>
       </div>
       <form class="booking-card" id="quickSearch">
@@ -106,8 +112,14 @@
 
     <section class="page shell" id="page-search">
       <div class="section-head">
-        <div><p class="eyebrow">Paso 1 y 2</p><h2>Fechas y carro</h2></div>
+        <div><p class="eyebrow">Cliente</p><h2>Paso 1 y 2: fecha, zona y carro</h2></div>
         <button class="ghost" data-go="dashboard">Mi panel</button>
+      </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="active">2 Elegir carro</span>
+        <span>3 Pago / hold</span>
+        <span>4 Firma contrato</span>
       </div>
       <div class="flow-grid">
         <aside class="card">
@@ -139,21 +151,31 @@
 
     <section class="page shell" id="page-checkout">
       <div class="section-head">
-        <div><p class="eyebrow">Paso 3 y 4</p><h2>Seguro, documentos y pago</h2></div>
+        <div><p class="eyebrow">Reserva segura</p><h2>Paso 3 y 4: pago, documentos y contrato</h2></div>
         <button class="ghost" data-go="search">Atrás</button>
+      </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="done">2 Carro</span>
+        <span class="active">3 Pago / hold</span>
+        <span>4 Firma contrato</span>
       </div>
       <div class="checkout-grid">
         <form class="card" id="checkoutForm">
-          <h3>Protección y documentos</h3>
+          <h3>Datos del cliente y pago</h3>
           <label>Protección elegida</label>
           <select id="protection">
             <option value="basic">Básica registrada por el dueño - $0/día</option>
             <option value="plus">Plus RuedaRD - $8/día</option>
             <option value="premium">Premium RuedaRD - $15/día</option>
           </select>
+          <div class="choice-box">
+            <strong>Documentos del cliente</strong>
+            <label class="check"><input type="radio" name="docTiming" value="now" checked> Subir documentos ahora y llegar más rápido.</label>
+            <label class="check"><input type="radio" name="docTiming" value="delivery"> Subir papeles en la entrega con ayuda del dueño/flota.</label>
+          </div>
           <label>Documento del cliente</label><input type="file" id="clientDoc" accept="image/*,.pdf">
           <label>Licencia / pasaporte</label><input type="file" id="clientLicense" accept="image/*,.pdf">
-          <label>Firma digital</label><input id="signature" placeholder="Escribe tu nombre completo" required>
           <label>Método de pago</label>
           <select id="paymentMethod">
             <option>Azul / Banco Popular demo</option>
@@ -161,7 +183,8 @@
             <option>Tarjeta demo</option>
           </select>
           <div class="notice">Se simula hold de depósito de $300. No se cobra hasta confirmar entrega con la flota o dueño.</div>
-          <button class="primary full" type="submit">Confirmar renta y generar contrato</button>
+          <label>Firma digital para contrato</label><input id="signature" placeholder="Escribe tu nombre completo" required>
+          <button class="primary full" type="submit">Pagar hold, firmar y generar contrato</button>
         </form>
         <aside class="card summary" id="checkoutSummary"></aside>
       </div>
@@ -169,10 +192,25 @@
 
     <section class="page shell" id="page-add-car">
       <div class="section-head">
-        <div><p class="eyebrow">Dueños y empresas</p><h2>Subir carro verificado</h2></div>
+        <div><p class="eyebrow">Dueños y empresas</p><h2>Activar cuenta y subir carro</h2></div>
         <button class="ghost" data-go="dashboard">Panel</button>
       </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="active">2 Activar cuenta</span>
+        <span>3 Publicar carro</span>
+        <span>4 Listo para reservas</span>
+      </div>
       <form class="card wide" id="carForm">
+        <div class="owner-activation">
+          <h3>Cuenta del dueño / empresa</h3>
+          <div class="three">
+            <div><label>Tipo de cuenta</label><select id="accountType"><option value="fleet">Empresa rent car</option><option value="owner">Socio individual</option></select></div>
+            <div><label>Banco para retiro</label><input id="bankName" placeholder="Popular, BHD, Banreservas"></div>
+            <div><label>Teléfono / contacto</label><input id="ownerPhone" placeholder="809-000-0000"></div>
+          </div>
+          <div class="notice">Al guardar el carro, esta cuenta queda activa en demo y el proceso queda registrado en la bitácora.</div>
+        </div>
         <div class="two">
           <div><label>Marca</label><select id="carBrand" required></select></div>
           <div><label>Modelo</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div>
@@ -207,6 +245,7 @@
       <div class="dash-grid">
         <section class="card"><h3>Reservas</h3><div id="bookingList"></div></section>
         <section class="card"><h3>Mis carros / flota</h3><div id="ownerCars"></div></section>
+        <section class="card wide"><h3>Registro del proceso</h3><div id="eventLog"></div></section>
       </div>
     </section>
 
@@ -246,6 +285,6 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app-v43.js"></script>
+  <script src="app-v45.js"></script>
 </body>
 </html>
