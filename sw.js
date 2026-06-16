@@ -1,119 +1,105 @@
-const CACHE_NAME = 'ruedard-iphone-menu-v31';
+const CACHE_NAME = 'ruedard-stable-v32';
 const APP_SHELL = ['./', './index.html', './manifest.webmanifest', './assets/ruedard-hero-dominicana.png'];
 
-const IPHONE_MENU_FIX = `
-<style id="ruedard-iphone-menu-fix">
-@media(max-width:767px){
-  .topbar{height:64px!important;display:grid!important;grid-template-columns:48px 1fr 48px!important;align-items:center!important;padding:0 14px!important;gap:8px!important;}
-  .top-left{grid-column:2!important;justify-content:center!important;min-width:0!important;}
-  .t-logo{font-size:1.18rem!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
-  .t-right{grid-column:3!important;justify-content:flex-end!important;gap:0!important;}
-  .mobile-menu-btn{display:flex!important;grid-column:1!important;grid-row:1!important;justify-self:start!important;width:44px!important;height:44px!important;border:0!important;background:transparent!important;color:#fff!important;font-size:1.65rem!important;align-items:center!important;justify-content:center!important;}
-  .mobile-quick-btn{display:flex!important;width:44px!important;height:44px!important;border:0!important;background:transparent!important;color:#fff!important;font-size:1.35rem!important;align-items:center!important;justify-content:center!important;}
-  .public-nav,.public-actions,.session-badge,#usr-info,#account-btn,#switch-btn,#logout-btn,#mode-btn,.t-lang,.t-theme,.header-back.show{display:none!important;}
-  .mobile-drawer{position:fixed!important;top:64px!important;left:0!important;right:0!important;bottom:0!important;z-index:950!important;display:none;background:#0B2545!important;color:#fff!important;overflow:auto!important;border:0!important;border-radius:0!important;box-shadow:none!important;padding:0 0 calc(18px + env(safe-area-inset-bottom))!important;}
-  .mobile-drawer.open{display:block!important;}
-  .mobile-menu-head{background:#123B68;padding:18px 22px;display:flex;align-items:center;justify-content:space-between;gap:16px;border-bottom:1px solid rgba(255,255,255,.08);}
-  .mobile-menu-welcome{font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#8FC1FF;margin-bottom:3px;}
-  .mobile-menu-name{font-size:1.42rem;font-weight:800;letter-spacing:-.02em;}
-  .mobile-menu-status{text-align:right;font-size:.68rem;color:rgba(255,255,255,.72);font-weight:750;line-height:1.35;}
-  .mobile-menu-status strong{display:block;color:#fff;font-size:1.05rem;}
-  .mobile-menu-section{background:#08203B;padding:9px 22px;font-size:.72rem;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:#8FC1FF;border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);}
-  .mobile-menu-list{display:grid;}
-  .mobile-menu-item{width:100%;min-height:68px;border:0!important;border-bottom:1px solid rgba(255,255,255,.09)!important;background:#0E335B!important;color:#fff!important;padding:0 22px!important;font:inherit!important;text-align:left!important;display:flex!important;align-items:center!important;gap:17px!important;font-size:1.08rem!important;font-weight:650!important;border-radius:0!important;}
-  .mobile-menu-item:nth-child(even){background:#103A67!important;}
-  .mobile-menu-item .mi-icon{width:28px;text-align:center;font-size:1.25rem;opacity:.96;}
-  .mobile-menu-item .mi-copy{display:flex;flex-direction:column;gap:2px;line-height:1.2;}
-  .mobile-menu-item small{font-size:.68rem;color:rgba(255,255,255,.64);font-weight:650;}
-  .mobile-menu-item.danger{font-weight:800;background:#0B2545!important;}
-  .mobile-menu-item .mi-arrow{margin-left:auto;font-size:1.35rem;color:rgba(255,255,255,.7);}
-}
-@media(min-width:768px){
-  .mobile-quick-btn{display:none!important;}
-}
+const STABLE_RESET = `
+<style id="ruedard-stable-reset">
+  @media (min-width:768px){
+    .topbar{height:58px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:0!important;padding:0 18px!important;}
+    .top-left{display:flex!important;grid-column:auto!important;justify-content:flex-start!important;gap:8px!important;}
+    .t-logo{font-size:1.3rem!important;white-space:normal!important;overflow:visible!important;text-overflow:clip!important;}
+    .t-right{display:flex!important;grid-column:auto!important;justify-content:flex-end!important;gap:7px!important;}
+    .public-nav{display:flex!important;align-items:center!important;gap:24px!important;margin-left:auto!important;margin-right:24px!important;flex:0 1 auto!important;}
+    .public-nav button{font-size:.76rem!important;white-space:normal!important;}
+    .public-actions{display:flex!important;align-items:center!important;gap:8px!important;}
+    .mobile-menu-btn,.mobile-quick-btn,.mobile-drawer{display:none!important;}
+    .stepper{top:58px!important;}
+    .main{margin-top:108px!important;}
+    #pg-login{max-width:none!important;width:auto!important;margin:-22px -14px -80px!important;min-height:calc(100vh - 58px)!important;padding:0!important;overflow:hidden!important;}
+    .login-shell{display:grid!important;grid-template-columns:minmax(340px,480px) 1fr!important;gap:70px!important;align-items:center!important;min-height:calc(100vh - 58px)!important;padding:58px max(24px,calc((100vw - 1180px)/2))!important;background:#0B2545 url('assets/ruedard-hero-dominicana.png') center/cover no-repeat!important;}
+    .login-shell::before{background:linear-gradient(90deg,rgba(5,20,39,.88) 0%,rgba(5,20,39,.57) 44%,rgba(5,20,39,.16) 76%)!important;}
+    .login-box{width:auto!important;max-width:none!important;margin:0!important;}
+    .login-hero-copy{display:block!important;}
+  }
+  @media (min-width:768px) and (max-width:1099px){
+    .topbar{height:62px!important;padding-left:22px!important;padding-right:22px!important;}
+    .stepper{top:62px!important;}
+    .main{margin-top:112px!important;}
+    .public-nav{gap:14px!important;margin-right:14px!important;}
+    .public-nav button{font-size:.7rem!important;}
+    .t-right{gap:8px!important;}
+    .t-pill{padding:8px 11px!important;border-radius:16px!important;}
+  }
+  @media (max-width:767px){
+    .topbar{height:64px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;padding-left:12px!important;padding-right:12px!important;gap:8px!important;}
+    .top-left{flex:1!important;min-width:0!important;justify-content:flex-start!important;}
+    .t-logo{font-size:1.15rem!important;white-space:nowrap!important;overflow:hidden!important;text-overflow:ellipsis!important;}
+    .t-right{gap:7px!important;justify-content:flex-end!important;}
+    .mobile-menu-btn{display:flex!important;width:42px!important;height:42px!important;border-radius:14px!important;border:1px solid rgba(255,255,255,.18)!important;background:rgba(255,255,255,.1)!important;color:#fff!important;font-size:1.25rem!important;}
+    .mobile-quick-btn{display:none!important;}
+    .mobile-drawer{position:fixed!important;top:64px!important;left:10px!important;right:10px!important;bottom:auto!important;z-index:950!important;display:none;background:#0B2545!important;border:1px solid rgba(255,255,255,.14)!important;border-radius:0 0 18px 18px!important;box-shadow:0 24px 50px rgba(0,0,0,.32)!important;padding:12px!important;overflow:visible!important;}
+    .mobile-drawer.open{display:block!important;}
+    .mobile-menu-head,.mobile-menu-section,.mobile-menu-list{display:none!important;}
+    .mobile-drawer-grid{display:grid!important;grid-template-columns:1fr 1fr!important;gap:8px!important;}
+    .mobile-drawer button{border:1px solid rgba(255,255,255,.16)!important;background:rgba(255,255,255,.08)!important;color:#fff!important;border-radius:12px!important;padding:12px 10px!important;font:inherit!important;font-size:.77rem!important;font-weight:800!important;text-align:left!important;min-height:auto!important;}
+    .mobile-drawer button.primary{background:#60A5FA!important;color:#061A32!important;border-color:#60A5FA!important;}
+    .mobile-drawer .drawer-wide{grid-column:1/-1!important;text-align:center!important;}
+    .public-nav,.public-actions,.session-badge,#account-btn,#switch-btn,#logout-btn,#mode-btn,.t-lang,.t-theme{display:none!important;}
+    #usr-info{display:flex!important;gap:6px!important;min-width:0!important;}
+    .header-back.show{max-width:78px!important;padding:8px 10px!important;border-radius:16px!important;font-size:.68rem!important;line-height:1.1!important;white-space:normal!important;display:flex!important;}
+    #pg-login{width:auto!important;margin:-22px -14px -80px!important;}
+    .login-shell{display:block!important;min-height:auto!important;padding:28px 12px 80px!important;background-position:64% center!important;}
+    .login-shell::before{background:rgba(5,20,39,.67)!important;}
+    .login-hero-copy{display:none!important;}
+  }
 </style>
-<script id="ruedard-iphone-menu-fix-js">
+<script id="ruedard-stable-reset-js">
 (function(){
   function ready(fn){document.readyState==='loading'?document.addEventListener('DOMContentLoaded',fn):fn();}
   ready(function(){
-    var topbar=document.querySelector('.topbar'), right=document.querySelector('.t-right'), drawer=document.getElementById('mobile-drawer');
-    if(topbar){
-      var menu=document.querySelector('.mobile-menu-btn');
-      if(menu&&menu.parentElement!==topbar)topbar.insertBefore(menu,topbar.firstChild);
-      if(right&&!document.querySelector('.mobile-quick-btn')){
-        var quick=document.createElement('button');
-        quick.className='mobile-quick-btn'; quick.type='button'; quick.setAttribute('aria-label','Cuenta'); quick.innerHTML='&#x260E;';
-        quick.onclick=function(){window.mobileQuickAction?window.mobileQuickAction():(window.openPublicLogin&&window.openPublicLogin());};
-        right.appendChild(quick);
-      }
+    var old=document.getElementById('ruedard-layout-fix');if(old)old.remove();
+    var oldjs=document.getElementById('ruedard-layout-fix-js');if(oldjs)oldjs.remove();
+    var drawer=document.getElementById('mobile-drawer');
+    if(drawer && !drawer.querySelector('.mobile-drawer-grid')){
+      drawer.innerHTML='<div class="mobile-drawer-grid"><button class="primary" onclick="mobileAction(\'account\')">👤 Mi cuenta</button><button onclick="mobileAction(\'switch\')">⇄ Cambiar perfil</button><button onclick="mobileAction(\'find\')">🚗 Buscar carros</button><button onclick="mobileAction(\'publish\')">🔑 Publicar carro</button><button onclick="mobileAction(\'lang\')" id="drawer-lang">🌐 Idioma</button><button onclick="mobileAction(\'theme\')">☀️ Tema</button><button class="drawer-wide" onclick="mobileAction(\'logout\')">Salir</button></div>';
     }
-    if(drawer){
-      drawer.innerHTML='<div class="mobile-menu-head"><div><div class="mobile-menu-welcome" id="mobile-menu-welcome">Welcome</div><div class="mobile-menu-name" id="mobile-menu-name">RuedaRD</div></div><div class="mobile-menu-status"><span id="mobile-menu-role">Guest</span><strong id="mobile-menu-points">Start</strong></div></div><div class="mobile-menu-section">Reservation</div><div class="mobile-menu-list"><button class="mobile-menu-item" id="mobile-back-row" onclick="mobileAction(\'back\')" style="display:none"><span class="mi-icon">←</span><span class="mi-copy">Back<small>Return to previous step</small></span><span class="mi-arrow">›</span></button><button class="mobile-menu-item" onclick="mobileAction(\'find\')"><span class="mi-icon">🚗</span><span class="mi-copy">Start reservation<small>Dates, car, protection and payment</small></span><span class="mi-arrow">›</span></button><button class="mobile-menu-item" onclick="mobileAction(\'account\')"><span class="mi-icon">👤</span><span class="mi-copy">My account<small>Receipts, contracts and profile</small></span><span class="mi-arrow">›</span></button></div><div class="mobile-menu-section">Owners</div><div class="mobile-menu-list"><button class="mobile-menu-item" onclick="mobileAction(\'publish\')"><span class="mi-icon">🔑</span><span class="mi-copy">List my car<small>Individual partner or rent car company</small></span><span class="mi-arrow">›</span></button><button class="mobile-menu-item" onclick="mobileAction(\'switch\')"><span class="mi-icon">⇄</span><span class="mi-copy">Switch profile<small>Renter, owner or company panel</small></span><span class="mi-arrow">›</span></button></div><div class="mobile-menu-section">Tools</div><div class="mobile-menu-list"><button class="mobile-menu-item" onclick="mobileAction(\'lang\')"><span class="mi-icon">🌐</span><span class="mi-copy">Language<small>English / Español</small></span><span class="mi-arrow">›</span></button><button class="mobile-menu-item" onclick="mobileAction(\'theme\')"><span class="mi-icon">☀️</span><span class="mi-copy">Display mode<small>Light or dark view</small></span><span class="mi-arrow">›</span></button><button class="mobile-menu-item danger" onclick="mobileAction(\'logout\')"><span class="mi-icon">⎋</span><span class="mi-copy">Sign out<small>Close this demo session</small></span><span class="mi-arrow">›</span></button></div>';
-    }
-    window.renderMobileChrome=function(){
-      var user=window.S&&S.user?S.user:null, roleName=user&&user.role==='fleet'?'Company':user&&user.role==='owner'?'Owner':user?'Renter':'Guest';
-      var name=document.getElementById('mobile-menu-name'),role=document.getElementById('mobile-menu-role'),points=document.getElementById('mobile-menu-points'),quick=document.querySelector('.mobile-quick-btn');
-      if(name)name.textContent=user?(user.name||'RuedaRD').split(' ')[0]:'RuedaRD';
-      if(role)role.textContent=roleName;
-      if(points)points.textContent=user?'Verified':'Start';
-      if(quick){quick.innerHTML=user?(user.init||'JP'):'&#x260E;';quick.style.fontSize=user?'1rem':'1.35rem';}
-    };
-    window.closeMobileMenu=function(){var d=document.getElementById('mobile-drawer');if(d)d.className='mobile-drawer';var b=document.querySelector('.mobile-menu-btn');if(b)b.textContent='☰';};
-    window.toggleMobileMenu=function(){var d=document.getElementById('mobile-drawer');if(!d)return;renderMobileChrome();var open=d.className.indexOf(' open')>-1;d.className=open?'mobile-drawer':'mobile-drawer open';var b=document.querySelector('.mobile-menu-btn');if(b)b.textContent=open?'☰':'×';};
-    window.mobileQuickAction=function(){if(window.S&&S.user&&window.showAccount)showAccount();else if(window.openPublicLogin)openPublicLogin();};
-    window.mobileAction=function(action){
-      closeMobileMenu();
-      if(action==='back'){if(window.appBack)appBack();return;}
-      if(action==='account'){if(window.S&&S.user&&window.showAccount)showAccount();else if(window.openPublicLogin)openPublicLogin();return;}
-      if(action==='switch'){if(window.S&&S.user&&window.showProfileSwitcher)showProfileSwitcher();else if(window.openPublicSignup)openPublicSignup('r');return;}
-      if(action==='find'){if(window.S&&S.user&&window.showPage)showPage(1);else if(window.goPublicSection)goPublicSection('featured');return;}
-      if(action==='publish'){if(window.S&&S.user&&window.showOwner)showOwner();else if(window.openPublicSignup)openPublicSignup('o');return;}
-      if(action==='lang'&&window.toggleLanguage){toggleLanguage();return;}
-      if(action==='theme'&&window.toggleTheme){toggleTheme();return;}
-      if(action==='logout'&&window.logout){logout();return;}
-    };
-    renderMobileChrome();
+    var quick=document.querySelector('.mobile-quick-btn');if(quick)quick.remove();
+    var menu=document.querySelector('.mobile-menu-btn'), right=document.querySelector('.t-right');
+    if(menu && right && menu.parentElement!==right){right.appendChild(menu);}
   });
 })();
 </script>`;
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
   self.skipWaiting();
+  event.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(APP_SHELL)));
 });
 
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys()
-      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then((keys) => Promise.all(keys.map((key) => caches.delete(key))))
       .then(() => self.clients.claim())
   );
 });
 
-async function fixedHtml(response) {
-  const type = response.headers.get('content-type') || '';
-  if (!type.includes('text/html')) return response;
-  let html = await response.text();
-  html = html.replace(/<style id="ruedard-layout-fix">[\s\S]*?<\/script>/, '');
-  html = html.replace(/<style id="ruedard-mobile-patch">[\s\S]*?<\/script>/, '');
-  html = html.replace(/<style id="ruedard-iphone-menu-fix">[\s\S]*?<\/script>/, '');
-  html = html.replace('</body>', IPHONE_MENU_FIX + '</body>');
-  return new Response(html, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' }
-  });
+function injectStableReset(html) {
+  html = html.replace(/<style id="ruedard-layout-fix">[\s\S]*?<\/script>/g, '');
+  html = html.replace(/<style id="ruedard-iphone-menu-fix">[\s\S]*?<\/script>/g, '');
+  html = html.replace(/<style id="ruedard-stable-reset">[\s\S]*?<\/script>/g, '');
+  return html.replace('</head>', STABLE_RESET + '</head>');
 }
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.method !== 'GET') return;
-  if (event.request.mode === 'navigate') {
+  const request = event.request;
+  if (request.mode === 'navigate' || request.url.endsWith('/index.html') || request.url.endsWith('/')) {
     event.respondWith(
-      fetch(event.request, { cache: 'no-store' })
-        .then((response) => fixedHtml(response))
-        .catch(() => caches.match('./index.html').then((cached) => cached ? fixedHtml(cached) : Response.error()))
+      fetch(request, { cache: 'no-store' })
+        .then((response) => response.text().then((html) => new Response(injectStableReset(html), {
+          headers: { 'Content-Type': 'text/html; charset=utf-8', 'Cache-Control': 'no-store' }
+        })))
+        .catch(() => caches.match('./index.html').then((cached) => cached ? cached.text().then((html) => new Response(injectStableReset(html), { headers: { 'Content-Type': 'text/html; charset=utf-8' } })) : Response.error()))
     );
     return;
   }
-  event.respondWith(fetch(event.request).catch(() => caches.match(event.request)));
+  event.respondWith(caches.match(request).then((cached) => cached || fetch(request)));
 });
