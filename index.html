@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=42">
+  <link rel="stylesheet" href="styles.css?v=43">
 </head>
 <body>
   <header class="topbar">
@@ -22,7 +22,7 @@
     <div class="top-actions">
       <button class="ghost" id="langBtn" type="button">ES</button>
       <button class="ghost" id="themeBtn" type="button">☀</button>
-      <button class="primary small" id="authBtn" type="button">Entrar</button>
+      <button class="primary small" id="authBtn" type="button">Login</button>
     </div>
   </header>
 
@@ -72,6 +72,13 @@
         </div>
         <button class="primary full" type="submit">Ver vehículos disponibles</button>
         <p class="mini">Seguro y depósito se confirman en el flujo.</p>
+        <div class="home-login">
+          <span>Login rápido</span>
+          <div>
+            <button type="button" data-demo="renter">Cliente</button>
+            <button type="button" data-demo="fleet">Empresa</button>
+          </div>
+        </div>
       </form>
     </section>
 
@@ -239,6 +246,6 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app-v41.js"></script>
+  <script src="app-v43.js"></script>
 </body>
 </html>
