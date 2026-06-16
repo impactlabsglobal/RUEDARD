@@ -1,0 +1,121 @@
+name: Apply iPhone iPad Menu
+
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-iphone-ipad-menu.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Patch responsive menu
+        shell: bash
+        run: |
+          python3 - <<'PY'
+from pathlib import Path
+p = Path('index.html')
+s = p.read_text()
+
+css = r'''
+.mobile-menu-btn{display:none;width:42px;height:42px;border-radius:14px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.1);color:#fff;font-size:1.25rem;font-weight:900;align-items:center;justify-content:center;}
+.mobile-drawer{position:fixed;top:58px;left:10px;right:10px;z-index:950;display:none;background:#0B2545;border:1px solid rgba(255,255,255,.14);border-radius:0 0 18px 18px;box-shadow:0 24px 50px rgba(0,0,0,.32);padding:12px;}
+.mobile-drawer.open{display:block;animation:fup .16s ease both;}
+.mobile-drawer-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.mobile-drawer button{border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:12px 10px;font:inherit;font-size:.77rem;font-weight:800;text-align:left;}
+.mobile-drawer button.primary{background:#60A5FA;color:#061A32;border-color:#60A5FA;}
+.mobile-drawer .drawer-wide{grid-column:1/-1;text-align:center;}
+@media(max-width:767px){
+  .topbar{height:64px;padding-left:12px;padding-right:12px;gap:8px;}
+  .stepper{top:64px;}
+  .main{margin-top:114px;}
+  .mobile-drawer{top:64px;}
+  .topbar>div:first-child{flex:1;min-width:0;}
+  .t-logo{font-size:1.15rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .t-right{gap:7px;}
+  .mobile-menu-btn{display:flex;flex-shrink:0;}
+  .public-nav,.public-actions,.session-badge,#account-btn,#switch-btn,#logout-btn,#mode-btn,.t-lang,.t-theme{display:none!important;}
+  #usr-info{display:flex!important;gap:6px!important;min-width:0;}
+  .t-name{display:none!important;}
+  .t-av{width:34px;height:34px;}
+  .header-back.show{max-width:78px;padding:8px 10px;border-radius:16px;font-size:.68rem;line-height:1.1;white-space:normal;}
+}
+@media(min-width:768px) and (max-width:1099px){
+  .topbar{height:62px;padding-left:22px;padding-right:22px;}
+  .stepper{top:62px;}
+  .main{margin-top:112px;}
+  .topbar>div:first-child{flex:1;min-width:0;}
+  .public-nav,.public-actions,.session-badge,#account-btn,#switch-btn,#logout-btn,#mode-btn{display:none!important;}
+  .mobile-menu-btn{display:flex;flex-shrink:0;}
+  .mobile-drawer{top:62px;left:auto;right:18px;width:min(380px,calc(100vw - 36px));}
+  .t-right{gap:8px;}
+  .t-pill{padding:8px 11px;border-radius:16px;}
+  #usr-info{display:flex!important;gap:7px!important;min-width:0;}
+  .t-name{display:none!important;}
+}
+'''
+if '.mobile-menu-btn{display:none;width:42px' not in s:
+    marker = '.t-lang:hover{background:rgba(255,255,255,.18);}\n'
+    s = s.replace(marker, marker + css + '\n', 1)
+
+btn = '<button class="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="Abrir menú">☰</button>'
+if 'class="mobile-menu-btn"' not in s:
+    s = s.replace('    <button class="t-theme" onclick="toggleTheme()" id="theme-btn">&#x2600;&#xFE0F;</button>\n  </div>\n</header>', '    <button class="t-theme" onclick="toggleTheme()" id="theme-btn">&#x2600;&#xFE0F;</button>\n    '+btn+'\n  </div>\n</header>', 1)
+
+drawer = r'''
+<div class="mobile-drawer" id="mobile-drawer">
+  <div class="mobile-drawer-grid">
+    <button class="primary" onclick="mobileAction('account')">👤 Mi cuenta</button>
+    <button onclick="mobileAction('switch')">⇄ Cambiar perfil</button>
+    <button onclick="mobileAction('find')">🚗 Buscar carros</button>
+    <button onclick="mobileAction('publish')">🔑 Publicar carro</button>
+    <button onclick="mobileAction('lang')" id="drawer-lang">🌐 Idioma</button>
+    <button onclick="mobileAction('theme')">☀️ Tema</button>
+    <button class="drawer-wide" onclick="mobileAction('logout')">Salir</button>
+  </div>
+</div>
+'''
+if 'id="mobile-drawer"' not in s:
+    s = s.replace('</header>\n\n<nav class="stepper"', '</header>\n' + drawer + '\n<nav class="stepper"', 1)
+
+js = r'''
+function toggleMobileMenu(){
+  var d=document.getElementById('mobile-drawer');if(!d)return;
+  d.className=d.className.indexOf(' open')>-1?'mobile-drawer':'mobile-drawer open';
+}
+function closeMobileMenu(){var d=document.getElementById('mobile-drawer');if(d)d.className='mobile-drawer';}
+function mobileAction(action){
+  closeMobileMenu();
+  if(action==='account'){if(S.user)showAccount();else openPublicLogin();return;}
+  if(action==='switch'){if(S.user)showProfileSwitcher();else openPublicSignup('r');return;}
+  if(action==='find'){if(S.user)showPage(1);else goPublicSection('featured');return;}
+  if(action==='publish'){if(S.user)showOwner();else openPublicSignup('o');return;}
+  if(action==='lang'){toggleLanguage();return;}
+  if(action==='theme'){toggleTheme();return;}
+  if(action==='logout'){logout();return;}
+}
+'''
+if 'function toggleMobileMenu()' not in s:
+    s = s.replace('function appBack(){', js + '\nfunction appBack(){', 1)
+if 'function updateBackButton(show){closeMobileMenu();' not in s:
+    s = s.replace('function updateBackButton(show){var b=document.getElementById', 'function updateBackButton(show){closeMobileMenu();var b=document.getElementById', 1)
+
+p.write_text(s)
+
+sw = Path('sw.js')
+if sw.exists():
+    t = sw.read_text()
+    t = t.replace('ruedard-stable-v32', 'ruedard-menu-ipad-v34')
+    t = t.replace('ruedard-stable-v33', 'ruedard-menu-ipad-v34')
+    sw.write_text(t)
+PY
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html sw.js
+          git diff --cached --quiet && exit 0
+          git commit -m "Agregar menu responsive iPhone iPad"
+          git push
