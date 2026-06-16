@@ -23,7 +23,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:Outfit,system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;line-height:1.5}
-button,input,select,textarea{font:inherit}
+button,input,select,textarea{font:inherit;min-width:0}
 button{cursor:pointer}
 .topbar{position:sticky;top:0;z-index:50;height:72px;background:var(--navy);display:flex;align-items:center;gap:22px;padding:0 max(18px,calc((100vw - 1180px)/2));box-shadow:0 1px 0 rgba(255,255,255,.08)}
 .brand{border:0;background:transparent;color:#fff;font-size:1.35rem;font-weight:900;letter-spacing:-.03em;white-space:nowrap}
@@ -61,9 +61,10 @@ h3{font-size:1.15rem;margin-bottom:14px}
 .booking-card,.card{background:var(--card);border:1px solid var(--border);border-radius:24px;box-shadow:var(--shadow);padding:24px}
 .booking-card h2{font-size:1.6rem;margin-bottom:6px}
 label{display:block;font-size:.77rem;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin:14px 0 6px}
-input,select,textarea{width:100%;border:1.5px solid var(--border);border-radius:13px;background:var(--bg);color:var(--text);padding:13px 14px;outline:none}
+input,select,textarea{width:100%;max-width:100%;border:1.5px solid var(--border);border-radius:13px;background:var(--bg);color:var(--text);padding:13px 14px;outline:none}
 input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(96,165,250,.18)}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.two>*{min-width:0}
 .three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
 .mini,.muted{color:var(--muted);font-size:.92rem;margin-top:10px}
 .shell{padding:42px max(18px,calc((100vw - 1180px)/2)) 90px}
@@ -130,9 +131,17 @@ input:focus,select:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(96,1
   .top-actions .primary{display:none}
   .ghost{padding:9px 10px}
   main{min-height:calc(100vh - 64px)}
-  .hero{min-height:calc(100vh - 64px);padding:32px 16px 70px}
-  h1{font-size:3rem}
+  .hero{min-height:auto;padding:22px 14px 42px;background-position:center top;gap:18px;overflow:hidden}
+  .hero-copy{max-width:100%}
+  h1{font-size:2.45rem;line-height:1.02;margin-bottom:14px}
+  .hero-copy p:not(.eyebrow){font-size:1rem}
+  .hero-actions,.trust-row{gap:8px;margin-top:16px}
+  .hero-actions .primary,.hero-actions .white{width:100%;text-align:center}
+  .trust-row span{font-size:.8rem;padding:8px 10px}
   .booking-card,.card{border-radius:18px;padding:18px}
+  .booking-card{width:100%;margin:18px auto 0}
+  input,select,textarea{font-size:16px;padding:13px 12px}
+  input[type="date"]{-webkit-appearance:none;appearance:none;display:block;min-height:54px;text-align:left}
   .shell{padding:28px 14px 80px}
   .two,.three,.demo-grid{grid-template-columns:1fr}
   .section-head{align-items:flex-start;flex-direction:column}
