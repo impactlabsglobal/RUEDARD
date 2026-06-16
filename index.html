@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=41">
+  <link rel="stylesheet" href="styles.css?v=42">
 </head>
 <body>
   <header class="topbar">
@@ -27,7 +27,10 @@
   </header>
 
   <aside class="drawer" id="drawer">
-    <div class="drawer-head"><strong id="drawerName">RuedaRD</strong><span id="drawerRole">MVP demo</span></div>
+    <div class="drawer-head">
+      <strong id="drawerName">RuedaRD</strong>
+      <span id="drawerRole">MVP demo</span>
+    </div>
     <button data-go="home">Inicio</button>
     <button data-go="search">Buscar / reservar</button>
     <button data-go="add-car">Subir carro</button>
@@ -44,35 +47,189 @@
         <p class="eyebrow">MVP real de prueba</p>
         <h1>Renta o publica carros verificados en República Dominicana.</h1>
         <p>Demo funcional con cuentas, roles, subida de carros, documentos, reservas, hold de depósito y contratos descargables.</p>
-        <div class="hero-actions"><button class="primary" data-go="search">Probar como cliente</button><button class="white" data-go="add-car">Subir un carro</button></div>
-        <div class="trust-row"><span>🔒 Login demo</span><span>📄 Contrato descargable</span><span>💳 Hold $300</span></div>
+        <div class="hero-actions">
+          <button class="primary" data-go="search">Probar como cliente</button>
+          <button class="white" data-go="add-car">Subir un carro</button>
+        </div>
+        <div class="trust-row">
+          <span>🔒 Login demo</span>
+          <span>📄 Contrato PDF</span>
+          <span>💳 Hold $300</span>
+        </div>
       </div>
       <form class="booking-card" id="quickSearch">
         <h2>Reserva tu carro</h2>
         <label>Zona</label>
-        <select id="quickZone"><option>Piantini, Santo Domingo</option><option>Aeropuerto Las Américas (AILA)</option><option>Punta Cana</option><option>Santiago</option></select>
-        <div class="two"><div><label>Inicio</label><input id="quickStart" type="date"></div><div><label>Devolución</label><input id="quickEnd" type="date"></div></div>
-        <button class="primary full" type="submit">Ver vehículos disponibles</button><p class="mini">Seguro y depósito se confirman en el flujo.</p>
+        <select id="quickZone">
+          <option>Piantini, Santo Domingo</option>
+          <option>Aeropuerto Las Américas (AILA)</option>
+          <option>Punta Cana</option>
+          <option>Santiago</option>
+        </select>
+        <div class="two">
+          <div><label>Inicio</label><input id="quickStart" type="date"></div>
+          <div><label>Devolución</label><input id="quickEnd" type="date"></div>
+        </div>
+        <button class="primary full" type="submit">Ver vehículos disponibles</button>
+        <p class="mini">Seguro y depósito se confirman en el flujo.</p>
       </form>
     </section>
 
     <section class="page shell" id="page-auth">
-      <div class="card auth-card"><p class="eyebrow">Acceso</p><h2>Entrar al MVP</h2><p class="muted">Usa una cuenta demo o crea una cuenta nueva. Todo se guarda en este navegador.</p><div class="demo-grid"><button data-demo="renter">Cliente demo</button><button data-demo="owner">Socio individual</button><button data-demo="fleet">Empresa rent car</button></div><div class="divider">Crear cuenta</div><form id="authForm"><div class="two"><div><label>Nombre</label><input id="authName" placeholder="Juan Pérez" required></div><div><label>Rol</label><select id="authRole"><option value="renter">Cliente</option><option value="owner">Socio individual</option><option value="fleet">Empresa rent car</option></select></div></div><label>Email</label><input id="authEmail" type="email" placeholder="correo@ejemplo.com" required><button class="primary full" type="submit">Crear y entrar</button></form></div>
+      <div class="card auth-card">
+        <p class="eyebrow">Acceso</p>
+        <h2>Entrar al MVP</h2>
+        <p class="muted">Usa una cuenta demo o crea una cuenta nueva. Todo se guarda en este navegador.</p>
+        <div class="demo-grid">
+          <button data-demo="renter">Cliente demo</button>
+          <button data-demo="owner">Socio individual</button>
+          <button data-demo="fleet">Empresa rent car</button>
+        </div>
+        <div class="divider">Crear cuenta</div>
+        <form id="authForm">
+          <div class="two">
+            <div><label>Nombre</label><input id="authName" placeholder="Juan Pérez" required></div>
+            <div><label>Rol</label><select id="authRole"><option value="renter">Cliente</option><option value="owner">Socio individual</option><option value="fleet">Empresa rent car</option></select></div>
+          </div>
+          <label>Email</label><input id="authEmail" type="email" placeholder="correo@ejemplo.com" required>
+          <button class="primary full" type="submit">Crear y entrar</button>
+        </form>
+      </div>
     </section>
 
     <section class="page shell" id="page-search">
-      <div class="section-head"><div><p class="eyebrow">Paso 1 y 2</p><h2>Fechas y carro</h2></div><button class="ghost" data-go="dashboard">Mi panel</button></div>
-      <div class="flow-grid"><aside class="card"><h3>Datos de renta</h3><label>Zona de entrega</label><select id="rentZone"></select><div class="two"><div><label>Inicio</label><input id="rentStart" type="date"></div><div><label>Devolución</label><input id="rentEnd" type="date"></div></div><label>Aerolínea / vuelo</label><div class="two"><select id="airline"><option>Sin vuelo</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select><input id="flightNo" placeholder="Ej. B6 309"></div><a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Completar e-Ticket oficial de RD →</a></aside><div><div class="filters"><button data-filter="all" class="on">Todos</button><button data-filter="sedan">Sedan</button><button data-filter="suv2">SUV 2 filas</button><button data-filter="suv3">SUV 3 filas</button><button data-filter="luxury">Lujo</button></div><div class="cars" id="carsList"></div></div></div>
+      <div class="section-head">
+        <div><p class="eyebrow">Paso 1 y 2</p><h2>Fechas y carro</h2></div>
+        <button class="ghost" data-go="dashboard">Mi panel</button>
+      </div>
+      <div class="flow-grid">
+        <aside class="card">
+          <h3>Datos de renta</h3>
+          <label>Zona de entrega</label><select id="rentZone"></select>
+          <div class="two">
+            <div><label>Inicio</label><input id="rentStart" type="date"></div>
+            <div><label>Devolución</label><input id="rentEnd" type="date"></div>
+          </div>
+          <label>Aerolínea / vuelo</label>
+          <div class="two">
+            <select id="airline"><option>Sin vuelo</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select>
+            <input id="flightNo" placeholder="Ej. B6 309">
+          </div>
+          <a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Completar e-Ticket oficial de RD →</a>
+        </aside>
+        <div>
+          <div class="filters">
+            <button data-filter="all" class="on">Todos</button>
+            <button data-filter="sedan">Sedan</button>
+            <button data-filter="suv2">SUV 2 filas</button>
+            <button data-filter="suv3">SUV 3 filas</button>
+            <button data-filter="luxury">Lujo</button>
+          </div>
+          <div class="cars" id="carsList"></div>
+        </div>
+      </div>
     </section>
 
-    <section class="page shell" id="page-checkout"><div class="section-head"><div><p class="eyebrow">Paso 3 y 4</p><h2>Seguro, documentos y pago</h2></div><button class="ghost" data-go="search">Atrás</button></div><div class="checkout-grid"><form class="card" id="checkoutForm"><h3>Protección y documentos</h3><label>Protección elegida</label><select id="protection"><option value="basic">Básica registrada por el dueño - $0/día</option><option value="plus">Plus RuedaRD - $8/día</option><option value="premium">Premium RuedaRD - $15/día</option></select><label>Documento del cliente</label><input type="file" id="clientDoc" accept="image/*,.pdf"><label>Licencia / pasaporte</label><input type="file" id="clientLicense" accept="image/*,.pdf"><label>Firma digital</label><input id="signature" placeholder="Escribe tu nombre completo" required><label>Método de pago</label><select id="paymentMethod"><option>Azul / Banco Popular demo</option><option>PayPal demo</option><option>Tarjeta demo</option></select><div class="notice">Se simula hold de depósito de $300. No se cobra hasta confirmar entrega con la flota o dueño.</div><button class="primary full" type="submit">Confirmar renta y generar contrato</button></form><aside class="card summary" id="checkoutSummary"></aside></div></section>
+    <section class="page shell" id="page-checkout">
+      <div class="section-head">
+        <div><p class="eyebrow">Paso 3 y 4</p><h2>Seguro, documentos y pago</h2></div>
+        <button class="ghost" data-go="search">Atrás</button>
+      </div>
+      <div class="checkout-grid">
+        <form class="card" id="checkoutForm">
+          <h3>Protección y documentos</h3>
+          <label>Protección elegida</label>
+          <select id="protection">
+            <option value="basic">Básica registrada por el dueño - $0/día</option>
+            <option value="plus">Plus RuedaRD - $8/día</option>
+            <option value="premium">Premium RuedaRD - $15/día</option>
+          </select>
+          <label>Documento del cliente</label><input type="file" id="clientDoc" accept="image/*,.pdf">
+          <label>Licencia / pasaporte</label><input type="file" id="clientLicense" accept="image/*,.pdf">
+          <label>Firma digital</label><input id="signature" placeholder="Escribe tu nombre completo" required>
+          <label>Método de pago</label>
+          <select id="paymentMethod">
+            <option>Azul / Banco Popular demo</option>
+            <option>PayPal demo</option>
+            <option>Tarjeta demo</option>
+          </select>
+          <div class="notice">Se simula hold de depósito de $300. No se cobra hasta confirmar entrega con la flota o dueño.</div>
+          <button class="primary full" type="submit">Confirmar renta y generar contrato</button>
+        </form>
+        <aside class="card summary" id="checkoutSummary"></aside>
+      </div>
+    </section>
 
-    <section class="page shell" id="page-add-car"><div class="section-head"><div><p class="eyebrow">Dueños y empresas</p><h2>Subir carro verificado</h2></div><button class="ghost" data-go="dashboard">Panel</button></div><form class="card wide" id="carForm"><div class="two"><div><label>Marca</label><select id="carBrand" required></select></div><div><label>Modelo</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div></div><div class="three"><div><label>Año</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div><div><label>Categoría</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 filas</option><option value="suv3">SUV 3 filas</option><option value="luxury">Lujo</option></select></div><div><label>Precio dueño / día</label><input id="carPrice" type="number" min="20" value="40" required></div></div><div class="three"><div><label>Zona</label><select id="carZone"></select></div><div><label>Asientos</label><input id="carSeats" type="number" min="2" max="12" value="5"></div><div><label>Paquete ads</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div></div><label>Fotos del carro</label><input id="carPhotos" type="file" accept="image/*" multiple><div class="three"><div><label>Seguro</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div><div><label>Matrícula / título</label><input id="docTitle" type="file" accept="image/*,.pdf"></div><div><label>Dueño / compañía</label><input id="docOwner" type="file" accept="image/*,.pdf"></div></div><label class="check"><input id="contractOk" type="checkbox" required> El contrato mostrará todas las cláusulas visibles, sin condiciones ocultas.</label><button class="primary full" type="submit">Guardar carro en el MVP</button></form></section>
+    <section class="page shell" id="page-add-car">
+      <div class="section-head">
+        <div><p class="eyebrow">Dueños y empresas</p><h2>Subir carro verificado</h2></div>
+        <button class="ghost" data-go="dashboard">Panel</button>
+      </div>
+      <form class="card wide" id="carForm">
+        <div class="two">
+          <div><label>Marca</label><select id="carBrand" required></select></div>
+          <div><label>Modelo</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div>
+        </div>
+        <div class="three">
+          <div><label>Año</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div>
+          <div><label>Categoría</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 filas</option><option value="suv3">SUV 3 filas</option><option value="luxury">Lujo</option></select></div>
+          <div><label>Precio dueño / día</label><input id="carPrice" type="number" min="20" value="40" required></div>
+        </div>
+        <div class="three">
+          <div><label>Zona</label><select id="carZone"></select></div>
+          <div><label>Asientos</label><input id="carSeats" type="number" min="2" max="12" value="5"></div>
+          <div><label>Paquete ads</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div>
+        </div>
+        <label>Fotos del carro</label><input id="carPhotos" type="file" accept="image/*" multiple>
+        <div class="three">
+          <div><label>Seguro</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div>
+          <div><label>Matrícula / título</label><input id="docTitle" type="file" accept="image/*,.pdf"></div>
+          <div><label>Dueño / compañía</label><input id="docOwner" type="file" accept="image/*,.pdf"></div>
+        </div>
+        <label class="check"><input id="contractOk" type="checkbox" required> El contrato mostrará todas las cláusulas visibles, sin condiciones ocultas.</label>
+        <button class="primary full" type="submit">Guardar carro en el MVP</button>
+      </form>
+    </section>
 
-    <section class="page shell" id="page-dashboard"><div class="section-head"><div><p class="eyebrow" id="dashRole">Panel</p><h2 id="dashTitle">Mi panel RuedaRD</h2></div><button class="primary small" data-go="add-car">Subir carro</button></div><div class="stats" id="stats"></div><div class="dash-grid"><section class="card"><h3>Reservas</h3><div id="bookingList"></div></section><section class="card"><h3>Mis carros / flota</h3><div id="ownerCars"></div></section></div></section>
-    <section class="page shell" id="page-wallet"><div class="section-head"><div><p class="eyebrow">Dinero</p><h2>Balance y retiros</h2></div></div><div class="card wide" id="walletPanel"></div></section>
-    <section class="page shell" id="page-contracts"><div class="section-head"><div><p class="eyebrow">Documentos</p><h2>Contratos y recibos</h2></div></div><div class="card wide" id="contractList"></div></section>
-    <section class="page shell" id="page-support"><div class="card wide"><p class="eyebrow">Soporte MVP</p><h2>Lo que falta para producción real</h2><ul class="bullets"><li>Conectar Supabase/Postgres para usuarios y carros reales.</li><li>Integrar Azul con credenciales de comercio y endpoint backend seguro.</li><li>Integrar PayPal Authorize/Capture para retener depósito.</li><li>Validación real de documentos, KYC, 2FA/passkey y auditoría.</li><li>Generación PDF firmada desde backend y storage privado.</li></ul></div></section>
+    <section class="page shell" id="page-dashboard">
+      <div class="section-head">
+        <div><p class="eyebrow" id="dashRole">Panel</p><h2 id="dashTitle">Mi panel RuedaRD</h2></div>
+        <button class="primary small" data-go="add-car">Subir carro</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="dash-grid">
+        <section class="card"><h3>Reservas</h3><div id="bookingList"></div></section>
+        <section class="card"><h3>Mis carros / flota</h3><div id="ownerCars"></div></section>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-wallet">
+      <div class="section-head">
+        <div><p class="eyebrow">Dinero</p><h2>Balance y retiros</h2></div>
+      </div>
+      <div class="card wide" id="walletPanel"></div>
+    </section>
+
+    <section class="page shell" id="page-contracts">
+      <div class="section-head">
+        <div><p class="eyebrow">Documentos</p><h2>Contratos y recibos</h2></div>
+      </div>
+      <div class="card wide" id="contractList"></div>
+    </section>
+
+    <section class="page shell" id="page-support">
+      <div class="card wide">
+        <p class="eyebrow">Soporte MVP</p>
+        <h2>Lo que falta para producción real</h2>
+        <ul class="bullets">
+          <li>Conectar Supabase/Postgres para usuarios y carros reales.</li>
+          <li>Integrar Azul con credenciales de comercio y endpoint backend seguro.</li>
+          <li>Integrar PayPal Authorize/Capture para retener depósito.</li>
+          <li>Validación real de documentos, KYC, 2FA/passkey y auditoría.</li>
+          <li>Generación PDF firmada desde backend y storage privado.</li>
+        </ul>
+      </div>
+    </section>
   </main>
 
   <div class="toast" id="toast"></div>
