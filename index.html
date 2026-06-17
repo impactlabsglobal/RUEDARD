@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=47">
+  <link rel="stylesheet" href="styles.css?v=48">
 </head>
 <body>
   <header class="topbar">
@@ -41,9 +41,16 @@
     <button id="drawerLogout">Salir</button>
   </aside>
 
+  <nav class="mobile-tabbar" aria-label="Navegacion movil">
+    <button type="button" data-go="home"><span>⌂</span>Home</button>
+    <button type="button" data-go="dashboard"><span>◎</span>Account</button>
+    <button type="button" data-go="add-car"><span>▣</span>Rent</button>
+    <button type="button" data-go="search"><span>⌕</span>Search</button>
+  </nav>
+
   <main>
     <section class="portal-home page active" id="page-home">
-      <div class="demo-strip">△ DEMO ENVIRONMENT · FOR DEMONSTRATION PURPOSES ONLY · NO REAL CLIENT DATA DISPLAYED</div>
+      <div class="demo-strip">DEMO ENVIRONMENT · FOR TESTING ONLY · NO REAL CLIENT DATA DISPLAYED</div>
       <div class="portal-stage">
         <div class="portal-logo">
           <span class="logo-mark">RD</span>
@@ -51,7 +58,7 @@
         </div>
         <form class="portal-card" id="quickSearch">
           <div class="portal-card-head">
-            <p class="eyebrow">MVP real de prueba</p>
+            <p class="eyebrow">Rental control platform</p>
             <h1>Portal de renta y flotas</h1>
             <p>Acceso para clientes, socios individuales y empresas rent car. Todo el flujo queda registrado.</p>
           </div>
