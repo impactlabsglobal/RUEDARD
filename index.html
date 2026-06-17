@@ -7,7 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=48">
+  <link rel="stylesheet" href="styles.css?v=49">
 </head>
 <body>
   <header class="topbar">
@@ -56,46 +56,38 @@
           <span class="logo-mark">RD</span>
           <strong>Rueda<span>RD</span></strong>
         </div>
-        <form class="portal-card" id="quickSearch">
+        <form class="portal-card login-card" id="quickSearch">
           <div class="portal-card-head">
-            <p class="eyebrow">Rental control platform</p>
-            <h1>Portal de renta y flotas</h1>
-            <p>Acceso para clientes, socios individuales y empresas rent car. Todo el flujo queda registrado.</p>
+            <p class="eyebrow">MVP real de prueba</p>
+            <h1>Inicia sesión</h1>
+            <p>Acceso seguro para clientes, socios individuales y empresas rent car.</p>
           </div>
           <div class="portal-tabs">
-            <button type="button" class="active" data-demo="renter">Cliente</button>
-            <button type="button" data-demo="fleet">Empresa / socio</button>
+            <button type="button" class="active" data-role-tab="renter">Cliente</button>
+            <button type="button" data-role-tab="fleet">Empresa / socio</button>
           </div>
           <label>Email o teléfono</label>
-          <input placeholder="correo@ejemplo.com · 809-000-0000">
-          <label>Contraseña demo</label>
-          <input type="password" placeholder="••••••••">
-          <button class="primary full portal-access" type="button" data-demo="renter">Entrar al portal →</button>
-          <div class="divider">o inicia una reserva rápida</div>
-          <label>Zona de recogida</label>
-          <select id="quickZone">
-            <option>Piantini, Santo Domingo</option>
-            <option>Aeropuerto Las Américas (AILA)</option>
-            <option>Punta Cana</option>
-            <option>Santiago</option>
-          </select>
-          <div class="two">
-            <div><label>Inicio</label><input id="quickStart" type="date"></div>
-            <div><label>Devolución</label><input id="quickEnd" type="date"></div>
+          <input id="portalEmail" type="email" placeholder="correo@ejemplo.com">
+          <label>Contraseña</label>
+          <input id="portalPassword" type="password" placeholder="••••••••">
+          <button class="primary full portal-access" type="submit">Entrar al portal →</button>
+          <div class="divider">o continúa de forma segura</div>
+          <div class="social-login">
+            <button type="button" data-demo="renter">G Google</button>
+            <button type="button" data-demo="renter"> Apple ID</button>
           </div>
-          <button class="primary full" type="submit">Ver vehículos disponibles</button>
           <div class="portal-badges">
-            <span>Login demo</span>
+            <span>Google disponible</span>
+            <span>Apple ID disponible</span>
             <span>Hold $300</span>
-            <span>Contrato firmado</span>
           </div>
         </form>
       </div>
       <div class="portal-bottom">
         <span>1 Login</span>
-        <span>2 Panel</span>
-        <span>3 Pago / hold</span>
-        <span>4 Firma y contrato</span>
+        <span>2 Fechas / vuelo</span>
+        <span>3 Carro / seguro</span>
+        <span>4 Pago / contrato</span>
       </div>
     </section>
 
@@ -123,14 +115,14 @@
 
     <section class="page shell" id="page-search">
       <div class="section-head">
-        <div><p class="eyebrow">Cliente</p><h2>Paso 1 y 2: fecha, zona y carro</h2></div>
+        <div><p class="eyebrow">Cliente</p><h2>Paso 2: calendario, entrega y vuelo</h2></div>
         <button class="ghost" data-go="dashboard">Mi panel</button>
       </div>
       <div class="process-rail">
         <span class="done">1 Login</span>
-        <span class="active">2 Elegir carro</span>
-        <span>3 Pago / hold</span>
-        <span>4 Firma contrato</span>
+        <span class="active">2 Fechas / vuelo</span>
+        <span>3 Carro / seguro</span>
+        <span>4 Pago / contrato</span>
       </div>
       <div class="flow-grid">
         <aside class="card">
@@ -148,6 +140,11 @@
           <a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Completar e-Ticket oficial de RD →</a>
         </aside>
         <div>
+          <div class="card step-card">
+            <p class="eyebrow">Paso 3</p>
+            <h3>Selecciona carro y seguro del dueño</h3>
+            <p class="muted">Cada dueño o empresa publica la cobertura disponible para su vehículo. El seguro se confirma antes de firmar.</p>
+          </div>
           <div class="filters">
             <button data-filter="all" class="on">Todos</button>
             <button data-filter="sedan">Sedan</button>
@@ -162,14 +159,14 @@
 
     <section class="page shell" id="page-checkout">
       <div class="section-head">
-        <div><p class="eyebrow">Reserva segura</p><h2>Paso 3 y 4: pago, documentos y contrato</h2></div>
+        <div><p class="eyebrow">Reserva segura</p><h2>Paso 4: contrato, pago y políticas legales</h2></div>
         <button class="ghost" data-go="search">Atrás</button>
       </div>
       <div class="process-rail">
         <span class="done">1 Login</span>
-        <span class="done">2 Carro</span>
-        <span class="active">3 Pago / hold</span>
-        <span>4 Firma contrato</span>
+        <span class="done">2 Fechas / vuelo</span>
+        <span class="done">3 Carro / seguro</span>
+        <span class="active">4 Pago / contrato</span>
       </div>
       <div class="checkout-grid">
         <form class="card" id="checkoutForm">
@@ -194,6 +191,11 @@
             <option>Tarjeta demo</option>
           </select>
           <div class="notice">Se simula hold de depósito de $300. No se cobra hasta confirmar entrega con la flota o dueño.</div>
+          <div class="choice-box legal-box">
+            <strong>Políticas y leyes visibles</strong>
+            <p>El cliente confirma que leyó precio, depósito, seguro, entrega, devolución, daños y responsabilidad. No se permiten cláusulas ocultas ni cargos fuera del contrato.</p>
+            <label class="check"><input id="legalOk" type="checkbox" required> Acepto las políticas visibles y el contrato de renta.</label>
+          </div>
           <label>Firma digital para contrato</label><input id="signature" placeholder="Escribe tu nombre completo" required>
           <button class="primary full" type="submit">Pagar hold, firmar y generar contrato</button>
         </form>
@@ -296,6 +298,6 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app-v45.js"></script>
+  <script src="app.js?v=49"></script>
 </body>
 </html>
