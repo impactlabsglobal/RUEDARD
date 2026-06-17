@@ -24,6 +24,7 @@ let db = loadDb();
 let session = db.session || null;
 let selectedCar = null;
 let activeFilter = "all";
+let portalRole = "renter";
 
 function today(offset = 0) {
   const d = new Date();
@@ -46,6 +47,7 @@ function seedDb() {
       "u-fleet": { available: 0, pending: 0, withdrawn: 0 }
     },
     contracts: [],
+    events: [],
     session: null
   };
 }
@@ -63,6 +65,19 @@ function loadDb() {
 function saveDb() {
   db.session = session;
   localStorage.setItem(DB_KEY, JSON.stringify(db));
+}
+
+function recordEvent(title, detail, userId = user()?.id || "system") {
+  if (!db.events) db.events = [];
+  db.events.unshift({
+    id: `ev-${Date.now()}`,
+    userId,
+    title,
+    detail,
+    at: new Date().toISOString()
+  });
+  db.events = db.events.slice(0, 40);
+  saveDb();
 }
 
 function toast(msg) {
@@ -122,9 +137,10 @@ function setSession(u) {
   if (!db.users.find((x) => x.id === u.id)) db.users.push(u);
   session = { userId: u.id, at: new Date().toISOString() };
   saveDb();
+  recordEvent("Login completado", `Entró como ${roleLabel(u.role)}`, u.id);
   renderChrome();
   toast(`Bienvenido, ${u.name}`);
-  go("dashboard");
+  go(u.role === "renter" ? "search" : "dashboard");
 }
 
 function logout() {
@@ -137,14 +153,14 @@ function logout() {
 
 function renderChrome() {
   const u = user();
-  $("#authBtn").textContent = u ? "Salir" : "Entrar";
+  $("#authBtn").textContent = u ? "Salir" : "Login";
   $("#drawerName").textContent = u ? u.name : "RuedaRD";
   $("#drawerRole").textContent = u ? roleLabel(u.role) : "MVP demo";
 }
 
 function initForms() {
-  const dateInputs = ["quickStart", "rentStart"];
-  const endInputs = ["quickEnd", "rentEnd"];
+  const dateInputs = ["rentStart"];
+  const endInputs = ["rentEnd"];
   dateInputs.forEach((id) => { const el = $(`#${id}`); if (el) el.value = today(1); });
   endInputs.forEach((id) => { const el = $(`#${id}`); if (el) el.value = today(4); });
   ["rentZone", "carZone"].forEach((id) => {
@@ -153,12 +169,19 @@ function initForms() {
   });
   $("#carBrand").innerHTML = brands.map((b) => `<option>${b}</option>`).join("");
 
+  $$("[data-role-tab]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      portalRole = btn.dataset.roleTab;
+      $$("[data-role-tab]").forEach((b) => b.classList.remove("active"));
+      btn.classList.add("active");
+    });
+  });
+
   $("#quickSearch").addEventListener("submit", (e) => {
     e.preventDefault();
-    $("#rentZone").value = $("#quickZone").value;
-    $("#rentStart").value = $("#quickStart").value;
-    $("#rentEnd").value = $("#quickEnd").value;
-    go("search");
+    const email = $("#portalEmail")?.value.trim();
+    const base = portalRole === "fleet" ? demoUsers.fleet : demoUsers.renter;
+    setSession({ ...base, email: email || base.email });
   });
 
   $("#authForm").addEventListener("submit", (e) => {
@@ -218,7 +241,7 @@ function renderCars() {
           </div>
           <div class="price">$${feePrice(car)}</div>
         </div>
-        <div class="chips"><span>${catLabel(car.cat)}</span><span>${car.seats} pasajeros</span><span>$${car.price} dueño + $10 fee</span><span>Docs verificados</span></div>
+        <div class="chips"><span>${catLabel(car.cat)}</span><span>${car.seats} pasajeros</span><span>$${car.price} dueño + $10 fee</span><span>Seguro dueño: básico</span><span>Docs verificados</span></div>
         <div class="car-actions">
           <button class="ghost" type="button" onclick="viewCar('${car.id}')">Ver</button>
           <button class="primary" type="button" onclick="selectCar('${car.id}')">Reservar</button>
@@ -277,6 +300,7 @@ function confirmBooking(e) {
   const days = daysBetween();
   const daily = feePrice(selectedCar);
   const insurance = protectionCost() * days;
+  const docTiming = document.querySelector('input[name="docTiming"]:checked')?.value || "now";
   const total = daily * days + insurance;
   const platformFee = 10 * days;
   const ownerAmount = selectedCar.price * days;
@@ -295,16 +319,21 @@ function confirmBooking(e) {
     flightNo:$("#flightNo").value.trim(),
     payment:$("#paymentMethod").value,
     protection:$("#protection").value,
+    docTiming,
+    clientDocs: docTiming === "delivery" ? "Pendiente para entrega asistida" : "Subidos en checkout demo",
     signature:$("#signature").value.trim(),
     days,total,platformFee,ownerAmount,
     depositHold:300,
     status:"hold_pending_owner_confirmation",
+    paymentStatus:"hold_300_authorized",
+    contractStatus:"signed",
     createdAt:new Date().toISOString()
   };
   db.bookings.push(booking);
   ownerWallet(selectedCar.ownerId).pending += ownerAmount;
   db.contracts.push(makeContract(booking));
   saveDb();
+  recordEvent("Reserva creada", `${booking.vehicle} · pago en hold · contrato firmado`, u.id);
   selectedCar = null;
   toast("Renta creada. Contrato listo.");
   go("contracts");
@@ -325,10 +354,13 @@ function makeContract(b) {
       `Zona: ${b.zone}`,
       `Vuelo: ${b.airline} ${b.flightNo || ""}`,
       `Pago: ${b.payment}`,
+      `Estado pago: ${b.paymentStatus}`,
+      `Documentos cliente: ${b.clientDocs}`,
       `Total: $${b.total}`,
       `Hold depósito: $${b.depositHold} no cobrado hasta cierre del trato`,
       `Monto dueño pendiente: $${b.ownerAmount}`,
       `Fee plataforma: $${b.platformFee}`,
+      "Política legal: precio, depósito, seguro, entrega, devolución, daños y responsabilidad fueron visibles antes de firmar.",
       "Cláusulas visibles: no se permiten cargos, restricciones o daños ocultos fuera de este contrato.",
       `Firma cliente: ${b.signature}`
     ].join("\n")
@@ -354,6 +386,9 @@ async function addCar(e) {
     return;
   }
   const photos = await readPhotoFiles($("#carPhotos"));
+  const accountType = $("#accountType")?.value || u.role;
+  const bankName = $("#bankName")?.value.trim() || "Banco pendiente";
+  const ownerPhone = $("#ownerPhone")?.value.trim() || "Contacto pendiente";
   const car = {
     id:`c-${Date.now()}`,
     ownerId:u.id,
@@ -367,6 +402,10 @@ async function addCar(e) {
     price:Number($("#carPrice").value),
     ad:$("#carAd").value,
     status:"approved",
+    accountType,
+    accountActive:true,
+    bankName,
+    ownerPhone,
     docs:[
       fileName("docInsurance") || "Seguro subido",
       fileName("docTitle") || "Matrícula/título subido",
@@ -379,6 +418,7 @@ async function addCar(e) {
   db.cars.push(car);
   ownerWallet(u.id);
   saveDb();
+  recordEvent("Cuenta activada y carro publicado", `${car.brand} ${car.model} · ${roleLabel(accountType)} · retiro: ${bankName}`, u.id);
   e.target.reset();
   $("#carYear").value = "2024";
   $("#carPrice").value = "40";
@@ -390,9 +430,7 @@ async function addCar(e) {
 function fileName(id) {
   const f = $(`#${id}`)?.files?.[0];
   return f ? f.name : "";
-}
-
-function renderDashboard() {
+}\nfunction renderDashboard() {
   const u = user();
   if (!u) return go("auth");
   $("#dashRole").textContent = roleLabel(u.role).toUpperCase();
@@ -408,6 +446,7 @@ function renderDashboard() {
   ].map(([k,v]) => `<div class="stat"><span class="muted">${k}</span><strong>${v}</strong></div>`).join("");
   $("#bookingList").innerHTML = myBookings.map(bookingItem).join("") || `<p class="muted">Todavía no hay reservas.</p>`;
   $("#ownerCars").innerHTML = myCars.map(carItem).join("") || `<p class="muted">Todavía no has subido carros.</p>`;
+  renderEventLog(u);
 }
 
 function bookingItem(b) {
@@ -415,6 +454,12 @@ function bookingItem(b) {
     <div class="item-head"><strong>${b.vehicle}</strong><span class="badge amber">${statusLabel(b.status)}</span></div>
     <p class="muted">${b.start} → ${b.end} · ${b.zone}</p>
     <p><strong>$${b.total}</strong> total · hold $${b.depositHold}</p>
+    <div class="timeline">
+      <span class="timeline-step done">Login y selección completados</span>
+      <span class="timeline-step done">Pago hold autorizado</span>
+      <span class="timeline-step ${b.clientDocs ? "done" : ""}">Documentos: ${b.clientDocs || "pendientes"}</span>
+      <span class="timeline-step ${b.contractStatus === "signed" ? "done" : ""}">Contrato firmado</span>
+    </div>
     ${b.status === "hold_pending_owner_confirmation" ? `<button class="primary small" onclick="releaseBooking('${b.id}')">Confirmar entrega / liberar dueño</button>` : ""}
   </div>`;
 }
@@ -423,7 +468,22 @@ function carItem(c) {
   return `<div class="item">
     <div class="item-head"><strong>${c.brand} ${c.model} ${c.year}</strong><span class="badge blue">${c.ad}</span></div>
     <p class="muted">${catLabel(c.cat)} · ${c.zone} · $${c.price} dueño + $10 fee</p>
+    <div class="timeline">
+      <span class="timeline-step done">Cuenta ${c.accountActive ? "activa" : "pendiente"}</span>
+      <span class="timeline-step done">Documentos del vehículo registrados</span>
+      <span class="timeline-step done">Disponible para reservas</span>
+    </div>
   </div>`;
+}
+
+function renderEventLog(u) {
+  const box = $("#eventLog");
+  if (!box) return;
+  const rows = (db.events || []).filter((ev) => ev.userId === u.id || ev.userId === "system").slice(0, 8);
+  box.innerHTML = rows.map((ev) => `<div class="item">
+    <div class="item-head"><strong>${ev.title}</strong><span class="badge green">${new Date(ev.at).toLocaleTimeString([], { hour:"2-digit", minute:"2-digit" })}</span></div>
+    <p class="muted">${ev.detail}</p>
+  </div>`).join("") || `<p class="muted">Cuando uses el MVP, cada paso aparecerá aquí.</p>`;
 }
 
 function statusLabel(s) {
@@ -438,6 +498,7 @@ window.releaseBooking = (id) => {
   w.pending = Math.max(0, w.pending - b.ownerAmount);
   w.available += b.ownerAmount;
   saveDb();
+  recordEvent("Entrega confirmada", `${b.vehicle} · dinero liberado al dueño`, b.ownerId);
   toast("Dinero liberado al balance del dueño.");
   renderDashboard();
 };
