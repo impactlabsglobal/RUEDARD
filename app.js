@@ -34,7 +34,7 @@ function seedDb() {
 }
 
 function carSeed(id, ownerId, ownerName, brand, model, year, cat, zone, seats, price, ad, rating) {
-  return { id, ownerId, ownerName, brand, model, year, cat, zone, seats, price, ad, rating, status: "approved", photos: [], docs: ["Seguro", "Matricula", "Dueno"] };
+  return { id, ownerId, ownerName, brand, model, year, cat, zone, seats, price, ad, rating, status: "approved", photos: [], docs: ["Coverage", "Registration", "Owner"] };
 }
 
 function wallet() {
@@ -67,7 +67,7 @@ function user() {
 }
 
 function roleLabel(role) {
-  return role === "fleet" ? "Empresa rent car" : role === "owner" ? "Socio individual" : "Cliente";
+  return role === "fleet" ? "Rental company" : role === "owner" ? "Individual partner" : "Renter";
 }
 
 function ownerWallet(id) {
@@ -105,9 +105,9 @@ function setSession(u) {
   if (!db.users.find((x) => x.id === u.id)) db.users.push(u);
   session = { userId: u.id, at: new Date().toISOString() };
   saveDb();
-  recordEvent("Login completado", `Entro como ${roleLabel(u.role)}`, u.id);
+  recordEvent("Login completed", `Signed in as ${roleLabel(u.role)}`, u.id);
   renderChrome();
-  toast(`Bienvenido, ${u.name}`);
+  toast(`Welcome, ${u.name}`);
   go(u.role === "renter" ? "search" : "dashboard");
 }
 
@@ -115,13 +115,13 @@ function logout() {
   session = null;
   saveDb();
   renderChrome();
-  toast("Sesion cerrada");
+  toast("Signed out");
   go("home");
 }
 
 function renderChrome() {
   const u = user();
-  if ($("#authBtn")) $("#authBtn").textContent = u ? "Salir" : "Login";
+  if ($("#authBtn")) $("#authBtn").textContent = u ? "Sign out" : "Login";
   if ($("#drawerName")) $("#drawerName").textContent = u ? u.name : "RuedaRD";
   if ($("#drawerRole")) $("#drawerRole").textContent = u ? roleLabel(u.role) : "MVP demo";
 }
@@ -132,7 +132,7 @@ function bindNav() {
       const page = btn.dataset.go;
       const privatePage = ["add-car", "dashboard", "wallet", "contracts"].includes(page);
       if (privatePage && !user()) {
-        toast("Primero entra con una cuenta demo.");
+        toast("Sign in with a demo account first.");
         go("auth");
         return;
       }
@@ -145,7 +145,6 @@ function bindNav() {
   $("#themeBtn")?.addEventListener("click", () => {
     document.documentElement.dataset.theme = document.documentElement.dataset.theme === "dark" ? "" : "dark";
   });
-  $("#langBtn")?.addEventListener("click", () => toast("Traduccion completa se conecta en la proxima fase."));
 }
 
 function initForms() {
@@ -175,7 +174,7 @@ function initForms() {
     e.preventDefault();
     setSession({
       id: `u-${Date.now()}`,
-      name: $("#authName").value.trim() || "Usuario demo",
+      name: $("#authName").value.trim() || "Demo user",
       email: $("#authEmail").value.trim() || "demo@ruedard.test",
       role: $("#authRole").value,
       verified: false
@@ -208,7 +207,7 @@ function daysBetween() {
 }
 
 function catLabel(cat) {
-  return { sedan: "Sedan", suv2: "SUV 2 filas", suv3: "SUV 3 filas", luxury: "Lujo" }[cat] || "Carro";
+  return { sedan: "Sedan", suv2: "SUV 2 rows", suv3: "SUV 3 rows", luxury: "Luxury" }[cat] || "Car";
 }
 
 function renderCars() {
@@ -222,34 +221,34 @@ function renderCars() {
     <article class="car-card">
       <div class="car-media">
         ${car.ad === "premium" ? '<span class="tag">Premium top</span>' : car.ad === "boost" ? '<span class="tag">Boost</span>' : ""}
-        ${car.photos?.[0] ? `<img src="${car.photos[0]}" alt="${car.brand} ${car.model}">` : `<div class="photo-empty"><strong>Foto pendiente</strong><small>Sube fotos reales del vehiculo</small></div>`}
+        ${car.photos?.[0] ? `<img src="${car.photos[0]}" alt="${car.brand} ${car.model}">` : `<div class="photo-empty"><strong>Photo pending</strong><small>Upload real vehicle photos</small></div>`}
       </div>
       <div class="car-body">
         <div class="car-title">
           <div>
             <h3>${car.brand} ${car.model} ${car.year}</h3>
-            <p class="muted">${car.zone} · ${car.ownerName} · ${car.rating || "Nuevo"} estrellas</p>
+            <p class="muted">${car.zone} · ${car.ownerName} · ${car.rating || "New"} stars</p>
           </div>
           <div class="price">$${feePrice(car)}</div>
         </div>
-        <div class="chips"><span>${catLabel(car.cat)}</span><span>${car.seats} pasajeros</span><span>$${car.price} dueno + $10 fee</span><span>Seguro dueno: basico</span><span>Docs verificados</span></div>
+        <div class="chips"><span>${catLabel(car.cat)}</span><span>${car.seats} seats</span><span>$${car.price} owner + $10 fee</span><span>Owner coverage: basic</span><span>Docs verified</span></div>
         <div class="car-actions">
-          <button class="ghost" type="button" onclick="viewCar('${car.id}')">Ver</button>
-          <button class="primary" type="button" onclick="selectCar('${car.id}')">Reservar</button>
+          <button class="ghost" type="button" onclick="viewCar('${car.id}')">View</button>
+          <button class="primary" type="button" onclick="selectCar('${car.id}')">Book</button>
         </div>
       </div>
     </article>
-  `).join("") || `<div class="card"><h3>No hay carros en este filtro.</h3><p class="muted">Prueba otra categoria.</p></div>`;
+  `).join("") || `<div class="card"><h3>No cars in this filter.</h3><p class="muted">Try another category.</p></div>`;
 }
 
 window.viewCar = (id) => {
   const car = db.cars.find((c) => c.id === id);
-  if (car) toast(`${car.brand} ${car.model}: $${feePrice(car)}/dia.`);
+  if (car) toast(`${car.brand} ${car.model}: $${feePrice(car)}/day.`);
 };
 
 window.selectCar = (id) => {
   if (!user()) {
-    toast("Entra como cliente para reservar.");
+    toast("Sign in as a renter to book.");
     go("auth");
     return;
   }
@@ -262,14 +261,14 @@ function renderCheckout() {
   const days = daysBetween();
   const total = feePrice(selectedCar) * days;
   $("#checkoutSummary").innerHTML = `
-    <h3>Resumen de renta</h3>
-    <div class="line"><span>Vehiculo</span><strong>${selectedCar.brand} ${selectedCar.model}</strong></div>
-    <div class="line"><span>Dias</span><strong>${days}</strong></div>
-    <div class="line"><span>Precio por dia</span><strong>$${feePrice(selectedCar)}</strong></div>
-    <div class="line"><span>Deposito hold</span><strong>$300</strong></div>
-    <div class="line"><span>Seguro</span><strong>Elegir</strong></div>
-    <div class="line total"><span>Total inicial</span><strong>$${total}</strong></div>
-    <p class="mini">El dinero queda pendiente hasta confirmar entrega. RuedaRD toma $10/dia de fee.</p>
+    <h3>Rental summary</h3>
+    <div class="line"><span>Vehicle</span><strong>${selectedCar.brand} ${selectedCar.model}</strong></div>
+    <div class="line"><span>Days</span><strong>${days}</strong></div>
+    <div class="line"><span>Price per day</span><strong>$${feePrice(selectedCar)}</strong></div>
+    <div class="line"><span>Deposit hold</span><strong>$300</strong></div>
+    <div class="line"><span>Coverage</span><strong>Select</strong></div>
+    <div class="line total"><span>Initial total</span><strong>$${total}</strong></div>
+    <p class="mini">Funds stay pending until delivery is confirmed. RuedaRD takes a $10/day platform fee.</p>
   `;
 }
 
@@ -281,7 +280,7 @@ function protectionCost() {
 function confirmBooking(e) {
   e.preventDefault();
   const u = user();
-  if (!u || !selectedCar) return toast("Selecciona un carro primero.");
+  if (!u || !selectedCar) return toast("Select a car first.");
   const days = daysBetween();
   const total = feePrice(selectedCar) * days + protectionCost() * days;
   const platformFee = 10 * days;
@@ -297,11 +296,11 @@ function confirmBooking(e) {
     start: $("#rentStart")?.value || today(1),
     end: $("#rentEnd")?.value || today(4),
     zone: $("#rentZone")?.value || zones[0],
-    airline: $("#airline")?.value || "Sin vuelo",
+    airline: $("#airline")?.value || "No flight",
     flightNo: $("#flightNo")?.value.trim() || "",
     payment: $("#paymentMethod")?.value || "Azul demo",
     protection: $("#protection")?.value || "basic",
-    clientDocs: docTiming === "delivery" ? "Pendiente para entrega asistida" : "Subidos en checkout demo",
+    clientDocs: docTiming === "delivery" ? "Pending for assisted delivery" : "Uploaded in demo checkout",
     signature: $("#signature")?.value.trim() || u.name,
     days,
     total,
@@ -318,8 +317,8 @@ function confirmBooking(e) {
   db.contracts.push(makeContract(booking));
   selectedCar = null;
   saveDb();
-  recordEvent("Reserva creada", `${booking.vehicle} · hold autorizado · contrato firmado`, u.id);
-  toast("Renta creada. Contrato listo.");
+  recordEvent("Booking created", `${booking.vehicle} · hold authorized · contract signed`, u.id);
+  toast("Rental created. Contract ready.");
   go("contracts");
 }
 
@@ -327,26 +326,26 @@ function makeContract(b) {
   return {
     id: `ct-${b.id}`,
     bookingId: b.id,
-    title: `Contrato ${b.vehicle}`,
+    title: `Contract ${b.vehicle}`,
     createdAt: new Date().toISOString(),
     text: [
-      "CONTRATO DE RENTA RUEDARD MVP",
-      `Cliente: ${b.renterName}`,
-      `Dueno / Flota: ${b.ownerName}`,
-      `Vehiculo: ${b.vehicle}`,
-      `Periodo: ${b.start} hasta ${b.end} (${b.days} dias)`,
-      `Zona: ${b.zone}`,
-      `Vuelo: ${b.airline} ${b.flightNo}`,
-      `Pago: ${b.payment}`,
-      `Estado pago: ${b.paymentStatus}`,
-      `Documentos cliente: ${b.clientDocs}`,
+      "RUEDARD MVP RENTAL CONTRACT",
+      `Renter: ${b.renterName}`,
+      `Owner / Fleet: ${b.ownerName}`,
+      `Vehicle: ${b.vehicle}`,
+      `Period: ${b.start} to ${b.end} (${b.days} days)`,
+      `Zone: ${b.zone}`,
+      `Flight: ${b.airline} ${b.flightNo}`,
+      `Payment: ${b.payment}`,
+      `Payment status: ${b.paymentStatus}`,
+      `Customer documents: ${b.clientDocs}`,
       `Total: $${b.total}`,
-      `Hold deposito: $${b.depositHold} no cobrado hasta cierre del trato`,
-      `Monto dueno pendiente: $${b.ownerAmount}`,
-      `Fee plataforma: $${b.platformFee}`,
-      "Politica legal: precio, deposito, seguro, entrega, devolucion, danos y responsabilidad fueron visibles antes de firmar.",
-      "Clausulas visibles: no se permiten cargos, restricciones o danos ocultos fuera de este contrato.",
-      `Firma cliente: ${b.signature}`
+      `Deposit hold: $${b.depositHold} not captured until the deal is closed`,
+      `Pending owner amount: $${b.ownerAmount}`,
+      `Platform fee: $${b.platformFee}`,
+      "Legal policy: price, deposit, coverage, delivery, return, damage, and responsibility were visible before signing.",
+      "Visible clauses: no hidden charges, restrictions, or damage terms are allowed outside this contract.",
+      `Customer signature: ${b.signature}`
     ].join("\n")
   };
 }
@@ -365,7 +364,7 @@ async function addCar(e) {
   e.preventDefault();
   const u = user();
   if (!u) return go("auth");
-  if (u.role === "renter") return toast("Cambia a socio o empresa para subir carros.");
+  if (u.role === "renter") return toast("Switch to partner or company to list cars.");
   const photos = await readPhotoFiles($("#carPhotos"));
   const car = {
     id: `c-${Date.now()}`,
@@ -382,16 +381,16 @@ async function addCar(e) {
     status: "approved",
     accountActive: true,
     photos,
-    rating: "Nuevo",
-    docs: ["Seguro subido", "Matricula/titulo subido", "Dueno/empresa subido"],
+    rating: "New",
+    docs: ["Coverage uploaded", "Registration/title uploaded", "Owner/company uploaded"],
     createdAt: new Date().toISOString()
   };
   db.cars.push(car);
   ownerWallet(u.id);
   saveDb();
-  recordEvent("Cuenta activada y carro publicado", `${car.brand} ${car.model}`, u.id);
+  recordEvent("Account activated and car listed", `${car.brand} ${car.model}`, u.id);
   e.target.reset();
-  toast("Carro guardado y visible en el MVP.");
+  toast("Car saved and visible in the MVP.");
   go("dashboard");
 }
 
@@ -399,47 +398,47 @@ function renderDashboard() {
   const u = user();
   if (!u) return go("auth");
   $("#dashRole").textContent = roleLabel(u.role).toUpperCase();
-  $("#dashTitle").textContent = u.role === "renter" ? "Panel del cliente" : u.role === "owner" ? "Panel socio individual" : "Panel empresa rent car";
+  $("#dashTitle").textContent = u.role === "renter" ? "Renter panel" : u.role === "owner" ? "Individual partner panel" : "Rental company panel";
   const myBookings = db.bookings.filter((b) => u.role === "renter" ? b.renterId === u.id : b.ownerId === u.id);
   const myCars = db.cars.filter((c) => c.ownerId === u.id);
   const w = ownerWallet(u.id);
-  $("#stats").innerHTML = [["Reservas", myBookings.length], ["Carros", myCars.length], ["Disponible", `$${w.available}`], ["Pendiente", `$${w.pending}`]]
+  $("#stats").innerHTML = [["Bookings", myBookings.length], ["Cars", myCars.length], ["Available", `$${w.available}`], ["Pending", `$${w.pending}`]]
     .map(([k, v]) => `<div class="stat"><span class="muted">${k}</span><strong>${v}</strong></div>`).join("");
-  $("#bookingList").innerHTML = myBookings.map(bookingItem).join("") || `<p class="muted">Todavia no hay reservas.</p>`;
-  $("#ownerCars").innerHTML = myCars.map(carItem).join("") || `<p class="muted">Todavia no has subido carros.</p>`;
+  $("#bookingList").innerHTML = myBookings.map(bookingItem).join("") || `<p class="muted">No bookings yet.</p>`;
+  $("#ownerCars").innerHTML = myCars.map(carItem).join("") || `<p class="muted">No cars listed yet.</p>`;
   renderEventLog(u);
 }
 
 function bookingItem(b) {
   return `<div class="item">
-    <div class="item-head"><strong>${b.vehicle}</strong><span class="badge amber">${b.status === "completed" ? "Completada" : "Hold pendiente"}</span></div>
+    <div class="item-head"><strong>${b.vehicle}</strong><span class="badge amber">${b.status === "completed" ? "Completed" : "Hold pending"}</span></div>
     <p class="muted">${b.start} → ${b.end} · ${b.zone}</p>
     <p><strong>$${b.total}</strong> total · hold $${b.depositHold}</p>
     <div class="timeline">
-      <span class="timeline-step done">Login y seleccion completados</span>
-      <span class="timeline-step done">Pago hold autorizado</span>
-      <span class="timeline-step done">Documentos: ${b.clientDocs}</span>
-      <span class="timeline-step done">Contrato firmado</span>
+      <span class="timeline-step done">Login and selection completed</span>
+      <span class="timeline-step done">Payment hold authorized</span>
+      <span class="timeline-step done">Documents: ${b.clientDocs}</span>
+      <span class="timeline-step done">Contract signed</span>
     </div>
-    ${b.status !== "completed" ? `<button class="primary small" onclick="releaseBooking('${b.id}')">Confirmar entrega / liberar dueno</button>` : ""}
+    ${b.status !== "completed" ? `<button class="primary small" onclick="releaseBooking('${b.id}')">Confirm delivery / release owner funds</button>` : ""}
   </div>`;
 }
 
 function carItem(c) {
   return `<div class="item">
     <div class="item-head"><strong>${c.brand} ${c.model} ${c.year}</strong><span class="badge blue">${c.ad}</span></div>
-    <p class="muted">${catLabel(c.cat)} · ${c.zone} · $${c.price} dueno + $10 fee</p>
+    <p class="muted">${catLabel(c.cat)} · ${c.zone} · $${c.price} owner + $10 fee</p>
     <div class="timeline">
-      <span class="timeline-step done">Cuenta activa</span>
-      <span class="timeline-step done">Documentos del vehiculo registrados</span>
-      <span class="timeline-step done">Disponible para reservas</span>
+      <span class="timeline-step done">Account active</span>
+      <span class="timeline-step done">Vehicle documents recorded</span>
+      <span class="timeline-step done">Available for bookings</span>
     </div>
   </div>`;
 }
 
 function renderEventLog(u) {
   const rows = db.events.filter((ev) => ev.userId === u.id || ev.userId === "system").slice(0, 8);
-  $("#eventLog").innerHTML = rows.map((ev) => `<div class="item"><div class="item-head"><strong>${ev.title}</strong><span class="badge green">${new Date(ev.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span></div><p class="muted">${ev.detail}</p></div>`).join("") || `<p class="muted">Cuando uses el MVP, cada paso aparecera aqui.</p>`;
+  $("#eventLog").innerHTML = rows.map((ev) => `<div class="item"><div class="item-head"><strong>${ev.title}</strong><span class="badge green">${new Date(ev.at).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}</span></div><p class="muted">${ev.detail}</p></div>`).join("") || `<p class="muted">When you use the MVP, every step will appear here.</p>`;
 }
 
 window.releaseBooking = (id) => {
@@ -450,7 +449,7 @@ window.releaseBooking = (id) => {
   w.pending = Math.max(0, w.pending - b.ownerAmount);
   w.available += b.ownerAmount;
   saveDb();
-  toast("Dinero liberado al balance del dueno.");
+  toast("Funds released to the owner balance.");
   renderDashboard();
 };
 
@@ -460,22 +459,22 @@ function renderWallet() {
   const w = ownerWallet(u.id);
   $("#walletPanel").innerHTML = `
     <h3>Wallet demo</h3>
-    <div class="wallet-line"><span>Disponible para retirar</span><strong>$${w.available}</strong></div>
-    <div class="wallet-line"><span>Pendiente por confirmar</span><strong>$${w.pending}</strong></div>
-    <div class="wallet-line"><span>Retirado</span><strong>$${w.withdrawn}</strong></div>
-    <button class="primary" onclick="withdrawMoney()">Solicitar retiro demo</button>
-    <p class="mini">En produccion esto seria ACH/LBTR a BHD, Popular o Banreservas.</p>
+    <div class="wallet-line"><span>Available for payout</span><strong>$${w.available}</strong></div>
+    <div class="wallet-line"><span>Pending confirmation</span><strong>$${w.pending}</strong></div>
+    <div class="wallet-line"><span>Withdrawn</span><strong>$${w.withdrawn}</strong></div>
+    <button class="primary" onclick="withdrawMoney()">Request demo payout</button>
+    <p class="mini">In production this would be ACH/LBTR to BHD, Popular, or Banreservas.</p>
   `;
 }
 
 window.withdrawMoney = () => {
   const u = user();
   const w = ownerWallet(u.id);
-  if (w.available <= 0) return toast("No hay dinero disponible para retirar.");
+  if (w.available <= 0) return toast("No funds available for payout.");
   w.withdrawn += w.available;
   w.available = 0;
   saveDb();
-  toast("Retiro demo solicitado.");
+  toast("Demo payout requested.");
   renderWallet();
 };
 
@@ -488,9 +487,9 @@ function renderContracts() {
     <div class="item">
       <div class="item-head"><strong>${c.title}</strong><span class="badge green">PDF demo</span></div>
       <pre style="white-space:pre-wrap;color:var(--muted);font-family:inherit">${c.text}</pre>
-      <button class="primary small" onclick="downloadContract('${c.id}')">Descargar contrato .txt</button>
+      <button class="primary small" onclick="downloadContract('${c.id}')">Download contract .txt</button>
     </div>
-  `).join("") || `<p class="muted">No hay contratos todavia. Haz una reserva para generar uno.</p>`;
+  `).join("") || `<p class="muted">No contracts yet. Make a booking to generate one.</p>`;
 }
 
 window.downloadContract = (id) => {
