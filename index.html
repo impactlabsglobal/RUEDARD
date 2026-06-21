@@ -1,20 +1,23 @@
 <!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="color-scheme" content="light dark">
-  <title>RuedaRD MVP Real Demo</title>
+  <title>RuedaRD Real MVP Demo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=52">
+  <link rel="stylesheet" href="styles.css?v=53">
   <style>
     :root{--blue:#2563EB;--yellow:#2563EB}
     .primary{background:#2563EB!important;color:#fff!important}
     .portal-access,.process-rail .active{background:#2563EB!important;border-color:#2563EB!important;color:#fff!important}
     .brand:after,.logo-mark:before{background:#2563EB!important;border-color:#2563EB!important}
     .mobile-tabbar button:first-child{color:#2563EB!important}
+    .top-actions{background:rgba(255,255,255,.72)!important;border:1px solid rgba(15,23,42,.08)!important;border-radius:999px!important;padding:5px!important;box-shadow:0 14px 34px rgba(15,23,42,.08)!important;backdrop-filter:blur(16px)}
+    .top-actions .ghost{border-radius:999px!important;border-color:rgba(15,23,42,.14)!important}
+    @media(max-width:640px){.top-actions{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:none!important}.top-actions .ghost{min-width:46px!important;height:42px!important}}
     html[data-theme="dark"],
     [data-theme="dark"] body,
     [data-theme="dark"] main,
@@ -55,8 +58,8 @@
     [data-theme="dark"] .demo-grid button,
     [data-theme="dark"] .filters button,
     [data-theme="dark"] .drawer button{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
-    [data-theme="dark"] .portal-tabs,
-    [data-theme="dark"] .top-actions{background:#07111F!important;border-color:#24364F!important}
+    [data-theme="dark"] .portal-tabs{background:#07111F!important;border-color:#24364F!important}
+    [data-theme="dark"] .top-actions{background:rgba(16,28,45,.86)!important;border-color:#24364F!important}
     [data-theme="dark"] .portal-tabs button.active,
     [data-theme="dark"] .portal-tabs button:hover{background:#16243A!important;color:#F8FAFC!important}
     [data-theme="dark"] input,
@@ -92,16 +95,15 @@
 </head>
 <body>
   <header class="topbar">
-    <button class="hamb" id="menuBtn" type="button" aria-label="Abrir menu">☰</button>
+    <button class="hamb" id="menuBtn" type="button" aria-label="Open menu">☰</button>
     <button class="brand" type="button" data-go="home">Rueda<span>RD</span> 🇩🇴</button>
     <nav class="nav" id="desktopNav">
-      <button data-go="search">Buscar carros</button>
-      <button data-go="add-car">Publicar mi carro</button>
-      <button data-go="dashboard">Panel</button>
-      <button data-go="support">Soporte</button>
+      <button data-go="search">Find cars</button>
+      <button data-go="add-car">List my car</button>
+      <button data-go="dashboard">Dashboard</button>
+      <button data-go="support">Support</button>
     </nav>
     <div class="top-actions">
-      <button class="ghost" id="langBtn" type="button">ES</button>
       <button class="ghost" id="themeBtn" type="button">☀</button>
       <button class="primary small" id="authBtn" type="button">Login</button>
     </div>
@@ -112,17 +114,17 @@
       <strong id="drawerName">RuedaRD</strong>
       <span id="drawerRole">MVP demo</span>
     </div>
-    <button data-go="home">Inicio</button>
-    <button data-go="search">Buscar / reservar</button>
-    <button data-go="add-car">Subir carro</button>
-    <button data-go="dashboard">Mi panel</button>
-    <button data-go="wallet">Dinero y retiros</button>
-    <button data-go="contracts">Contratos</button>
-    <button data-go="support">Soporte</button>
-    <button id="drawerLogout">Salir</button>
+    <button data-go="home">Home</button>
+    <button data-go="search">Search / book</button>
+    <button data-go="add-car">List a car</button>
+    <button data-go="dashboard">My panel</button>
+    <button data-go="wallet">Money and payouts</button>
+    <button data-go="contracts">Contracts</button>
+    <button data-go="support">Support</button>
+    <button id="drawerLogout">Sign out</button>
   </aside>
 
-  <nav class="mobile-tabbar" aria-label="Navegacion movil">
+  <nav class="mobile-tabbar" aria-label="Mobile navigation">
     <button type="button" data-go="home"><span>⌂</span>Home</button>
     <button type="button" data-go="dashboard"><span>◎</span>Account</button>
     <button type="button" data-go="add-car"><span>▣</span>Rent</button>
@@ -139,99 +141,99 @@
         </div>
         <form class="portal-card login-card" id="quickSearch">
           <div class="portal-card-head">
-            <p class="eyebrow">MVP real de prueba</p>
-            <h1>Inicia sesión</h1>
-            <p>Acceso seguro para clientes, socios individuales y empresas rent car.</p>
+            <p class="eyebrow">Real MVP test</p>
+            <h1>Sign in</h1>
+            <p>Secure access for renters, individual partners, and rental car companies.</p>
           </div>
           <div class="portal-tabs">
-            <button type="button" class="active" data-role-tab="renter">Cliente</button>
-            <button type="button" data-role-tab="fleet">Empresa / socio</button>
+            <button type="button" class="active" data-role-tab="renter">Renter</button>
+            <button type="button" data-role-tab="fleet">Company / partner</button>
           </div>
-          <label>Email o teléfono</label>
-          <input id="portalEmail" type="email" placeholder="correo@ejemplo.com">
-          <label>Contraseña</label>
+          <label>Email or phone</label>
+          <input id="portalEmail" type="email" placeholder="email@example.com">
+          <label>Password</label>
           <input id="portalPassword" type="password" placeholder="••••••••">
-          <button class="primary full portal-access" type="submit">Entrar al portal →</button>
-          <div class="divider">o continúa de forma segura</div>
+          <button class="primary full portal-access" type="submit">Enter portal →</button>
+          <div class="divider">or continue securely</div>
           <div class="social-login">
             <button type="button" data-demo="renter">G Google</button>
             <button type="button" data-demo="renter"> Apple ID</button>
           </div>
           <div class="portal-badges">
-            <span>Google disponible</span>
-            <span>Apple ID disponible</span>
+            <span>Google available</span>
+            <span>Apple ID available</span>
             <span>Hold $300</span>
           </div>
         </form>
       </div>
       <div class="portal-bottom">
         <span>1 Login</span>
-        <span>2 Fechas / vuelo</span>
-        <span>3 Carro / seguro</span>
-        <span>4 Pago / contrato</span>
+        <span>2 Dates / flight</span>
+        <span>3 Car / coverage</span>
+        <span>4 Payment / contract</span>
       </div>
     </section>
 
     <section class="page shell" id="page-auth">
       <div class="card auth-card">
-        <p class="eyebrow">Acceso</p>
-        <h2>Entrar al MVP</h2>
-        <p class="muted">Usa una cuenta demo o crea una cuenta nueva. Todo se guarda en este navegador.</p>
+        <p class="eyebrow">Access</p>
+        <h2>Enter the MVP</h2>
+        <p class="muted">Use a demo account or create a new one. Everything is saved in this browser.</p>
         <div class="demo-grid">
-          <button data-demo="renter">Cliente demo</button>
-          <button data-demo="owner">Socio individual</button>
-          <button data-demo="fleet">Empresa rent car</button>
+          <button data-demo="renter">Renter demo</button>
+          <button data-demo="owner">Individual partner</button>
+          <button data-demo="fleet">Rental company</button>
         </div>
-        <div class="divider">Crear cuenta</div>
+        <div class="divider">Create account</div>
         <form id="authForm">
           <div class="two">
-            <div><label>Nombre</label><input id="authName" placeholder="Juan Pérez" required></div>
-            <div><label>Rol</label><select id="authRole"><option value="renter">Cliente</option><option value="owner">Socio individual</option><option value="fleet">Empresa rent car</option></select></div>
+            <div><label>Name</label><input id="authName" placeholder="Juan Perez" required></div>
+            <div><label>Role</label><select id="authRole"><option value="renter">Renter</option><option value="owner">Individual partner</option><option value="fleet">Rental company</option></select></div>
           </div>
-          <label>Email</label><input id="authEmail" type="email" placeholder="correo@ejemplo.com" required>
-          <button class="primary full" type="submit">Crear y entrar</button>
+          <label>Email</label><input id="authEmail" type="email" placeholder="email@example.com" required>
+          <button class="primary full" type="submit">Create and enter</button>
         </form>
       </div>
     </section>
 
     <section class="page shell" id="page-search">
       <div class="section-head">
-        <div><p class="eyebrow">Cliente</p><h2>Paso 2: calendario, entrega y vuelo</h2></div>
-        <button class="ghost" data-go="dashboard">Mi panel</button>
+        <div><p class="eyebrow">Renter</p><h2>Step 2: calendar, delivery, and flight</h2></div>
+        <button class="ghost" data-go="dashboard">My panel</button>
       </div>
       <div class="process-rail">
         <span class="done">1 Login</span>
-        <span class="active">2 Fechas / vuelo</span>
-        <span>3 Carro / seguro</span>
-        <span>4 Pago / contrato</span>
+        <span class="active">2 Dates / flight</span>
+        <span>3 Car / coverage</span>
+        <span>4 Payment / contract</span>
       </div>
       <div class="flow-grid">
         <aside class="card">
-          <h3>Datos de renta</h3>
-          <label>Zona de entrega</label><select id="rentZone"></select>
+          <h3>Rental details</h3>
+          <label>Delivery zone</label><select id="rentZone"></select>
           <div class="two">
-            <div><label>Inicio</label><input id="rentStart" type="date"></div>
-            <div><label>Devolución</label><input id="rentEnd" type="date"></div>
+            <div><label>Start</label><input id="rentStart" type="date"></div>
+            <div><label>Return</label><input id="rentEnd" type="date"></div>
           </div>
-          <label>Aerolínea / vuelo</label>
+          <label>Airline / flight</label>
           <div class="two">
-            <select id="airline"><option>Sin vuelo</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select>
-            <input id="flightNo" placeholder="Ej. B6 309">
+            <select id="airline"><option>No flight</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select>
+            <input id="flightNo" placeholder="Ex. B6 309">
           </div>
-          <a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Completar e-Ticket oficial de RD →</a>
+          <a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Complete the official Dominican Republic e-Ticket →</a>
         </aside>
         <div>
           <div class="card step-card">
-            <p class="eyebrow">Paso 3</p>
-            <h3>Selecciona carro y seguro del dueño</h3>
-            <p class="muted">Cada dueño o empresa publica la cobertura disponible para su vehículo. El seguro se confirma antes de firmar.</p>
+            <p class="eyebrow">Step 3</p>
+            <h3>Select a car and owner coverage</h3>
+            <p class="muted">Each owner or company publishes the coverage available for the vehicle. Coverage is confirmed before signing.</p>
           </div>
           <div class="filters">
-            <button data-filter="all" class="on">Todos</button>
+            <button data-filter="all" class="on">All</button>
             <button data-filter="sedan">Sedan</button>
-            <button data-filter="suv2">SUV 2 filas</button>
-            <button data-filter="suv3">SUV 3 filas</button>
-            <button data-filter="luxury">Lujo</button>
+            <button data-filter="suv2">SUV 2 rows</button>
+            <button data-filter="suv3">SUV 3 rows</button>
+            <button data-filter="luxury">Luxury</button>
           </div>
           <div class="cars" id="carsList"></div>
         </div>
@@ -240,45 +242,45 @@
 
     <section class="page shell" id="page-checkout">
       <div class="section-head">
-        <div><p class="eyebrow">Reserva segura</p><h2>Paso 4: contrato, pago y políticas legales</h2></div>
-        <button class="ghost" data-go="search">Atrás</button>
+        <div><p class="eyebrow">Secure booking</p><h2>Step 4: contract, payment, and legal policy</h2></div>
+        <button class="ghost" data-go="search">Back</button>
       </div>
       <div class="process-rail">
         <span class="done">1 Login</span>
-        <span class="done">2 Fechas / vuelo</span>
-        <span class="done">3 Carro / seguro</span>
-        <span class="active">4 Pago / contrato</span>
+        <span class="done">2 Dates / flight</span>
+        <span class="done">3 Car / coverage</span>
+        <span class="active">4 Payment / contract</span>
       </div>
       <div class="checkout-grid">
         <form class="card" id="checkoutForm">
-          <h3>Datos del cliente y pago</h3>
-          <label>Protección elegida</label>
+          <h3>Customer and payment details</h3>
+          <label>Selected protection</label>
           <select id="protection">
-            <option value="basic">Básica registrada por el dueño - $0/día</option>
-            <option value="plus">Plus RuedaRD - $8/día</option>
-            <option value="premium">Premium RuedaRD - $15/día</option>
+            <option value="basic">Owner basic coverage - $0/day</option>
+            <option value="plus">RuedaRD Plus - $8/day</option>
+            <option value="premium">RuedaRD Premium - $15/day</option>
           </select>
           <div class="choice-box">
-            <strong>Documentos del cliente</strong>
-            <label class="check"><input type="radio" name="docTiming" value="now" checked> Subir documentos ahora y llegar más rápido.</label>
-            <label class="check"><input type="radio" name="docTiming" value="delivery"> Subir papeles en la entrega con ayuda del dueño/flota.</label>
+            <strong>Customer documents</strong>
+            <label class="check"><input type="radio" name="docTiming" value="now" checked> Upload documents now and speed up delivery.</label>
+            <label class="check"><input type="radio" name="docTiming" value="delivery"> Upload documents at delivery with owner/fleet assistance.</label>
           </div>
-          <label>Documento del cliente</label><input type="file" id="clientDoc" accept="image/*,.pdf">
-          <label>Licencia / pasaporte</label><input type="file" id="clientLicense" accept="image/*,.pdf">
-          <label>Método de pago</label>
+          <label>Customer document</label><input type="file" id="clientDoc" accept="image/*,.pdf">
+          <label>License / passport</label><input type="file" id="clientLicense" accept="image/*,.pdf">
+          <label>Payment method</label>
           <select id="paymentMethod">
             <option>Azul / Banco Popular demo</option>
             <option>PayPal demo</option>
-            <option>Tarjeta demo</option>
+            <option>Demo card</option>
           </select>
-          <div class="notice">Se simula hold de depósito de $300. No se cobra hasta confirmar entrega con la flota o dueño.</div>
+          <div class="notice">A $300 deposit hold is simulated. It is not captured until delivery is confirmed with the fleet or owner.</div>
           <div class="choice-box legal-box">
-            <strong>Políticas y leyes visibles</strong>
-            <p>El cliente confirma que leyó precio, depósito, seguro, entrega, devolución, daños y responsabilidad. No se permiten cláusulas ocultas ni cargos fuera del contrato.</p>
-            <label class="check"><input id="legalOk" type="checkbox" required> Acepto las políticas visibles y el contrato de renta.</label>
+            <strong>Visible legal policies</strong>
+            <p>The customer confirms that price, deposit, coverage, delivery, return, damage, and responsibility terms were visible. Hidden clauses or off-contract charges are not allowed.</p>
+            <label class="check"><input id="legalOk" type="checkbox" required> I accept the visible policies and rental contract.</label>
           </div>
-          <label>Firma digital para contrato</label><input id="signature" placeholder="Escribe tu nombre completo" required>
-          <button class="primary full" type="submit">Pagar hold, firmar y generar contrato</button>
+          <label>Digital signature for contract</label><input id="signature" placeholder="Type your full name" required>
+          <button class="primary full" type="submit">Authorize hold, sign, and generate contract</button>
         </form>
         <aside class="card summary" id="checkoutSummary"></aside>
       </div>
@@ -286,87 +288,87 @@
 
     <section class="page shell" id="page-add-car">
       <div class="section-head">
-        <div><p class="eyebrow">Dueños y empresas</p><h2>Activar cuenta y subir carro</h2></div>
-        <button class="ghost" data-go="dashboard">Panel</button>
+        <div><p class="eyebrow">Owners and companies</p><h2>Activate account and list a car</h2></div>
+        <button class="ghost" data-go="dashboard">Dashboard</button>
       </div>
       <div class="process-rail">
         <span class="done">1 Login</span>
-        <span class="active">2 Activar cuenta</span>
-        <span>3 Publicar carro</span>
-        <span>4 Listo para reservas</span>
+        <span class="active">2 Activate account</span>
+        <span>3 List car</span>
+        <span>4 Ready for bookings</span>
       </div>
       <form class="card wide" id="carForm">
         <div class="owner-activation">
-          <h3>Cuenta del dueño / empresa</h3>
+          <h3>Owner / company account</h3>
           <div class="three">
-            <div><label>Tipo de cuenta</label><select id="accountType"><option value="fleet">Empresa rent car</option><option value="owner">Socio individual</option></select></div>
-            <div><label>Banco para retiro</label><input id="bankName" placeholder="Popular, BHD, Banreservas"></div>
-            <div><label>Teléfono / contacto</label><input id="ownerPhone" placeholder="809-000-0000"></div>
+            <div><label>Account type</label><select id="accountType"><option value="fleet">Rental company</option><option value="owner">Individual partner</option></select></div>
+            <div><label>Payout bank</label><input id="bankName" placeholder="Popular, BHD, Banreservas"></div>
+            <div><label>Phone / contact</label><input id="ownerPhone" placeholder="809-000-0000"></div>
           </div>
-          <div class="notice">Al guardar el carro, esta cuenta queda activa en demo y el proceso queda registrado en la bitácora.</div>
+          <div class="notice">When the car is saved, this demo account becomes active and the process is recorded in the activity log.</div>
         </div>
         <div class="two">
-          <div><label>Marca</label><select id="carBrand" required></select></div>
-          <div><label>Modelo</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div>
+          <div><label>Brand</label><select id="carBrand" required></select></div>
+          <div><label>Model</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div>
         </div>
         <div class="three">
-          <div><label>Año</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div>
-          <div><label>Categoría</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 filas</option><option value="suv3">SUV 3 filas</option><option value="luxury">Lujo</option></select></div>
-          <div><label>Precio dueño / día</label><input id="carPrice" type="number" min="20" value="40" required></div>
+          <div><label>Year</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div>
+          <div><label>Category</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 rows</option><option value="suv3">SUV 3 rows</option><option value="luxury">Luxury</option></select></div>
+          <div><label>Owner price / day</label><input id="carPrice" type="number" min="20" value="40" required></div>
         </div>
         <div class="three">
-          <div><label>Zona</label><select id="carZone"></select></div>
-          <div><label>Asientos</label><input id="carSeats" type="number" min="2" max="12" value="5"></div>
-          <div><label>Paquete ads</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div>
+          <div><label>Zone</label><select id="carZone"></select></div>
+          <div><label>Seats</label><input id="carSeats" type="number" min="2" max="12" value="5"></div>
+          <div><label>Ads package</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div>
         </div>
-        <label>Fotos del carro</label><input id="carPhotos" type="file" accept="image/*" multiple>
+        <label>Car photos</label><input id="carPhotos" type="file" accept="image/*" multiple>
         <div class="three">
-          <div><label>Seguro</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div>
-          <div><label>Matrícula / título</label><input id="docTitle" type="file" accept="image/*,.pdf"></div>
-          <div><label>Dueño / compañía</label><input id="docOwner" type="file" accept="image/*,.pdf"></div>
+          <div><label>Coverage</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div>
+          <div><label>Registration / title</label><input id="docTitle" type="file" accept="image/*,.pdf"></div>
+          <div><label>Owner / company</label><input id="docOwner" type="file" accept="image/*,.pdf"></div>
         </div>
-        <label class="check"><input id="contractOk" type="checkbox" required> El contrato mostrará todas las cláusulas visibles, sin condiciones ocultas.</label>
-        <button class="primary full" type="submit">Guardar carro en el MVP</button>
+        <label class="check"><input id="contractOk" type="checkbox" required> The contract will show all clauses clearly, with no hidden conditions.</label>
+        <button class="primary full" type="submit">Save car in MVP</button>
       </form>
     </section>
 
     <section class="page shell" id="page-dashboard">
       <div class="section-head">
-        <div><p class="eyebrow" id="dashRole">Panel</p><h2 id="dashTitle">Mi panel RuedaRD</h2></div>
-        <button class="primary small" data-go="add-car">Subir carro</button>
+        <div><p class="eyebrow" id="dashRole">Dashboard</p><h2 id="dashTitle">My RuedaRD dashboard</h2></div>
+        <button class="primary small" data-go="add-car">List a car</button>
       </div>
       <div class="stats" id="stats"></div>
       <div class="dash-grid">
-        <section class="card"><h3>Reservas</h3><div id="bookingList"></div></section>
-        <section class="card"><h3>Mis carros / flota</h3><div id="ownerCars"></div></section>
-        <section class="card wide"><h3>Registro del proceso</h3><div id="eventLog"></div></section>
+        <section class="card"><h3>Bookings</h3><div id="bookingList"></div></section>
+        <section class="card"><h3>My cars / fleet</h3><div id="ownerCars"></div></section>
+        <section class="card wide"><h3>Process log</h3><div id="eventLog"></div></section>
       </div>
     </section>
 
     <section class="page shell" id="page-wallet">
       <div class="section-head">
-        <div><p class="eyebrow">Dinero</p><h2>Balance y retiros</h2></div>
+        <div><p class="eyebrow">Money</p><h2>Balance and payouts</h2></div>
       </div>
       <div class="card wide" id="walletPanel"></div>
     </section>
 
     <section class="page shell" id="page-contracts">
       <div class="section-head">
-        <div><p class="eyebrow">Documentos</p><h2>Contratos y recibos</h2></div>
+        <div><p class="eyebrow">Documents</p><h2>Contracts and receipts</h2></div>
       </div>
       <div class="card wide" id="contractList"></div>
     </section>
 
     <section class="page shell" id="page-support">
       <div class="card wide">
-        <p class="eyebrow">Soporte MVP</p>
-        <h2>Lo que falta para producción real</h2>
+        <p class="eyebrow">MVP support</p>
+        <h2>What is still needed for real production</h2>
         <ul class="bullets">
-          <li>Conectar Supabase/Postgres para usuarios y carros reales.</li>
-          <li>Integrar Azul con credenciales de comercio y endpoint backend seguro.</li>
-          <li>Integrar PayPal Authorize/Capture para retener depósito.</li>
-          <li>Validación real de documentos, KYC, 2FA/passkey y auditoría.</li>
-          <li>Generación PDF firmada desde backend y storage privado.</li>
+          <li>Connect Supabase/Postgres for real users and cars.</li>
+          <li>Integrate Azul with merchant credentials and a secure backend endpoint.</li>
+          <li>Integrate PayPal Authorize/Capture for deposit holds.</li>
+          <li>Add real document validation, KYC, 2FA/passkey, and audit logs.</li>
+          <li>Generate signed PDFs from the backend and store them privately.</li>
         </ul>
       </div>
     </section>
@@ -379,7 +381,7 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app.js?v=52"></script>
+  <script src="app.js?v=53"></script>
   <script>
     (function(){
       var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
@@ -391,7 +393,7 @@
         var btn = document.getElementById('themeBtn');
         if (!btn) return;
         btn.textContent = dark ? '🌙' : '☀';
-        btn.setAttribute('title', manualMode ? 'Tema manual temporal' : 'Tema automatico del sistema');
+        btn.setAttribute('title', manualMode ? 'Temporary manual theme' : 'Automatic system theme');
         btn.setAttribute('aria-label', btn.getAttribute('title'));
       }
       function bindTheme(){
