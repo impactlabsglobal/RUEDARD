@@ -3,17 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <title>RuedaRD MVP Real Demo</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=51">
+  <link rel="stylesheet" href="styles.css?v=52">
   <style>
     :root{--blue:#2563EB;--yellow:#2563EB}
     .primary{background:#2563EB!important;color:#fff!important}
     .portal-access,.process-rail .active{background:#2563EB!important;border-color:#2563EB!important;color:#fff!important}
     .brand:after,.logo-mark:before{background:#2563EB!important;border-color:#2563EB!important}
     .mobile-tabbar button:first-child{color:#2563EB!important}
+    html[data-theme="dark"],
     [data-theme="dark"] body,
     [data-theme="dark"] main,
     [data-theme="dark"] .portal-home,
@@ -26,6 +28,10 @@
     [data-theme="dark"] .auth-card,
     [data-theme="dark"] .car-card,
     [data-theme="dark"] .item,
+    [data-theme="dark"] .summary,
+    [data-theme="dark"] .checkout-grid,
+    [data-theme="dark"] .flow-grid,
+    [data-theme="dark"] .dash-grid,
     [data-theme="dark"] .portal-bottom span{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
     [data-theme="dark"] .brand,
     [data-theme="dark"] .brand span,
@@ -33,11 +39,15 @@
     [data-theme="dark"] h1,
     [data-theme="dark"] h2,
     [data-theme="dark"] h3,
+    [data-theme="dark"] strong,
     [data-theme="dark"] label{color:#F8FAFC!important}
     [data-theme="dark"] .portal-card-head p:not(.eyebrow),
     [data-theme="dark"] .muted,
     [data-theme="dark"] .mini,
     [data-theme="dark"] .divider{color:#A8B3C5!important}
+    [data-theme="dark"] p,
+    [data-theme="dark"] li,
+    [data-theme="dark"] span{border-color:#24364F}
     [data-theme="dark"] .hamb,
     [data-theme="dark"] .ghost,
     [data-theme="dark"] .social-login button,
@@ -61,6 +71,15 @@
     [data-theme="dark"] .photo-empty{color:#F8FAFC!important}
     [data-theme="dark"] .demo-strip,
     [data-theme="dark"] .mobile-tabbar{background:#020817!important}
+    [data-theme="dark"] .portal-stage{background:
+      linear-gradient(180deg,rgba(7,17,31,.92),rgba(7,17,31,.98)),
+      radial-gradient(circle at 20% 0%,rgba(37,99,235,.18),transparent 34%)!important}
+    [data-theme="dark"] .portal-logo strong,
+    [data-theme="dark"] .portal-logo strong span{color:#F8FAFC!important}
+    [data-theme="dark"] .portal-badges span,
+    [data-theme="dark"] .tag{background:#16243A!important;color:#DCEBFF!important;border-color:#2B4D77!important}
+    [data-theme="dark"] .link{color:#93C5FD!important}
+    [data-theme="dark"] .toast{background:#020817!important;color:#F8FAFC!important;border:1px solid #24364F!important}
     [data-theme="dark"] .process-rail span{background:#101C2D!important;color:#A8B3C5!important;border-color:#24364F!important}
     [data-theme="dark"] .process-rail .done{background:#020817!important;color:#fff!important}
   </style>
@@ -360,20 +379,19 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app.js?v=51"></script>
+  <script src="app.js?v=52"></script>
   <script>
     (function(){
-      var key = 'ruedard_theme_mode_v3';
       var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-      var mode = localStorage.getItem(key) || 'auto';
+      var manualMode = null;
       function systemDark(){ return !!(media && media.matches); }
       function applyTheme(){
-        var dark = mode === 'dark' || (mode === 'auto' && systemDark());
+        var dark = manualMode ? manualMode === 'dark' : systemDark();
         document.documentElement.dataset.theme = dark ? 'dark' : 'light';
         var btn = document.getElementById('themeBtn');
         if (!btn) return;
-        btn.textContent = mode === 'auto' ? (dark ? '🌙' : '☀') : mode === 'dark' ? '🌙' : '☀';
-        btn.setAttribute('title', mode === 'auto' ? 'Tema automatico del sistema' : mode === 'dark' ? 'Modo oscuro manual' : 'Modo claro manual');
+        btn.textContent = dark ? '🌙' : '☀';
+        btn.setAttribute('title', manualMode ? 'Tema manual temporal' : 'Tema automatico del sistema');
         btn.setAttribute('aria-label', btn.getAttribute('title'));
       }
       function bindTheme(){
@@ -382,13 +400,12 @@
           var btn = oldBtn.cloneNode(true);
           oldBtn.replaceWith(btn);
           btn.addEventListener('click', function(){
-            mode = mode === 'auto' ? 'dark' : mode === 'dark' ? 'light' : 'auto';
-            localStorage.setItem(key, mode);
+            manualMode = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
             applyTheme();
           });
         }
         if (media && media.addEventListener) {
-          media.addEventListener('change', function(){ if (mode === 'auto') applyTheme(); });
+          media.addEventListener('change', function(){ manualMode = null; applyTheme(); });
         }
         applyTheme();
       }
