@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=53">
+  <link rel="stylesheet" href="styles.css?v=54">
   <style>
     :root{--blue:#2563EB;--yellow:#2563EB}
     .primary{background:#2563EB!important;color:#fff!important}
@@ -26,6 +26,8 @@
     [data-theme="dark"] .topbar,
     [data-theme="dark"] .drawer,
     [data-theme="dark"] .portal-card,
+    [data-theme="dark"] .house-card,
+    [data-theme="dark"] .house-search,
     [data-theme="dark"] .booking-card,
     [data-theme="dark"] .card,
     [data-theme="dark"] .auth-card,
@@ -98,8 +100,9 @@
     <button class="hamb" id="menuBtn" type="button" aria-label="Open menu">☰</button>
     <button class="brand" type="button" data-go="home">Rueda<span>RD</span> 🇩🇴</button>
     <nav class="nav" id="desktopNav">
-      <button data-go="search">Find cars</button>
-      <button data-go="add-car">List my car</button>
+      <button data-go="search">Cars</button>
+      <button data-go="houses">Rueda Casa</button>
+      <button data-go="add-car">List vehicle</button>
       <button data-go="dashboard">Dashboard</button>
       <button data-go="support">Support</button>
     </nav>
@@ -116,6 +119,7 @@
     </div>
     <button data-go="home">Home</button>
     <button data-go="search">Search / book</button>
+    <button data-go="houses">Rueda Casa</button>
     <button data-go="add-car">List a car</button>
     <button data-go="dashboard">My panel</button>
     <button data-go="wallet">Money and payouts</button>
@@ -127,7 +131,8 @@
   <nav class="mobile-tabbar" aria-label="Mobile navigation">
     <button type="button" data-go="home"><span>⌂</span>Home</button>
     <button type="button" data-go="dashboard"><span>◎</span>Account</button>
-    <button type="button" data-go="add-car"><span>▣</span>Rent</button>
+    <button type="button" data-go="search"><span>▣</span>Cars</button>
+    <button type="button" data-go="houses"><span>⌂</span>Homes</button>
     <button type="button" data-go="search"><span>⌕</span>Search</button>
   </nav>
 
@@ -172,6 +177,69 @@
         <span>3 Car / coverage</span>
         <span>4 Payment / contract</span>
       </div>
+    </section>
+
+    <section class="page shell" id="page-houses">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Rueda Casa</p>
+          <h2>Homes, deposits, contracts, and owner payouts in one portal</h2>
+        </div>
+        <button class="primary small" id="showHouseForm" type="button">List your home</button>
+      </div>
+      <div class="house-hero card wide">
+        <div>
+          <p class="eyebrow">No cash. No side deals.</p>
+          <h3>Tenants pay in the portal. Owners receive payouts to their account.</h3>
+          <p class="muted">Rueda Casa records photos, documents, lease terms, deposits, payments, and contract acceptance. Platform fee: 15% to cover legal support and operations.</p>
+        </div>
+        <div class="house-metrics">
+          <span><strong>15%</strong> platform/legal fee</span>
+          <span><strong>Stripe</strong> Connect ready</span>
+          <span><strong>0 cash</strong> tenant payments</span>
+        </div>
+      </div>
+      <div class="house-search">
+        <div class="search-pill">
+          <span>⌕</span>
+          <input id="houseQuery" placeholder="Search city, sector, bedrooms, pool...">
+        </div>
+        <button class="ghost" type="button" id="houseFilterBtn">Filters</button>
+        <button class="ghost" type="button" id="houseMapBtn">Map</button>
+      </div>
+      <div class="filters house-filters">
+        <button data-house-filter="all" class="on">All</button>
+        <button data-house-filter="apartment">Apartments</button>
+        <button data-house-filter="house">Houses</button>
+        <button data-house-filter="villa">Villas</button>
+        <button data-house-filter="premium">Premium</button>
+      </div>
+      <form class="card wide house-form" id="houseForm">
+        <div class="section-head compact">
+          <div><p class="eyebrow">Owner flow</p><h3>List a home for rent</h3></div>
+          <button class="ghost" type="button" id="hideHouseForm">Close</button>
+        </div>
+        <div class="three">
+          <div><label>Property title</label><input id="houseTitle" placeholder="Piantini furnished apartment" required></div>
+          <div><label>Type</label><select id="houseType"><option value="apartment">Apartment</option><option value="house">House</option><option value="villa">Villa</option></select></div>
+          <div><label>Monthly rent</label><input id="houseRent" type="number" min="300" value="1200" required></div>
+        </div>
+        <div class="three">
+          <div><label>Location</label><input id="houseLocation" placeholder="Piantini, Santo Domingo" required></div>
+          <div><label>Beds</label><input id="houseBeds" type="number" min="0" value="2"></div>
+          <div><label>Baths</label><input id="houseBaths" type="number" min="1" value="2"></div>
+        </div>
+        <label>Description</label><textarea id="houseDescription" placeholder="Pool, parking, furnished, security, maintenance included..."></textarea>
+        <label>Photos</label><input id="housePhotos" type="file" accept="image/*" multiple>
+        <div class="three">
+          <div><label>Title / ownership document</label><input id="houseOwnershipDoc" type="file" accept="image/*,.pdf"></div>
+          <div><label>Lease template</label><input id="houseLeaseDoc" type="file" accept="image/*,.pdf"></div>
+          <div><label>Owner ID / company</label><input id="houseOwnerDoc" type="file" accept="image/*,.pdf"></div>
+        </div>
+        <label class="check"><input id="houseTermsOk" type="checkbox" required> I agree that every tenant payment, deposit, contract, and owner payout must run through Rueda Casa. No cash side payment.</label>
+        <button class="primary full" type="submit">Publish home in Rueda Casa</button>
+      </form>
+      <div class="house-grid" id="housesList"></div>
     </section>
 
     <section class="page shell" id="page-auth">
@@ -340,7 +408,7 @@
       <div class="stats" id="stats"></div>
       <div class="dash-grid">
         <section class="card"><h3>Bookings</h3><div id="bookingList"></div></section>
-        <section class="card"><h3>My cars / fleet</h3><div id="ownerCars"></div></section>
+        <section class="card"><h3>My vehicles / homes</h3><div id="ownerCars"></div></section>
         <section class="card wide"><h3>Process log</h3><div id="eventLog"></div></section>
       </div>
     </section>
@@ -381,7 +449,7 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app.js?v=53"></script>
+  <script src="app.js?v=54"></script>
   <script>
     (function(){
       var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
