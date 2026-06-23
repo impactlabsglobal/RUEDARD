@@ -1,176 +1,642 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light dark"><title>RuedaRD Real MVP Demo</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css?v=57"><style>
-:root{--blue:#2563EB;--yellow:#2563EB}
-.primary{background:#2563EB!important;color:#fff!important}
-.portal-access,.process-rail .active{background:#2563EB!important;border-color:#2563EB!important;color:#fff!important}
-.brand:after,.logo-mark:before{background:#2563EB!important;border-color:#2563EB!important}
-.mobile-tabbar button:first-child{color:#2563EB!important}
-.top-actions{background:rgba(255,255,255,.72)!important;border:1px solid rgba(15,23,42,.08)!important;border-radius:999px!important;padding:5px!important;box-shadow:0 14px 34px rgba(15,23,42,.08)!important;backdrop-filter:blur(16px)}
-.top-actions .ghost{border-radius:999px!important;border-color:rgba(15,23,42,.14)!important}
-@media(max-width:640px){.top-actions{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:none!important}.top-actions .ghost{min-width:46px!important;height:42px!important}}
-html[data-theme="dark"],
-[data-theme="dark"] body,
-[data-theme="dark"] main,
-[data-theme="dark"] .portal-home,
-[data-theme="dark"] .shell{background:#07111F!important;color:#F8FAFC!important}
-[data-theme="dark"] .topbar,
-[data-theme="dark"] .drawer,
-[data-theme="dark"] .portal-card,
-[data-theme="dark"] .house-card,
-[data-theme="dark"] .house-search,
-[data-theme="dark"] .booking-card,
-[data-theme="dark"] .card,
-[data-theme="dark"] .auth-card,
-[data-theme="dark"] .car-card,
-[data-theme="dark"] .item,
-[data-theme="dark"] .summary,
-[data-theme="dark"] .checkout-grid,
-[data-theme="dark"] .flow-grid,
-[data-theme="dark"] .dash-grid,
-[data-theme="dark"] .portal-bottom span{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
-[data-theme="dark"] .brand,
-[data-theme="dark"] .brand span,
-[data-theme="dark"] .nav button,
-[data-theme="dark"] h1,
-[data-theme="dark"] h2,
-[data-theme="dark"] h3,
-[data-theme="dark"] strong,
-[data-theme="dark"] label{color:#F8FAFC!important}
-[data-theme="dark"] .portal-card-head p:not(.eyebrow),
-[data-theme="dark"] .muted,
-[data-theme="dark"] .mini,
-[data-theme="dark"] .divider{color:#A8B3C5!important}
-[data-theme="dark"] p,
-[data-theme="dark"] li,
-[data-theme="dark"] span{border-color:#24364F}
-[data-theme="dark"] .hamb,
-[data-theme="dark"] .ghost,
-[data-theme="dark"] .social-login button,
-[data-theme="dark"] .portal-tabs button,
-[data-theme="dark"] .demo-grid button,
-[data-theme="dark"] .filters button,
-[data-theme="dark"] .drawer button{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
-[data-theme="dark"] .portal-tabs{background:#07111F!important;border-color:#24364F!important}
-[data-theme="dark"] .top-actions{background:rgba(16,28,45,.86)!important;border-color:#24364F!important}
-[data-theme="dark"] .portal-tabs button.active,
-[data-theme="dark"] .portal-tabs button:hover{background:#16243A!important;color:#F8FAFC!important}
-[data-theme="dark"] input,
-[data-theme="dark"] select,
-[data-theme="dark"] textarea{background:#07111F!important;color:#F8FAFC!important;border-color:#344963!important}
-[data-theme="dark"] input::placeholder,
-[data-theme="dark"] textarea::placeholder{color:#7F8EA3!important}
-[data-theme="dark"] .choice-box,
-[data-theme="dark"] .owner-activation,
-[data-theme="dark"] .chips span,
-[data-theme="dark"] .car-media{background:#07111F!important;color:#A8B3C5!important;border-color:#24364F!important}
-[data-theme="dark"] .photo-empty{color:#F8FAFC!important}
-[data-theme="dark"] .demo-strip,
-[data-theme="dark"] .mobile-tabbar{background:#020817!important}
-[data-theme="dark"] .portal-stage{background:
-linear-gradient(180deg,rgba(7,17,31,.92),rgba(7,17,31,.98)),
-radial-gradient(circle at 20% 0%,rgba(37,99,235,.18),transparent 34%)!important}
-[data-theme="dark"] .portal-logo strong,
-[data-theme="dark"] .portal-logo strong span{color:#F8FAFC!important}
-[data-theme="dark"] .portal-badges span,
-[data-theme="dark"] .tag{background:#16243A!important;color:#DCEBFF!important;border-color:#2B4D77!important}
-[data-theme="dark"] .link{color:#93C5FD!important}
-[data-theme="dark"] .toast{background:#020817!important;color:#F8FAFC!important;border:1px solid #24364F!important}
-[data-theme="dark"] .process-rail span{background:#101C2D!important;color:#A8B3C5!important;border-color:#24364F!important}
-[data-theme="dark"] .process-rail .done{background:#020817!important;color:#fff!important}
-body{background:#fff!important;color:#111!important}.topbar{height:82px!important;background:#fff!important;color:#111!important;border-bottom:1px solid #eee!important;box-shadow:none!important}.brand{color:#111!important;letter-spacing:.08em!important;text-transform:uppercase!important}.brand span{color:#111!important}.brand:after{display:none!important}.hamb{display:grid!important;place-items:center!important;background:#fff!important;border:0!important;color:#111!important;border-radius:999px!important}.nav{margin-left:auto!important;gap:10px!important}.nav button{border:1px solid #e8e8e8!important;background:#fff!important;color:#111!important;border-radius:999px!important;padding:10px 16px!important;text-decoration:none!important}.nav button:hover{background:#111!important;color:#fff!important}.top-actions{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}.top-actions .ghost{border:1px solid #e8e8e8!important;background:#fff!important;color:#111!important;border-radius:999px!important}.primary{background:#593CFB!important;color:#fff!important}.demo-strip{background:#f4f4f4!important;color:#111!important;text-decoration:underline!important;text-transform:none!important;letter-spacing:0!important;font-size:1rem!important;font-weight:650!important;padding:16px!important}.portal-home{background:#fff!important;color:#111!important}.market-home{width:min(100% - 48px,1280px)!important;margin:0 auto!important;padding:36px 0 92px!important}.market-logo{justify-content:flex-start!important;margin:0 0 36px!important}.market-logo .logo-mark{width:72px!important;height:42px!important;border-radius:0!important;background:#111!important;color:#fff!important}.market-logo .logo-mark:before{display:none!important}.portal-logo strong{font-size:1.35rem!important;letter-spacing:.08em!important;text-transform:uppercase!important}.portal-logo strong span{color:#111!important}.market-hero{min-height:360px!important;border-radius:22px!important;background:linear-gradient(90deg,rgba(0,0,0,.26),rgba(0,0,0,.1)),url('assets/ruedard-hero-dominicana.png') center/cover no-repeat!important;display:grid!important;align-items:center!important;padding:74px 8% 92px!important;position:relative!important;overflow:visible!important}.market-copy{text-align:center!important;color:#fff!important;max-width:860px!important;margin:0 auto!important}.market-copy .eyebrow{color:rgba(255,255,255,.82)!important}.market-copy h1{font-size:clamp(2.5rem,6vw,4.4rem)!important;letter-spacing:-.06em!important;margin-bottom:10px!important;color:#fff!important}.market-copy p:not(.eyebrow){font-size:1.25rem!important;color:rgba(255,255,255,.92)!important}.market-search-card{position:absolute!important;left:50%!important;bottom:-52px!important;transform:translateX(-50%)!important;width:min(86%,1040px)!important;border-radius:18px!important;border:0!important;padding:0!important;background:#fff!important;box-shadow:0 18px 60px rgba(0,0,0,.22)!important;overflow:hidden!important}.market-search-card .portal-card-head{display:none!important}.market-search-card .portal-tabs{width:310px!important;margin:0!important;background:#f4f4f4!important;border:0!important;border-radius:0!important}.market-search-card .portal-tabs button{padding:14px 18px!important;border-radius:0!important}.market-search-card .portal-tabs button.active{box-shadow:none!important;background:#111!important;color:#fff!important}.market-fields{display:grid!important;grid-template-columns:1.5fr 1fr auto!important;align-items:end!important}.market-fields label{margin:0!important;padding:18px 22px!important;color:#555!important;text-transform:none!important;letter-spacing:0!important;font-size:.92rem!important;border-right:1px solid #eee!important}.market-fields input{border:0!important;padding:6px 0 0!important;font-size:1.08rem!important;color:#111!important;background:#fff!important;box-shadow:none!important}.market-fields .primary{height:58px!important;width:58px!important;border-radius:14px!important;margin:14px!important;font-size:0!important}.market-fields .primary:after{content:"⌕";font-size:2rem;line-height:1}.market-search-card .social-login{display:none!important}.market-pills{display:flex!important;justify-content:center!important;align-items:center!important;gap:30px!important;margin:88px auto 22px!important;flex-wrap:wrap!important}.market-pills button{border:0!important;background:transparent!important;color:#111!important;font-weight:850!important;font-size:1.03rem!important;padding:13px 18px!important;border-radius:16px!important}.market-pills button.active,.market-pills button:hover{background:#111!important;color:#fff!important}.market-steps{margin-top:24px!important}.portal-bottom span{border:0!important;background:#f7f7f7!important;border-radius:18px!important;color:#333!important}.card,.booking-card,.car-card,.item,.auth-card{border-color:#ececec!important;border-radius:18px!important;box-shadow:none!important}.car-card{border-radius:20px!important}.car-media{height:260px!important;border-radius:18px!important;background:#f3f3f3!important}.price{color:#111!important}.tag{background:#111!important;color:#fff!important;border-radius:999px!important}.filters button.on{background:#111!important;border-color:#111!important;box-shadow:none!important}
-[data-theme="dark"] body,[data-theme="dark"] .portal-home,[data-theme="dark"] .shell{background:#0B0B0C!important;color:#F7F7F7!important}[data-theme="dark"] .topbar,[data-theme="dark"] .card,[data-theme="dark"] .car-card,[data-theme="dark"] .item,[data-theme="dark"] .auth-card,[data-theme="dark"] .market-search-card{background:#151516!important;border-color:#2b2b2d!important}[data-theme="dark"] .demo-strip{background:#111!important;color:#f7f7f7!important}[data-theme="dark"] .nav button,[data-theme="dark"] .ghost,[data-theme="dark"] .hamb{background:#151516!important;color:#fff!important;border-color:#2b2b2d!important}[data-theme="dark"] .nav button:hover,[data-theme="dark"] .market-pills button.active,[data-theme="dark"] .market-pills button:hover{background:#fff!important;color:#111!important}[data-theme="dark"] .brand,[data-theme="dark"] .brand span,[data-theme="dark"] .portal-logo strong,[data-theme="dark"] .portal-logo strong span{color:#fff!important}[data-theme="dark"] .market-fields label,[data-theme="dark"] .market-fields input,[data-theme="dark"] .market-search-card .portal-tabs button{background:#151516!important;color:#fff!important}[data-theme="dark"] .market-search-card .portal-tabs,[data-theme="dark"] .portal-bottom span{background:#202022!important;color:#fff!important}[data-theme="dark"] .market-search-card .portal-tabs button.active{background:#fff!important;color:#111!important}
-@media(max-width:1099px){.nav{display:none!important}.market-home{width:min(100% - 28px,900px)!important;padding-top:22px!important}.market-hero{padding:56px 24px 150px!important}.market-search-card{width:calc(100% - 28px)!important;bottom:-88px!important}.market-fields{grid-template-columns:1fr!important}.market-fields label{border-right:0!important;border-bottom:1px solid #eee!important;padding:14px 18px!important}.market-fields .primary{width:calc(100% - 28px)!important;font-size:1rem!important;margin:14px!important}.market-fields .primary:after{content:""!important}.market-pills{margin-top:124px!important;gap:10px!important;justify-content:flex-start!important;overflow:auto!important;flex-wrap:nowrap!important;padding-bottom:4px!important}.market-pills button{white-space:nowrap!important;background:#f7f7f7!important}}
-@media(max-width:640px){.topbar{height:68px!important;background:#fff!important}.brand{max-width:none!important;font-size:.9rem!important}.top-actions .primary{display:none!important}.demo-strip{font-size:.82rem!important;padding:12px 20px!important}.market-logo{margin-bottom:18px!important}.market-hero{border-radius:18px!important;min-height:390px!important;padding:44px 18px 168px!important}.market-copy h1{font-size:2.45rem!important}.market-copy p:not(.eyebrow){font-size:1.02rem!important}.market-search-card{bottom:-116px!important;border-radius:16px!important}.market-search-card .portal-tabs{width:100%!important;grid-template-columns:1fr 1fr!important}.market-pills{margin-top:148px!important}.mobile-tabbar{background:#050505!important}}
-/* Flat aesthetic override: no glass, no heavy color blocks, no loud shadows. */
-:root{--blue:#2563EB!important;--yellow:#2563EB!important;--border:#E6E8EC!important;--muted:#667085!important;--text:#111827!important}
-body{background:#fff!important;color:#111827!important}
-.topbar{height:78px!important;background:#fff!important;border-bottom:1px solid #ECEFF3!important;padding-left:max(20px,calc((100vw - 1240px)/2))!important;padding-right:max(20px,calc((100vw - 1240px)/2))!important}
-.hamb,.top-actions .ghost,.nav button,.market-pills button,.filters button,.demo-grid button{box-shadow:none!important;backdrop-filter:none!important}
-.top-actions{background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
-.brand{font-size:1.12rem!important;font-weight:900!important;letter-spacing:.02em!important;text-transform:none!important}
-.brand span{color:#2563EB!important}
-.nav button{border:0!important;background:#fff!important;color:#111827!important;border-radius:12px!important;padding:10px 12px!important;font-weight:800!important}
-.nav button:hover{background:#F5F7FA!important;color:#111827!important}
-.primary{background:#2563EB!important;color:#fff!important;border-radius:12px!important;box-shadow:none!important}
-.ghost{background:#fff!important;color:#111827!important;border:1px solid #E6E8EC!important;border-radius:12px!important}
-.demo-strip{background:#fff!important;border-bottom:1px solid #ECEFF3!important;color:#111827!important;text-decoration:underline!important;font-size:.95rem!important;padding:14px!important}
-.market-home{width:min(100% - 40px,1240px)!important;padding:28px 0 76px!important}
-.market-logo{margin:0 0 28px!important}
-.market-logo .logo-mark{width:68px!important;height:38px!important;background:#111827!important;border-radius:0!important}
-.portal-logo strong{font-size:1.18rem!important;letter-spacing:.02em!important;text-transform:none!important}
-.portal-logo strong span{color:#2563EB!important}
-.market-hero{min-height:348px!important;border-radius:18px!important;background:url('assets/ruedard-hero-dominicana.png') center/cover no-repeat!important;padding:70px 7% 88px!important;border:1px solid #ECEFF3!important;box-shadow:none!important}
-.market-hero:before{content:""!important;position:absolute!important;inset:0!important;background:rgba(0,0,0,.18)!important;border-radius:18px!important;pointer-events:none!important}
-.market-copy{position:relative!important;z-index:1!important}
-.market-copy .eyebrow{color:#fff!important;font-size:.78rem!important;letter-spacing:.12em!important}
-.market-copy h1{color:#fff!important;font-size:clamp(2.4rem,5.6vw,4rem)!important}
-.market-copy p:not(.eyebrow){color:#fff!important;font-size:1.12rem!important}
-.market-search-card{bottom:-42px!important;width:min(88%,1010px)!important;border:1px solid #E6E8EC!important;border-radius:16px!important;box-shadow:0 8px 24px rgba(17,24,39,.08)!important;background:#fff!important}
-.market-search-card .portal-tabs{background:#F5F7FA!important;border-bottom:1px solid #ECEFF3!important;width:300px!important}
-.market-search-card .portal-tabs button.active{background:#111827!important;color:#fff!important}
-.market-fields label{padding:16px 20px!important;border-right:1px solid #ECEFF3!important;color:#667085!important}
-.market-fields input{font-size:1rem!important;color:#111827!important}
-.market-fields .primary{height:54px!important;width:54px!important;margin:12px!important;border-radius:12px!important}
-.market-pills{margin:76px auto 18px!important;gap:20px!important}
-.market-pills button{background:#fff!important;color:#111827!important;border-radius:12px!important;padding:10px 12px!important}
-.market-pills button.active,.market-pills button:hover{background:#111827!important;color:#fff!important}
-.portal-bottom span{background:#fff!important;border:1px solid #ECEFF3!important;border-radius:14px!important;color:#475467!important}
-.card,.booking-card,.car-card,.item,.auth-card,.house-card,.house-search,.house-hero{border:1px solid #ECEFF3!important;border-radius:16px!important;box-shadow:none!important;background:#fff!important}
-.car-media,.house-media{border-radius:14px!important;background:#F5F7FA!important}
-.tag,.badge.blue,.badge.green,.badge.amber{background:#F5F7FA!important;color:#111827!important;border:1px solid #E6E8EC!important}
-.price,.house-price{color:#111827!important}
-.filters button.on{background:#111827!important;color:#fff!important;border-color:#111827!important}
-.notice{background:#F8FAFC!important;border-color:#E6E8EC!important;color:#344054!important}
-[data-theme="dark"] body,[data-theme="dark"] .portal-home,[data-theme="dark"] .shell{background:#0E1116!important;color:#F8FAFC!important}
-[data-theme="dark"] .topbar,[data-theme="dark"] .card,[data-theme="dark"] .car-card,[data-theme="dark"] .item,[data-theme="dark"] .auth-card,[data-theme="dark"] .market-search-card,[data-theme="dark"] .house-card,[data-theme="dark"] .house-search,[data-theme="dark"] .house-hero{background:#151922!important;border-color:#252B36!important;box-shadow:none!important}
-[data-theme="dark"] .demo-strip{background:#0E1116!important;border-color:#252B36!important;color:#F8FAFC!important}
-[data-theme="dark"] .market-search-card .portal-tabs,[data-theme="dark"] .market-pills button,[data-theme="dark"] .portal-bottom span{background:#1A202B!important;border-color:#252B36!important;color:#F8FAFC!important}
-[data-theme="dark"] .market-fields label,[data-theme="dark"] .market-fields input{background:#151922!important;color:#F8FAFC!important;border-color:#252B36!important}
-@media(max-width:1099px){.market-search-card{bottom:-76px!important}.market-pills{margin-top:108px!important}.market-fields label{border-right:0!important}.market-fields .primary{width:calc(100% - 24px)!important;height:52px!important}}
-@media(max-width:640px){.topbar{height:66px!important}.market-home{width:min(100% - 24px,620px)!important;padding-top:20px!important}.market-hero{min-height:360px!important;padding:42px 18px 150px!important}.market-search-card{bottom:-104px!important;width:calc(100% - 24px)!important}.market-pills{margin-top:136px!important}.demo-strip{font-size:.78rem!important}.mobile-tabbar{background:#111827!important}}
-</style><script>
-(function(){
-var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-document.documentElement.dataset.theme = media && media.matches ? 'dark' : 'light';
-})();
-</script></head><body><header class="topbar"><button class="hamb" id="menuBtn" type="button" aria-label="Open menu">☰</button><button class="brand" type="button" data-go="home">Rueda<span>RD</span> 🇩🇴</button><nav class="nav" id="desktopNav"><button data-go="search">Cars</button><button data-go="houses">Rueda Casa</button><button data-go="add-car">List vehicle</button><button data-go="dashboard">Dashboard</button><button data-go="support">Support</button></nav><div class="top-actions"><button class="ghost" id="themeBtn" type="button">☀</button><button class="primary small" id="authBtn" type="button">Login</button></div></header><aside class="drawer" id="drawer"><div class="drawer-head"><strong id="drawerName">RuedaRD</strong><span id="drawerRole">MVP demo</span></div><button data-go="home">Home</button><button data-go="search">Search / book</button><button data-go="houses">Rueda Casa</button><button data-go="add-car">List a car</button><button data-go="dashboard">My panel</button><button data-go="wallet">Money and payouts</button><button data-go="contracts">Contracts</button><button data-go="support">Support</button><button id="drawerLogout">Sign out</button></aside><nav class="mobile-tabbar" aria-label="Mobile navigation"><button type="button" data-go="home"><span>⌂</span>Home</button><button type="button" data-go="dashboard"><span>◎</span>Account</button><button type="button" data-go="search"><span>▣</span>Cars</button><button type="button" data-go="houses"><span>⌂</span>Homes</button><button type="button" data-go="search"><span>⌕</span>Search</button></nav><main><section class="portal-home page active" id="page-home"><div class="demo-strip">Earn with your car or property on RuedaRD · Demo environment only</div><div class="market-home"><div class="portal-logo market-logo"><span class="logo-mark">RD</span><strong>Rueda<span>RD</span></strong></div><div class="market-hero"><div class="market-copy"><p class="eyebrow">Dominican mobility marketplace</p><h1>Rental reinvented</h1><p>Book verified cars, list vehicles, and manage Rueda Casa rentals from one clean portal.</p></div><form class="portal-card login-card market-search-card" id="quickSearch"><div class="portal-card-head"><p class="eyebrow">Start here</p><h2>Find or list</h2><p>Login as renter, company, or partner to test the MVP flow.</p></div><div class="portal-tabs"><button type="button" class="active" data-role-tab="renter">Renter</button><button type="button" data-role-tab="fleet">Company / partner</button></div><div class="market-fields"><label>
-Where
-<input id="portalEmail" type="email" placeholder="Airport, hotel, address, city"></label><label>
-Access
-<input id="portalPassword" type="password" placeholder="Password or demo"></label><button class="primary portal-access" type="submit">Search →</button></div><div class="social-login"><button type="button" data-demo="renter">Google</button><button type="button" data-demo="renter">Apple ID</button></div></form></div><div class="market-pills" aria-label="Quick sections"><button type="button" class="active" data-go="search">Cars</button><button type="button" data-go="houses">Rueda Casa</button><button type="button" data-go="add-car">List vehicle</button><button type="button" data-go="dashboard">Dashboard</button><button type="button" data-go="contracts">Contracts</button></div><div class="portal-bottom market-steps"><span>1 Login</span><span>2 Dates / flight</span><span>3 Car / coverage</span><span>4 Payment / contract</span></div></div></section><section class="page shell" id="page-houses"><div class="section-head"><div><p class="eyebrow">Rueda Casa</p><h2>Homes, deposits, contracts, and owner payouts in one portal</h2></div><button class="primary small" id="showHouseForm" type="button">List your home</button></div><div class="house-hero card wide"><div><p class="eyebrow">No cash. No side deals.</p><h3>Tenants pay in the portal. Owners receive payouts to their account.</h3><p class="muted">Rueda Casa records photos, documents, lease terms, deposits, payments, and contract acceptance. Platform fee: 15% to cover legal support and operations.</p></div><div class="house-metrics"><span><strong>15%</strong> platform/legal fee</span><span><strong>Stripe</strong> Connect ready</span><span><strong>0 cash</strong> tenant payments</span></div></div><div class="house-search"><div class="search-pill"><span>⌕</span><input id="houseQuery" placeholder="Search city, sector, bedrooms, pool..."></div><button class="ghost" type="button" id="houseFilterBtn">Filters</button><button class="ghost" type="button" id="houseMapBtn">Map</button></div><div class="filters house-filters"><button data-house-filter="all" class="on">All</button><button data-house-filter="apartment">Apartments</button><button data-house-filter="house">Houses</button><button data-house-filter="villa">Villas</button><button data-house-filter="premium">Premium</button></div><form class="card wide house-form" id="houseForm"><div class="section-head compact"><div><p class="eyebrow">Owner flow</p><h3>List a home for rent</h3></div><button class="ghost" type="button" id="hideHouseForm">Close</button></div><div class="three"><div><label>Property title</label><input id="houseTitle" placeholder="Piantini furnished apartment" required></div><div><label>Type</label><select id="houseType"><option value="apartment">Apartment</option><option value="house">House</option><option value="villa">Villa</option></select></div><div><label>Monthly rent</label><input id="houseRent" type="number" min="300" value="1200" required></div></div><div class="three"><div><label>Location</label><input id="houseLocation" placeholder="Piantini, Santo Domingo" required></div><div><label>Beds</label><input id="houseBeds" type="number" min="0" value="2"></div><div><label>Baths</label><input id="houseBaths" type="number" min="1" value="2"></div></div><label>Description</label><textarea id="houseDescription" placeholder="Pool, parking, furnished, security, maintenance included..."></textarea><label>Photos</label><input id="housePhotos" type="file" accept="image/*" multiple><div class="three"><div><label>Title / ownership document</label><input id="houseOwnershipDoc" type="file" accept="image/*,.pdf"></div><div><label>Lease template</label><input id="houseLeaseDoc" type="file" accept="image/*,.pdf"></div><div><label>Owner ID / company</label><input id="houseOwnerDoc" type="file" accept="image/*,.pdf"></div></div><label class="check"><input id="houseTermsOk" type="checkbox" required> I agree that every tenant payment, deposit, contract, and owner payout must run through Rueda Casa. No cash side payment.</label><button class="primary full" type="submit">Publish home in Rueda Casa</button></form><div class="house-grid" id="housesList"></div></section><section class="page shell" id="page-auth"><div class="card auth-card"><p class="eyebrow">Access</p><h2>Enter the MVP</h2><p class="muted">Use a demo account or create a new one. Everything is saved in this browser.</p><div class="demo-grid"><button data-demo="renter">Renter demo</button><button data-demo="owner">Individual partner</button><button data-demo="fleet">Rental company</button></div><div class="divider">Create account</div><form id="authForm"><div class="two"><div><label>Name</label><input id="authName" placeholder="Juan Perez" required></div><div><label>Role</label><select id="authRole"><option value="renter">Renter</option><option value="owner">Individual partner</option><option value="fleet">Rental company</option></select></div></div><label>Email</label><input id="authEmail" type="email" placeholder="email@example.com" required><button class="primary full" type="submit">Create and enter</button></form></div></section><section class="page shell" id="page-search"><div class="section-head"><div><p class="eyebrow">Renter</p><h2>Step 2: calendar, delivery, and flight</h2></div><button class="ghost" data-go="dashboard">My panel</button></div><div class="process-rail"><span class="done">1 Login</span><span class="active">2 Dates / flight</span><span>3 Car / coverage</span><span>4 Payment / contract</span></div><div class="flow-grid"><aside class="card"><h3>Rental details</h3><label>Delivery zone</label><select id="rentZone"></select><div class="two"><div><label>Start</label><input id="rentStart" type="date"></div><div><label>Return</label><input id="rentEnd" type="date"></div></div><label>Airline / flight</label><div class="two"><select id="airline"><option>No flight</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select><input id="flightNo" placeholder="Ex. B6 309"></div><a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Complete the official Dominican Republic e-Ticket →</a></aside><div><div class="card step-card"><p class="eyebrow">Step 3</p><h3>Select a car and owner coverage</h3><p class="muted">Each owner or company publishes the coverage available for the vehicle. Coverage is confirmed before signing.</p></div><div class="filters"><button data-filter="all" class="on">All</button><button data-filter="sedan">Sedan</button><button data-filter="suv2">SUV 2 rows</button><button data-filter="suv3">SUV 3 rows</button><button data-filter="luxury">Luxury</button></div><div class="cars" id="carsList"></div></div></div></section><section class="page shell" id="page-checkout"><div class="section-head"><div><p class="eyebrow">Secure booking</p><h2>Step 4: contract, payment, and legal policy</h2></div><button class="ghost" data-go="search">Back</button></div><div class="process-rail"><span class="done">1 Login</span><span class="done">2 Dates / flight</span><span class="done">3 Car / coverage</span><span class="active">4 Payment / contract</span></div><div class="checkout-grid"><form class="card" id="checkoutForm"><h3>Customer and payment details</h3><label>Selected protection</label><select id="protection"><option value="basic">Owner basic coverage - $0/day</option><option value="plus">RuedaRD Plus - $8/day</option><option value="premium">RuedaRD Premium - $15/day</option></select><div class="choice-box"><strong>Customer documents</strong><label class="check"><input type="radio" name="docTiming" value="now" checked> Upload documents now and speed up delivery.</label><label class="check"><input type="radio" name="docTiming" value="delivery"> Upload documents at delivery with owner/fleet assistance.</label></div><label>Customer document</label><input type="file" id="clientDoc" accept="image/*,.pdf"><label>License / passport</label><input type="file" id="clientLicense" accept="image/*,.pdf"><label>Payment method</label><select id="paymentMethod"><option>Azul / Banco Popular demo</option><option>PayPal demo</option><option>Demo card</option></select><div class="notice">A $300 deposit hold is simulated. It is not captured until delivery is confirmed with the fleet or owner.</div><div class="choice-box legal-box"><strong>Visible legal policies</strong><p>The customer confirms that price, deposit, coverage, delivery, return, damage, and responsibility terms were visible. Hidden clauses or off-contract charges are not allowed.</p><label class="check"><input id="legalOk" type="checkbox" required> I accept the visible policies and rental contract.</label></div><label>Digital signature for contract</label><input id="signature" placeholder="Type your full name" required><button class="primary full" type="submit">Authorize hold, sign, and generate contract</button></form><aside class="card summary" id="checkoutSummary"></aside></div></section><section class="page shell" id="page-add-car"><div class="section-head"><div><p class="eyebrow">Owners and companies</p><h2>Activate account and list a car</h2></div><button class="ghost" data-go="dashboard">Dashboard</button></div><div class="process-rail"><span class="done">1 Login</span><span class="active">2 Activate account</span><span>3 List car</span><span>4 Ready for bookings</span></div><form class="card wide" id="carForm"><div class="owner-activation"><h3>Owner / company account</h3><div class="three"><div><label>Account type</label><select id="accountType"><option value="fleet">Rental company</option><option value="owner">Individual partner</option></select></div><div><label>Payout bank</label><input id="bankName" placeholder="Popular, BHD, Banreservas"></div><div><label>Phone / contact</label><input id="ownerPhone" placeholder="809-000-0000"></div></div><div class="notice">When the car is saved, this demo account becomes active and the process is recorded in the activity log.</div></div><div class="two"><div><label>Brand</label><select id="carBrand" required></select></div><div><label>Model</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div></div><div class="three"><div><label>Year</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div><div><label>Category</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 rows</option><option value="suv3">SUV 3 rows</option><option value="luxury">Luxury</option></select></div><div><label>Owner price / day</label><input id="carPrice" type="number" min="20" value="40" required></div></div><div class="three"><div><label>Zone</label><select id="carZone"></select></div><div><label>Seats</label><input id="carSeats" type="number" min="2" max="12" value="5"></div><div><label>Ads package</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div></div><label>Car photos</label><input id="carPhotos" type="file" accept="image/*" multiple><div class="three"><div><label>Coverage</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div><div><label>Registration / title</label><input id="docTitle" type="file" accept="image/*,.pdf"></div><div><label>Owner / company</label><input id="docOwner" type="file" accept="image/*,.pdf"></div></div><label class="check"><input id="contractOk" type="checkbox" required> The contract will show all clauses clearly, with no hidden conditions.</label><button class="primary full" type="submit">Save car in MVP</button></form></section><section class="page shell" id="page-dashboard"><div class="section-head"><div><p class="eyebrow" id="dashRole">Dashboard</p><h2 id="dashTitle">My RuedaRD dashboard</h2></div><button class="primary small" data-go="add-car">List a car</button></div><div class="stats" id="stats"></div><div class="dash-grid"><section class="card"><h3>Bookings</h3><div id="bookingList"></div></section><section class="card"><h3>My vehicles / homes</h3><div id="ownerCars"></div></section><section class="card wide"><h3>Process log</h3><div id="eventLog"></div></section></div></section><section class="page shell" id="page-wallet"><div class="section-head"><div><p class="eyebrow">Money</p><h2>Balance and payouts</h2></div></div><div class="card wide" id="walletPanel"></div></section><section class="page shell" id="page-contracts"><div class="section-head"><div><p class="eyebrow">Documents</p><h2>Contracts and receipts</h2></div></div><div class="card wide" id="contractList"></div></section><section class="page shell" id="page-support"><div class="card wide"><p class="eyebrow">MVP support</p><h2>What is still needed for real production</h2><ul class="bullets"><li>Connect Supabase/Postgres for real users and cars.</li><li>Integrate Azul with merchant credentials and a secure backend endpoint.</li><li>Integrate PayPal Authorize/Capture for deposit holds.</li><li>Add real document validation, KYC, 2FA/passkey, and audit logs.</li><li>Generate signed PDFs from the backend and store them privately.</li></ul></div></section></main><div class="toast" id="toast"></div><script>
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(reg){ reg.unregister(); }); });
-}
-if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
-</script><script src="app.js?v=57"></script><script>
-(function(){
-var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
-var manualMode = null;
-function systemDark(){ return !!(media && media.matches); }
-function applyTheme(){
-var dark = manualMode ? manualMode === 'dark' : systemDark();
-document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-var btn = document.getElementById('themeBtn');
-if (!btn) return;
-btn.textContent = dark ? '🌙' : '☀';
-btn.setAttribute('title', manualMode ? 'Temporary manual theme' : 'Automatic system theme');
-btn.setAttribute('aria-label', btn.getAttribute('title'));
-}
-function bindTheme(){
-var oldBtn = document.getElementById('themeBtn');
-if (oldBtn) {
-var btn = oldBtn.cloneNode(true);
-oldBtn.replaceWith(btn);
-btn.addEventListener('click', function(){
-manualMode = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-applyTheme();
-});
-}
-if (media && media.addEventListener) {
-media.addEventListener('change', function(){ manualMode = null; applyTheme(); });
-}
-applyTheme();
-}
-if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindTheme);
-else bindTheme();
-})();
-</script></body></html>
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title>RuedaRD Real MVP Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=60">
+  <style>
+    :root{--blue:#2563EB;--yellow:#2563EB}
+    .primary{background:#2563EB!important;color:#fff!important}
+    .portal-access,.process-rail .active{background:#2563EB!important;border-color:#2563EB!important;color:#fff!important}
+    .brand:after,.logo-mark:before{background:#2563EB!important;border-color:#2563EB!important}
+    .mobile-tabbar button:first-child{color:#2563EB!important}
+    .top-actions{background:rgba(255,255,255,.72)!important;border:1px solid rgba(15,23,42,.08)!important;border-radius:999px!important;padding:5px!important;box-shadow:0 14px 34px rgba(15,23,42,.08)!important;backdrop-filter:blur(16px)}
+    .top-actions .ghost{border-radius:999px!important;border-color:rgba(15,23,42,.14)!important}
+    @media(max-width:640px){.top-actions{background:rgba(255,255,255,.1)!important;border-color:rgba(255,255,255,.16)!important;box-shadow:none!important}.top-actions .ghost{min-width:46px!important;height:42px!important}}
+    html[data-theme="dark"],
+    [data-theme="dark"] body,
+    [data-theme="dark"] main,
+    [data-theme="dark"] .portal-home,
+    [data-theme="dark"] .shell{background:#07111F!important;color:#F8FAFC!important}
+    [data-theme="dark"] .topbar,
+    [data-theme="dark"] .drawer,
+    [data-theme="dark"] .portal-card,
+    [data-theme="dark"] .house-card,
+    [data-theme="dark"] .house-search,
+    [data-theme="dark"] .booking-card,
+    [data-theme="dark"] .card,
+    [data-theme="dark"] .auth-card,
+    [data-theme="dark"] .car-card,
+    [data-theme="dark"] .item,
+    [data-theme="dark"] .summary,
+    [data-theme="dark"] .checkout-grid,
+    [data-theme="dark"] .flow-grid,
+    [data-theme="dark"] .dash-grid,
+    [data-theme="dark"] .portal-bottom span{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
+    [data-theme="dark"] .brand,
+    [data-theme="dark"] .brand span,
+    [data-theme="dark"] .nav button,
+    [data-theme="dark"] h1,
+    [data-theme="dark"] h2,
+    [data-theme="dark"] h3,
+    [data-theme="dark"] strong,
+    [data-theme="dark"] label{color:#F8FAFC!important}
+    [data-theme="dark"] .portal-card-head p:not(.eyebrow),
+    [data-theme="dark"] .muted,
+    [data-theme="dark"] .mini,
+    [data-theme="dark"] .divider{color:#A8B3C5!important}
+    [data-theme="dark"] p,
+    [data-theme="dark"] li,
+    [data-theme="dark"] span{border-color:#24364F}
+    [data-theme="dark"] .hamb,
+    [data-theme="dark"] .ghost,
+    [data-theme="dark"] .social-login button,
+    [data-theme="dark"] .portal-tabs button,
+    [data-theme="dark"] .demo-grid button,
+    [data-theme="dark"] .filters button,
+    [data-theme="dark"] .drawer button{background:#101C2D!important;color:#F8FAFC!important;border-color:#24364F!important}
+    [data-theme="dark"] .portal-tabs{background:#07111F!important;border-color:#24364F!important}
+    [data-theme="dark"] .top-actions{background:rgba(16,28,45,.86)!important;border-color:#24364F!important}
+    [data-theme="dark"] .portal-tabs button.active,
+    [data-theme="dark"] .portal-tabs button:hover{background:#16243A!important;color:#F8FAFC!important}
+    [data-theme="dark"] input,
+    [data-theme="dark"] select,
+    [data-theme="dark"] textarea{background:#07111F!important;color:#F8FAFC!important;border-color:#344963!important}
+    [data-theme="dark"] input::placeholder,
+    [data-theme="dark"] textarea::placeholder{color:#7F8EA3!important}
+    [data-theme="dark"] .choice-box,
+    [data-theme="dark"] .owner-activation,
+    [data-theme="dark"] .chips span,
+    [data-theme="dark"] .car-media{background:#07111F!important;color:#A8B3C5!important;border-color:#24364F!important}
+    [data-theme="dark"] .photo-empty{color:#F8FAFC!important}
+    [data-theme="dark"] .demo-strip,
+    [data-theme="dark"] .mobile-tabbar{background:#020817!important}
+    [data-theme="dark"] .portal-stage{background:
+      linear-gradient(180deg,rgba(7,17,31,.92),rgba(7,17,31,.98)),
+      radial-gradient(circle at 20% 0%,rgba(37,99,235,.18),transparent 34%)!important}
+    [data-theme="dark"] .portal-logo strong,
+    [data-theme="dark"] .portal-logo strong span{color:#F8FAFC!important}
+    [data-theme="dark"] .portal-badges span,
+    [data-theme="dark"] .tag{background:#16243A!important;color:#DCEBFF!important;border-color:#2B4D77!important}
+    [data-theme="dark"] .link{color:#93C5FD!important}
+    [data-theme="dark"] .toast{background:#020817!important;color:#F8FAFC!important;border:1px solid #24364F!important}
+    [data-theme="dark"] .process-rail span{background:#101C2D!important;color:#A8B3C5!important;border-color:#24364F!important}
+    [data-theme="dark"] .process-rail .done{background:#020817!important;color:#fff!important}
+    body{background:#fff!important;color:#111!important}.topbar{height:82px!important;background:#fff!important;color:#111!important;border-bottom:1px solid #eee!important;box-shadow:none!important}.brand{color:#111!important;letter-spacing:.08em!important;text-transform:uppercase!important}.brand span{color:#111!important}.brand:after{display:none!important}.hamb{display:grid!important;place-items:center!important;background:#fff!important;border:0!important;color:#111!important;border-radius:999px!important}.nav{margin-left:auto!important;gap:10px!important}.nav button{border:1px solid #e8e8e8!important;background:#fff!important;color:#111!important;border-radius:999px!important;padding:10px 16px!important;text-decoration:none!important}.nav button:hover{background:#111!important;color:#fff!important}.top-actions{background:transparent!important;border:0!important;box-shadow:none!important;padding:0!important}.top-actions .ghost{border:1px solid #e8e8e8!important;background:#fff!important;color:#111!important;border-radius:999px!important}.primary{background:#593CFB!important;color:#fff!important}.demo-strip{background:#f4f4f4!important;color:#111!important;text-decoration:underline!important;text-transform:none!important;letter-spacing:0!important;font-size:1rem!important;font-weight:650!important;padding:16px!important}.portal-home{background:#fff!important;color:#111!important}.market-home{width:min(100% - 48px,1280px)!important;margin:0 auto!important;padding:36px 0 92px!important}.market-logo{justify-content:flex-start!important;margin:0 0 36px!important}.market-logo .logo-mark{width:72px!important;height:42px!important;border-radius:0!important;background:#111!important;color:#fff!important}.market-logo .logo-mark:before{display:none!important}.portal-logo strong{font-size:1.35rem!important;letter-spacing:.08em!important;text-transform:uppercase!important}.portal-logo strong span{color:#111!important}.market-hero{min-height:360px!important;border-radius:22px!important;background:linear-gradient(90deg,rgba(0,0,0,.26),rgba(0,0,0,.1)),url('assets/ruedard-hero-dominicana.png') center/cover no-repeat!important;display:grid!important;align-items:center!important;padding:74px 8% 92px!important;position:relative!important;overflow:visible!important}.market-copy{text-align:center!important;color:#fff!important;max-width:860px!important;margin:0 auto!important}.market-copy .eyebrow{color:rgba(255,255,255,.82)!important}.market-copy h1{font-size:clamp(2.5rem,6vw,4.4rem)!important;letter-spacing:-.06em!important;margin-bottom:10px!important;color:#fff!important}.market-copy p:not(.eyebrow){font-size:1.25rem!important;color:rgba(255,255,255,.92)!important}.market-search-card{position:absolute!important;left:50%!important;bottom:-52px!important;transform:translateX(-50%)!important;width:min(86%,1040px)!important;border-radius:18px!important;border:0!important;padding:0!important;background:#fff!important;box-shadow:0 18px 60px rgba(0,0,0,.22)!important;overflow:hidden!important}.market-search-card .portal-card-head{display:none!important}.market-search-card .portal-tabs{width:310px!important;margin:0!important;background:#f4f4f4!important;border:0!important;border-radius:0!important}.market-search-card .portal-tabs button{padding:14px 18px!important;border-radius:0!important}.market-search-card .portal-tabs button.active{box-shadow:none!important;background:#111!important;color:#fff!important}.market-fields{display:grid!important;grid-template-columns:1.5fr 1fr auto!important;align-items:end!important}.market-fields label{margin:0!important;padding:18px 22px!important;color:#555!important;text-transform:none!important;letter-spacing:0!important;font-size:.92rem!important;border-right:1px solid #eee!important}.market-fields input{border:0!important;padding:6px 0 0!important;font-size:1.08rem!important;color:#111!important;background:#fff!important;box-shadow:none!important}.market-fields .primary{height:58px!important;width:58px!important;border-radius:14px!important;margin:14px!important;font-size:0!important}.market-fields .primary:after{content:"⌕";font-size:2rem;line-height:1}.market-search-card .social-login{display:none!important}.market-pills{display:flex!important;justify-content:center!important;align-items:center!important;gap:30px!important;margin:88px auto 22px!important;flex-wrap:wrap!important}.market-pills button{border:0!important;background:transparent!important;color:#111!important;font-weight:850!important;font-size:1.03rem!important;padding:13px 18px!important;border-radius:16px!important}.market-pills button.active,.market-pills button:hover{background:#111!important;color:#fff!important}.market-steps{margin-top:24px!important}.portal-bottom span{border:0!important;background:#f7f7f7!important;border-radius:18px!important;color:#333!important}.card,.booking-card,.car-card,.item,.auth-card{border-color:#ececec!important;border-radius:18px!important;box-shadow:none!important}.car-card{border-radius:20px!important}.car-media{height:260px!important;border-radius:18px!important;background:#f3f3f3!important}.price{color:#111!important}.tag{background:#111!important;color:#fff!important;border-radius:999px!important}.filters button.on{background:#111!important;border-color:#111!important;box-shadow:none!important}
+    [data-theme="dark"] body,[data-theme="dark"] .portal-home,[data-theme="dark"] .shell{background:#0B0B0C!important;color:#F7F7F7!important}[data-theme="dark"] .topbar,[data-theme="dark"] .card,[data-theme="dark"] .car-card,[data-theme="dark"] .item,[data-theme="dark"] .auth-card,[data-theme="dark"] .market-search-card{background:#151516!important;border-color:#2b2b2d!important}[data-theme="dark"] .demo-strip{background:#111!important;color:#f7f7f7!important}[data-theme="dark"] .nav button,[data-theme="dark"] .ghost,[data-theme="dark"] .hamb{background:#151516!important;color:#fff!important;border-color:#2b2b2d!important}[data-theme="dark"] .nav button:hover,[data-theme="dark"] .market-pills button.active,[data-theme="dark"] .market-pills button:hover{background:#fff!important;color:#111!important}[data-theme="dark"] .brand,[data-theme="dark"] .brand span,[data-theme="dark"] .portal-logo strong,[data-theme="dark"] .portal-logo strong span{color:#fff!important}[data-theme="dark"] .market-fields label,[data-theme="dark"] .market-fields input,[data-theme="dark"] .market-search-card .portal-tabs button{background:#151516!important;color:#fff!important}[data-theme="dark"] .market-search-card .portal-tabs,[data-theme="dark"] .portal-bottom span{background:#202022!important;color:#fff!important}[data-theme="dark"] .market-search-card .portal-tabs button.active{background:#fff!important;color:#111!important}
+    @media(max-width:1099px){.nav{display:none!important}.market-home{width:min(100% - 28px,900px)!important;padding-top:22px!important}.market-hero{padding:56px 24px 150px!important}.market-search-card{width:calc(100% - 28px)!important;bottom:-88px!important}.market-fields{grid-template-columns:1fr!important}.market-fields label{border-right:0!important;border-bottom:1px solid #eee!important;padding:14px 18px!important}.market-fields .primary{width:calc(100% - 28px)!important;font-size:1rem!important;margin:14px!important}.market-fields .primary:after{content:""!important}.market-pills{margin-top:124px!important;gap:10px!important;justify-content:flex-start!important;overflow:auto!important;flex-wrap:nowrap!important;padding-bottom:4px!important}.market-pills button{white-space:nowrap!important;background:#f7f7f7!important}}
+    @media(max-width:640px){.topbar{height:68px!important;background:#fff!important}.brand{max-width:none!important;font-size:.9rem!important}.top-actions .primary{display:none!important}.demo-strip{font-size:.82rem!important;padding:12px 20px!important}.market-logo{margin-bottom:18px!important}.market-hero{border-radius:18px!important;min-height:390px!important;padding:44px 18px 168px!important}.market-copy h1{font-size:2.45rem!important}.market-copy p:not(.eyebrow){font-size:1.02rem!important}.market-search-card{bottom:-116px!important;border-radius:16px!important}.market-search-card .portal-tabs{width:100%!important;grid-template-columns:1fr 1fr!important}.market-pills{margin-top:148px!important}.mobile-tabbar{background:#050505!important}}
+    /* Flat aesthetic override: no glass, no heavy color blocks, no loud shadows. */
+    :root{--blue:#2563EB!important;--yellow:#2563EB!important;--border:#E6E8EC!important;--muted:#667085!important;--text:#111827!important}
+    body{background:#fff!important;color:#111827!important}
+    .topbar{height:78px!important;background:#fff!important;border-bottom:1px solid #ECEFF3!important;padding-left:max(20px,calc((100vw - 1240px)/2))!important;padding-right:max(20px,calc((100vw - 1240px)/2))!important}
+    .hamb,.top-actions .ghost,.nav button,.market-pills button,.filters button,.demo-grid button{box-shadow:none!important;backdrop-filter:none!important}
+    .top-actions{background:transparent!important;border:0!important;box-shadow:none!important;backdrop-filter:none!important}
+    .brand{font-size:1.12rem!important;font-weight:900!important;letter-spacing:.02em!important;text-transform:none!important}
+    .brand span{color:#2563EB!important}
+    .nav button{border:0!important;background:#fff!important;color:#111827!important;border-radius:12px!important;padding:10px 12px!important;font-weight:800!important}
+    .nav button:hover{background:#F5F7FA!important;color:#111827!important}
+    .primary{background:#2563EB!important;color:#fff!important;border-radius:12px!important;box-shadow:none!important}
+    .ghost{background:#fff!important;color:#111827!important;border:1px solid #E6E8EC!important;border-radius:12px!important}
+    .demo-strip{background:#fff!important;border-bottom:1px solid #ECEFF3!important;color:#111827!important;text-decoration:underline!important;font-size:.95rem!important;padding:14px!important}
+    .market-home{width:min(100% - 40px,1240px)!important;padding:28px 0 76px!important}
+    .market-logo{margin:0 0 28px!important}
+    .market-logo .logo-mark{width:68px!important;height:38px!important;background:#111827!important;border-radius:0!important}
+    .portal-logo strong{font-size:1.18rem!important;letter-spacing:.02em!important;text-transform:none!important}
+    .portal-logo strong span{color:#2563EB!important}
+    .market-hero{min-height:348px!important;border-radius:18px!important;background:url('assets/ruedard-hero-dominicana.png') center/cover no-repeat!important;padding:70px 7% 88px!important;border:1px solid #ECEFF3!important;box-shadow:none!important}
+    .market-hero:before{content:""!important;position:absolute!important;inset:0!important;background:rgba(0,0,0,.18)!important;border-radius:18px!important;pointer-events:none!important}
+    .market-copy{position:relative!important;z-index:1!important}
+    .market-copy .eyebrow{color:#fff!important;font-size:.78rem!important;letter-spacing:.12em!important}
+    .market-copy h1{color:#fff!important;font-size:clamp(2.4rem,5.6vw,4rem)!important}
+    .market-copy p:not(.eyebrow){color:#fff!important;font-size:1.12rem!important}
+    .market-search-card{bottom:-42px!important;width:min(88%,1010px)!important;border:1px solid #E6E8EC!important;border-radius:16px!important;box-shadow:0 8px 24px rgba(17,24,39,.08)!important;background:#fff!important}
+    .market-search-card .portal-tabs{background:#F5F7FA!important;border-bottom:1px solid #ECEFF3!important;width:300px!important}
+    .market-search-card .portal-tabs button.active{background:#111827!important;color:#fff!important}
+    .market-fields label{padding:16px 20px!important;border-right:1px solid #ECEFF3!important;color:#667085!important}
+    .market-fields input{font-size:1rem!important;color:#111827!important}
+    .market-fields .primary{height:54px!important;width:54px!important;margin:12px!important;border-radius:12px!important}
+    .market-pills{margin:76px auto 18px!important;gap:20px!important}
+    .market-pills button{background:#fff!important;color:#111827!important;border-radius:12px!important;padding:10px 12px!important}
+    .market-pills button.active,.market-pills button:hover{background:#111827!important;color:#fff!important}
+    .portal-bottom span{background:#fff!important;border:1px solid #ECEFF3!important;border-radius:14px!important;color:#475467!important}
+    .card,.booking-card,.car-card,.item,.auth-card,.house-card,.house-search,.house-hero{border:1px solid #ECEFF3!important;border-radius:16px!important;box-shadow:none!important;background:#fff!important}
+    .car-media,.house-media{border-radius:14px!important;background:#F5F7FA!important}
+    .tag,.badge.blue,.badge.green,.badge.amber{background:#F5F7FA!important;color:#111827!important;border:1px solid #E6E8EC!important}
+    .price,.house-price{color:#111827!important}
+    .filters button.on{background:#111827!important;color:#fff!important;border-color:#111827!important}
+    .notice{background:#F8FAFC!important;border-color:#E6E8EC!important;color:#344054!important}
+    [data-theme="dark"] body,[data-theme="dark"] .portal-home,[data-theme="dark"] .shell{background:#0E1116!important;color:#F8FAFC!important}
+    [data-theme="dark"] .topbar,[data-theme="dark"] .card,[data-theme="dark"] .car-card,[data-theme="dark"] .item,[data-theme="dark"] .auth-card,[data-theme="dark"] .market-search-card,[data-theme="dark"] .house-card,[data-theme="dark"] .house-search,[data-theme="dark"] .house-hero{background:#151922!important;border-color:#252B36!important;box-shadow:none!important}
+    [data-theme="dark"] .demo-strip{background:#0E1116!important;border-color:#252B36!important;color:#F8FAFC!important}
+    [data-theme="dark"] .market-search-card .portal-tabs,[data-theme="dark"] .market-pills button,[data-theme="dark"] .portal-bottom span{background:#1A202B!important;border-color:#252B36!important;color:#F8FAFC!important}
+    [data-theme="dark"] .market-fields label,[data-theme="dark"] .market-fields input{background:#151922!important;color:#F8FAFC!important;border-color:#252B36!important}
+    @media(max-width:1099px){.market-search-card{bottom:-76px!important}.market-pills{margin-top:108px!important}.market-fields label{border-right:0!important}.market-fields .primary{width:calc(100% - 24px)!important;height:52px!important}}
+    @media(max-width:640px){.topbar{height:66px!important}.market-home{width:min(100% - 24px,620px)!important;padding-top:20px!important}.market-hero{min-height:360px!important;padding:42px 18px 150px!important}.market-search-card{bottom:-104px!important;width:calc(100% - 24px)!important}.market-pills{margin-top:136px!important}.demo-strip{font-size:.78rem!important}.mobile-tabbar{background:#111827!important}}
+
+    /* v58 full-flat repair: one clean system, no crystal, no floating cut cards. */
+    :root{--blue:#2563EB!important;--yellow:#2563EB!important;--bg:#FFFFFF!important;--card:#FFFFFF!important;--text:#101828!important;--muted:#667085!important;--border:#EAECF0!important;--shadow:none!important}
+    *{box-shadow:none!important;backdrop-filter:none!important}
+    html,body,main,.portal-home,.shell{background:#FFFFFF!important;color:#101828!important}
+    body{font-family:Outfit,system-ui,sans-serif!important}
+    .topbar{height:74px!important;background:#FFFFFF!important;color:#101828!important;border-bottom:1px solid #EAECF0!important;padding:0 max(18px,calc((100vw - 1180px)/2))!important;gap:14px!important}
+    .brand{color:#101828!important;font-size:1.15rem!important;font-weight:900!important;letter-spacing:-.02em!important;text-transform:none!important}
+    .brand span{color:#2563EB!important}.brand:after{display:none!important}
+    .hamb{display:grid!important;background:#FFFFFF!important;color:#101828!important;border:1px solid #EAECF0!important;border-radius:12px!important;width:44px!important;height:44px!important}
+    .nav{margin-left:auto!important;gap:6px!important}
+    .nav button{background:#FFFFFF!important;color:#101828!important;border:0!important;border-radius:10px!important;padding:10px 12px!important;font-weight:800!important}
+    .nav button:hover{background:#F2F4F7!important;color:#101828!important;text-decoration:none!important}
+    .top-actions{background:transparent!important;border:0!important;padding:0!important;gap:8px!important}
+    .ghost,.top-actions .ghost,.primary,.white{border-radius:12px!important}
+    .ghost,.top-actions .ghost{background:#FFFFFF!important;color:#101828!important;border:1px solid #EAECF0!important}
+    .primary{background:#2563EB!important;color:#FFFFFF!important;border:1px solid #2563EB!important}
+    .demo-strip{background:#F8FAFC!important;color:#475467!important;border-bottom:1px solid #EAECF0!important;text-decoration:none!important;text-transform:none!important;letter-spacing:.03em!important;font-size:.86rem!important;font-weight:800!important;padding:12px 16px!important}
+    .market-home{width:min(100% - 40px,1180px)!important;margin:0 auto!important;padding:28px 0 88px!important}
+    .market-logo{margin:0 0 22px!important;justify-content:flex-start!important}
+    .market-logo .logo-mark{width:52px!important;height:36px!important;border-radius:10px!important;background:#2563EB!important;color:#fff!important;letter-spacing:0!important}
+    .market-logo .logo-mark:before{display:none!important}
+    .portal-logo strong{font-size:1.35rem!important;text-transform:none!important;letter-spacing:-.04em!important;color:#101828!important}
+    .portal-logo strong span{color:#2563EB!important}
+    .market-hero{position:relative!important;display:grid!important;grid-template-columns:minmax(0,1fr) minmax(360px,460px)!important;align-items:center!important;gap:34px!important;min-height:auto!important;padding:42px!important;border:1px solid #EAECF0!important;border-radius:24px!important;background:#F8FAFC!important;overflow:visible!important}
+    .market-hero:before{display:none!important}
+    .market-copy{position:relative!important;z-index:1!important;text-align:left!important;max-width:620px!important;color:#101828!important;margin:0!important}
+    .market-copy .eyebrow{color:#2563EB!important;font-size:.78rem!important;letter-spacing:.12em!important}
+    .market-copy h1{color:#101828!important;font-size:clamp(2.6rem,6vw,5rem)!important;line-height:.96!important;letter-spacing:-.07em!important;margin-bottom:14px!important}
+    .market-copy p:not(.eyebrow){color:#475467!important;font-size:1.12rem!important;max-width:560px!important}
+    .market-search-card{position:static!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;width:100%!important;max-width:none!important;margin:0!important;padding:22px!important;border:1px solid #EAECF0!important;border-radius:20px!important;background:#FFFFFF!important;overflow:visible!important}
+    .market-search-card .portal-card-head{display:block!important;text-align:left!important;margin-bottom:16px!important}
+    .market-search-card .portal-card-head h2{font-size:1.55rem!important;color:#101828!important}
+    .market-search-card .portal-card-head p{color:#667085!important}
+    .market-search-card .portal-tabs{display:grid!important;grid-template-columns:1fr 1fr!important;width:100%!important;margin:0 0 16px!important;padding:4px!important;background:#F2F4F7!important;border:1px solid #EAECF0!important;border-radius:14px!important}
+    .market-search-card .portal-tabs button{border-radius:10px!important;padding:12px!important;color:#667085!important;background:transparent!important}
+    .market-search-card .portal-tabs button.active{background:#FFFFFF!important;color:#101828!important}
+    .market-fields{display:grid!important;grid-template-columns:1fr!important;gap:12px!important}
+    .market-fields label{padding:0!important;margin:0!important;border:0!important;color:#667085!important;text-transform:uppercase!important;letter-spacing:.08em!important;font-size:.75rem!important}
+    .market-fields input,input,select,textarea{background:#FFFFFF!important;color:#101828!important;border:1px solid #D0D5DD!important;border-radius:12px!important;padding:14px 15px!important}
+    .market-fields .primary{width:100%!important;height:54px!important;margin:4px 0 0!important;font-size:1rem!important}
+    .market-fields .primary:after{content:""!important}
+    .social-login{display:grid!important;grid-template-columns:1fr 1fr!important;gap:10px!important;margin-top:12px!important}
+    .social-login button{border:1px solid #EAECF0!important;background:#FFFFFF!important;color:#101828!important;border-radius:12px!important}
+    .market-pills{margin:28px 0 18px!important;display:flex!important;justify-content:flex-start!important;gap:10px!important;overflow:auto!important;flex-wrap:nowrap!important}
+    .market-pills button,.filters button,.demo-grid button{background:#FFFFFF!important;border:1px solid #EAECF0!important;color:#101828!important;border-radius:999px!important;padding:11px 14px!important;white-space:nowrap!important}
+    .market-pills button.active,.market-pills button:hover,.filters button.on,.demo-grid button:hover{background:#101828!important;border-color:#101828!important;color:#FFFFFF!important}
+    .portal-bottom{display:grid!important;grid-template-columns:repeat(4,1fr)!important;gap:10px!important;width:100%!important;margin:18px 0 0!important}
+    .portal-bottom span,.process-rail span{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:14px!important;color:#475467!important}
+    .card,.booking-card,.car-card,.item,.auth-card,.house-card,.house-search,.house-hero,.portal-card,.choice-box,.owner-activation{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:18px!important}
+    .car-media,.house-media{background:#F2F4F7!important;border-radius:14px!important}
+    .house-hero{background:#FFFFFF!important}
+    .tag,.badge.blue,.badge.green,.badge.amber{background:#F2F4F7!important;color:#101828!important;border:1px solid #EAECF0!important}
+    .notice{background:#F8FAFC!important;border:1px solid #EAECF0!important;color:#475467!important}
+    .mobile-tabbar{background:#FFFFFF!important;border-top:1px solid #EAECF0!important}
+    .mobile-tabbar button{color:#475467!important}.mobile-tabbar button:first-child{color:#2563EB!important}
+    [data-theme="dark"]{--bg:#0B0F17!important;--card:#111827!important;--text:#F9FAFB!important;--muted:#98A2B3!important;--border:#263244!important}
+    [data-theme="dark"] html,[data-theme="dark"] body,[data-theme="dark"] main,[data-theme="dark"] .portal-home,[data-theme="dark"] .shell{background:#0B0F17!important;color:#F9FAFB!important}
+    [data-theme="dark"] .topbar,[data-theme="dark"] .market-hero,[data-theme="dark"] .market-search-card,[data-theme="dark"] .card,[data-theme="dark"] .booking-card,[data-theme="dark"] .car-card,[data-theme="dark"] .item,[data-theme="dark"] .auth-card,[data-theme="dark"] .house-card,[data-theme="dark"] .house-search,[data-theme="dark"] .house-hero,[data-theme="dark"] .portal-card,[data-theme="dark"] .choice-box,[data-theme="dark"] .owner-activation{background:#111827!important;border-color:#263244!important;color:#F9FAFB!important}
+    [data-theme="dark"] .brand,[data-theme="dark"] .nav button,[data-theme="dark"] .market-copy h1,[data-theme="dark"] h1,[data-theme="dark"] h2,[data-theme="dark"] h3,[data-theme="dark"] strong,[data-theme="dark"] label{color:#F9FAFB!important}
+    [data-theme="dark"] .market-copy p:not(.eyebrow),[data-theme="dark"] .muted,[data-theme="dark"] p,[data-theme="dark"] li{color:#98A2B3!important}
+    [data-theme="dark"] .ghost,[data-theme="dark"] .top-actions .ghost,[data-theme="dark"] .hamb,[data-theme="dark"] .market-pills button,[data-theme="dark"] .filters button,[data-theme="dark"] .demo-grid button,[data-theme="dark"] input,[data-theme="dark"] select,[data-theme="dark"] textarea,[data-theme="dark"] .portal-tabs,[data-theme="dark"] .portal-bottom span,[data-theme="dark"] .process-rail span,[data-theme="dark"] .social-login button{background:#0B0F17!important;border-color:#263244!important;color:#F9FAFB!important}
+    [data-theme="dark"] .demo-strip,[data-theme="dark"] .notice,[data-theme="dark"] .car-media,[data-theme="dark"] .house-media{background:#0B0F17!important;border-color:#263244!important;color:#98A2B3!important}
+    [data-theme="dark"] .mobile-tabbar{background:#0B0F17!important;border-color:#263244!important}
+    @media(max-width:1099px){.market-hero{grid-template-columns:1fr!important;padding:28px!important}.market-search-card{width:100%!important}.portal-bottom{grid-template-columns:1fr 1fr!important}.nav{display:none!important}}
+    @media(max-width:640px){.topbar{height:64px!important;padding:0 10px!important}.brand{font-size:1rem!important;max-width:150px!important}.top-actions .primary{display:none!important}.market-home{width:min(100% - 24px,620px)!important;padding:18px 0 92px!important}.market-hero{padding:22px!important;border-radius:20px!important}.market-copy h1{font-size:2.5rem!important}.market-search-card{padding:18px!important;border-radius:18px!important}.portal-bottom{display:none!important}.mobile-tabbar{display:grid!important}}
+
+    .market-pills{display:none!important}
+    .site-footer{background:#F7F7F8!important;border-top:1px solid #EAECF0!important;text-align:center!important;padding:46px 18px 104px!important;color:#667085!important}
+    .footer-socials{display:flex!important;justify-content:center!important;align-items:center!important;gap:24px!important;margin:0 auto 26px!important}
+    .footer-socials a{width:56px!important;height:56px!important;border-radius:999px!important;display:grid!important;place-items:center!important;color:#fff!important;text-decoration:none!important;font-weight:900!important;font-size:1.45rem!important;line-height:1!important}
+    .footer-socials .fb{background:#315AA6!important}.footer-socials .yt{background:#E3272D!important}.footer-socials .ig{background:radial-gradient(circle at 30% 110%,#fdf497 0,#fdf497 18%,#fd5949 45%,#d6249f 64%,#285AEB 100%)!important}.footer-socials .in{background:#1C74A8!important;font-size:1.25rem!important}
+    .footer-links{display:flex!important;justify-content:center!important;align-items:center!important;gap:12px 18px!important;flex-wrap:wrap!important;max-width:820px!important;margin:0 auto 22px!important}
+    .footer-links a{color:#167A45!important;text-decoration:underline!important;text-underline-offset:4px!important;font-weight:750!important}
+    .footer-links a:not(:last-child)::after{content:"|";color:#B8C0CC;margin-left:18px;text-decoration:none!important}
+    .footer-copy{margin:0!important;font-size:1rem!important;color:#667085!important}
+    [data-theme="dark"] .site-footer{background:#0B0F17!important;border-color:#263244!important;color:#98A2B3!important}
+    [data-theme="dark"] .footer-copy{color:#98A2B3!important}
+    @media(max-width:640px){.site-footer{padding:38px 16px 122px!important}.footer-socials{gap:18px!important}.footer-socials a{width:48px!important;height:48px!important;font-size:1.22rem!important}.footer-links{gap:10px 12px!important;font-size:.95rem!important}.footer-links a:not(:last-child)::after{margin-left:12px}}
+  </style>
+  <script>
+    (function(){
+      var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+      document.documentElement.dataset.theme = media && media.matches ? 'dark' : 'light';
+    })();
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <button class="hamb" id="menuBtn" type="button" aria-label="Open menu">☰</button>
+    <button class="brand" type="button" data-go="home">Rueda<span>RD</span> 🇩🇴</button>
+    <nav class="nav" id="desktopNav">
+      <button data-go="search">Cars</button>
+      <button data-go="houses">Rueda Casa</button>
+      <button data-go="add-car">List vehicle</button>
+      <button data-go="dashboard">Dashboard</button>
+      <button data-go="support">Support</button>
+    </nav>
+    <div class="top-actions">
+      <button class="ghost" id="themeBtn" type="button">☀</button>
+      <button class="primary small" id="authBtn" type="button">Login</button>
+    </div>
+  </header>
+
+  <aside class="drawer" id="drawer">
+    <div class="drawer-head">
+      <strong id="drawerName">RuedaRD</strong>
+      <span id="drawerRole">MVP demo</span>
+    </div>
+    <button data-go="home">Home</button>
+    <button data-go="search">Search / book</button>
+    <button data-go="houses">Rueda Casa</button>
+    <button data-go="add-car">List a car</button>
+    <button data-go="dashboard">My panel</button>
+    <button data-go="wallet">Money and payouts</button>
+    <button data-go="contracts">Contracts</button>
+    <button data-go="support">Support</button>
+    <button id="drawerLogout">Sign out</button>
+  </aside>
+
+  <nav class="mobile-tabbar" aria-label="Mobile navigation">
+    <button type="button" data-go="home"><span>⌂</span>Home</button>
+    <button type="button" data-go="dashboard"><span>◎</span>Account</button>
+    <button type="button" data-go="search"><span>▣</span>Cars</button>
+    <button type="button" data-go="houses"><span>⌂</span>Homes</button>
+    <button type="button" data-go="search"><span>⌕</span>Search</button>
+  </nav>
+
+  <main>
+    <section class="portal-home page active" id="page-home">
+      <div class="demo-strip">Earn with your car or property on RuedaRD · Demo environment only</div>
+      <div class="market-home">
+        <div class="portal-logo market-logo">
+          <span class="logo-mark">RD</span>
+          <strong>Rueda<span>RD</span></strong>
+        </div>
+        <div class="market-hero">
+          <div class="market-copy">
+            <p class="eyebrow">Dominican mobility marketplace</p>
+            <h1>Rental reinvented</h1>
+            <p>Book verified cars, list vehicles, and manage Rueda Casa rentals from one clean portal.</p>
+          </div>
+          <form class="portal-card login-card market-search-card" id="quickSearch">
+            <div class="portal-card-head">
+              <p class="eyebrow">Start here</p>
+              <h2>Find or list</h2>
+              <p>Login as renter, company, or partner to test the MVP flow.</p>
+            </div>
+          <div class="portal-tabs">
+            <button type="button" class="active" data-role-tab="renter">Renter</button>
+            <button type="button" data-role-tab="fleet">Company / partner</button>
+          </div>
+            <div class="market-fields">
+              <label>
+                Where
+                <input id="portalEmail" type="email" placeholder="Airport, hotel, address, city">
+              </label>
+              <label>
+                Access
+                <input id="portalPassword" type="password" placeholder="Password or demo">
+              </label>
+              <button class="primary portal-access" type="submit">Search →</button>
+            </div>
+            <div class="social-login">
+              <button type="button" data-demo="renter">Google</button>
+              <button type="button" data-demo="renter">Apple ID</button>
+            </div>
+          </form>
+        </div>
+        <div class="portal-bottom market-steps">
+          <span>1 Login</span>
+          <span>2 Dates / flight</span>
+          <span>3 Car / coverage</span>
+          <span>4 Payment / contract</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-houses">
+      <div class="section-head">
+        <div>
+          <p class="eyebrow">Rueda Casa</p>
+          <h2>Homes, deposits, contracts, and owner payouts in one portal</h2>
+        </div>
+        <button class="primary small" id="showHouseForm" type="button">List your home</button>
+      </div>
+      <div class="house-hero card wide">
+        <div>
+          <p class="eyebrow">No cash. No side deals.</p>
+          <h3>Tenants pay in the portal. Owners receive payouts to their account.</h3>
+          <p class="muted">Rueda Casa records photos, documents, lease terms, deposits, payments, and contract acceptance. Platform fee: 15% to cover legal support and operations.</p>
+        </div>
+        <div class="house-metrics">
+          <span><strong>15%</strong> platform/legal fee</span>
+          <span><strong>Stripe</strong> Connect ready</span>
+          <span><strong>0 cash</strong> tenant payments</span>
+        </div>
+      </div>
+      <div class="house-search">
+        <div class="search-pill">
+          <span>⌕</span>
+          <input id="houseQuery" placeholder="Search city, sector, bedrooms, pool...">
+        </div>
+        <button class="ghost" type="button" id="houseFilterBtn">Filters</button>
+        <button class="ghost" type="button" id="houseMapBtn">Map</button>
+      </div>
+      <div class="filters house-filters">
+        <button data-house-filter="all" class="on">All</button>
+        <button data-house-filter="apartment">Apartments</button>
+        <button data-house-filter="house">Houses</button>
+        <button data-house-filter="villa">Villas</button>
+        <button data-house-filter="premium">Premium</button>
+      </div>
+      <form class="card wide house-form" id="houseForm">
+        <div class="section-head compact">
+          <div><p class="eyebrow">Owner flow</p><h3>List a home for rent</h3></div>
+          <button class="ghost" type="button" id="hideHouseForm">Close</button>
+        </div>
+        <div class="three">
+          <div><label>Property title</label><input id="houseTitle" placeholder="Piantini furnished apartment" required></div>
+          <div><label>Type</label><select id="houseType"><option value="apartment">Apartment</option><option value="house">House</option><option value="villa">Villa</option></select></div>
+          <div><label>Monthly rent</label><input id="houseRent" type="number" min="300" value="1200" required></div>
+        </div>
+        <div class="three">
+          <div><label>Location</label><input id="houseLocation" placeholder="Piantini, Santo Domingo" required></div>
+          <div><label>Beds</label><input id="houseBeds" type="number" min="0" value="2"></div>
+          <div><label>Baths</label><input id="houseBaths" type="number" min="1" value="2"></div>
+        </div>
+        <label>Description</label><textarea id="houseDescription" placeholder="Pool, parking, furnished, security, maintenance included..."></textarea>
+        <label>Photos</label><input id="housePhotos" type="file" accept="image/*" multiple>
+        <div class="three">
+          <div><label>Title / ownership document</label><input id="houseOwnershipDoc" type="file" accept="image/*,.pdf"></div>
+          <div><label>Lease template</label><input id="houseLeaseDoc" type="file" accept="image/*,.pdf"></div>
+          <div><label>Owner ID / company</label><input id="houseOwnerDoc" type="file" accept="image/*,.pdf"></div>
+        </div>
+        <label class="check"><input id="houseTermsOk" type="checkbox" required> I agree that every tenant payment, deposit, contract, and owner payout must run through Rueda Casa. No cash side payment.</label>
+        <button class="primary full" type="submit">Publish home in Rueda Casa</button>
+      </form>
+      <div class="house-grid" id="housesList"></div>
+    </section>
+
+    <section class="page shell" id="page-auth">
+      <div class="card auth-card">
+        <p class="eyebrow">Access</p>
+        <h2>Enter the MVP</h2>
+        <p class="muted">Use a demo account or create a new one. Everything is saved in this browser.</p>
+        <div class="demo-grid">
+          <button data-demo="renter">Renter demo</button>
+          <button data-demo="owner">Individual partner</button>
+          <button data-demo="fleet">Rental company</button>
+        </div>
+        <div class="divider">Create account</div>
+        <form id="authForm">
+          <div class="two">
+            <div><label>Name</label><input id="authName" placeholder="Juan Perez" required></div>
+            <div><label>Role</label><select id="authRole"><option value="renter">Renter</option><option value="owner">Individual partner</option><option value="fleet">Rental company</option></select></div>
+          </div>
+          <label>Email</label><input id="authEmail" type="email" placeholder="email@example.com" required>
+          <button class="primary full" type="submit">Create and enter</button>
+        </form>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-search">
+      <div class="section-head">
+        <div><p class="eyebrow">Renter</p><h2>Step 2: calendar, delivery, and flight</h2></div>
+        <button class="ghost" data-go="dashboard">My panel</button>
+      </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="active">2 Dates / flight</span>
+        <span>3 Car / coverage</span>
+        <span>4 Payment / contract</span>
+      </div>
+      <div class="flow-grid">
+        <aside class="card">
+          <h3>Rental details</h3>
+          <label>Delivery zone</label><select id="rentZone"></select>
+          <div class="two">
+            <div><label>Start</label><input id="rentStart" type="date"></div>
+            <div><label>Return</label><input id="rentEnd" type="date"></div>
+          </div>
+          <label>Airline / flight</label>
+          <div class="two">
+            <select id="airline"><option>No flight</option><option>JetBlue</option><option>United</option><option>Delta</option><option>Arajet</option><option>American Airlines</option></select>
+            <input id="flightNo" placeholder="Ex. B6 309">
+          </div>
+          <a class="link" target="_blank" href="https://eticket.migracion.gob.do/">Complete the official Dominican Republic e-Ticket →</a>
+        </aside>
+        <div>
+          <div class="card step-card">
+            <p class="eyebrow">Step 3</p>
+            <h3>Select a car and owner coverage</h3>
+            <p class="muted">Each owner or company publishes the coverage available for the vehicle. Coverage is confirmed before signing.</p>
+          </div>
+          <div class="filters">
+            <button data-filter="all" class="on">All</button>
+            <button data-filter="sedan">Sedan</button>
+            <button data-filter="suv2">SUV 2 rows</button>
+            <button data-filter="suv3">SUV 3 rows</button>
+            <button data-filter="luxury">Luxury</button>
+          </div>
+          <div class="cars" id="carsList"></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-checkout">
+      <div class="section-head">
+        <div><p class="eyebrow">Secure booking</p><h2>Step 4: contract, payment, and legal policy</h2></div>
+        <button class="ghost" data-go="search">Back</button>
+      </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="done">2 Dates / flight</span>
+        <span class="done">3 Car / coverage</span>
+        <span class="active">4 Payment / contract</span>
+      </div>
+      <div class="checkout-grid">
+        <form class="card" id="checkoutForm">
+          <h3>Customer and payment details</h3>
+          <label>Selected protection</label>
+          <select id="protection">
+            <option value="basic">Owner basic coverage - $0/day</option>
+            <option value="plus">RuedaRD Plus - $8/day</option>
+            <option value="premium">RuedaRD Premium - $15/day</option>
+          </select>
+          <div class="choice-box">
+            <strong>Customer documents</strong>
+            <label class="check"><input type="radio" name="docTiming" value="now" checked> Upload documents now and speed up delivery.</label>
+            <label class="check"><input type="radio" name="docTiming" value="delivery"> Upload documents at delivery with owner/fleet assistance.</label>
+          </div>
+          <label>Customer document</label><input type="file" id="clientDoc" accept="image/*,.pdf">
+          <label>License / passport</label><input type="file" id="clientLicense" accept="image/*,.pdf">
+          <label>Payment method</label>
+          <select id="paymentMethod">
+            <option>Azul / Banco Popular demo</option>
+            <option>PayPal demo</option>
+            <option>Demo card</option>
+          </select>
+          <div class="notice">A $300 deposit hold is simulated. It is not captured until delivery is confirmed with the fleet or owner.</div>
+          <div class="choice-box legal-box">
+            <strong>Visible legal policies</strong>
+            <p>The customer confirms that price, deposit, coverage, delivery, return, damage, and responsibility terms were visible. Hidden clauses or off-contract charges are not allowed.</p>
+            <label class="check"><input id="legalOk" type="checkbox" required> I accept the visible policies and rental contract.</label>
+          </div>
+          <label>Digital signature for contract</label><input id="signature" placeholder="Type your full name" required>
+          <button class="primary full" type="submit">Authorize hold, sign, and generate contract</button>
+        </form>
+        <aside class="card summary" id="checkoutSummary"></aside>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-add-car">
+      <div class="section-head">
+        <div><p class="eyebrow">Owners and companies</p><h2>Activate account and list a car</h2></div>
+        <button class="ghost" data-go="dashboard">Dashboard</button>
+      </div>
+      <div class="process-rail">
+        <span class="done">1 Login</span>
+        <span class="active">2 Activate account</span>
+        <span>3 List car</span>
+        <span>4 Ready for bookings</span>
+      </div>
+      <form class="card wide" id="carForm">
+        <div class="owner-activation">
+          <h3>Owner / company account</h3>
+          <div class="three">
+            <div><label>Account type</label><select id="accountType"><option value="fleet">Rental company</option><option value="owner">Individual partner</option></select></div>
+            <div><label>Payout bank</label><input id="bankName" placeholder="Popular, BHD, Banreservas"></div>
+            <div><label>Phone / contact</label><input id="ownerPhone" placeholder="809-000-0000"></div>
+          </div>
+          <div class="notice">When the car is saved, this demo account becomes active and the process is recorded in the activity log.</div>
+        </div>
+        <div class="two">
+          <div><label>Brand</label><select id="carBrand" required></select></div>
+          <div><label>Model</label><input id="carModel" placeholder="CR-V, Corolla, Tahoe" required></div>
+        </div>
+        <div class="three">
+          <div><label>Year</label><input id="carYear" type="number" min="2005" max="2027" value="2024" required></div>
+          <div><label>Category</label><select id="carCat"><option value="sedan">Sedan</option><option value="suv2">SUV 2 rows</option><option value="suv3">SUV 3 rows</option><option value="luxury">Luxury</option></select></div>
+          <div><label>Owner price / day</label><input id="carPrice" type="number" min="20" value="40" required></div>
+        </div>
+        <div class="three">
+          <div><label>Zone</label><select id="carZone"></select></div>
+          <div><label>Seats</label><input id="carSeats" type="number" min="2" max="12" value="5"></div>
+          <div><label>Ads package</label><select id="carAd"><option value="organic">Organic</option><option value="boost">Boost</option><option value="premium">Premium top</option></select></div>
+        </div>
+        <label>Car photos</label><input id="carPhotos" type="file" accept="image/*" multiple>
+        <div class="three">
+          <div><label>Coverage</label><input id="docInsurance" type="file" accept="image/*,.pdf"></div>
+          <div><label>Registration / title</label><input id="docTitle" type="file" accept="image/*,.pdf"></div>
+          <div><label>Owner / company</label><input id="docOwner" type="file" accept="image/*,.pdf"></div>
+        </div>
+        <label class="check"><input id="contractOk" type="checkbox" required> The contract will show all clauses clearly, with no hidden conditions.</label>
+        <button class="primary full" type="submit">Save car in MVP</button>
+      </form>
+    </section>
+
+    <section class="page shell" id="page-dashboard">
+      <div class="section-head">
+        <div><p class="eyebrow" id="dashRole">Dashboard</p><h2 id="dashTitle">My RuedaRD dashboard</h2></div>
+        <button class="primary small" data-go="add-car">List a car</button>
+      </div>
+      <div class="stats" id="stats"></div>
+      <div class="dash-grid">
+        <section class="card"><h3>Bookings</h3><div id="bookingList"></div></section>
+        <section class="card"><h3>My vehicles / homes</h3><div id="ownerCars"></div></section>
+        <section class="card wide"><h3>Process log</h3><div id="eventLog"></div></section>
+      </div>
+    </section>
+
+    <section class="page shell" id="page-wallet">
+      <div class="section-head">
+        <div><p class="eyebrow">Money</p><h2>Balance and payouts</h2></div>
+      </div>
+      <div class="card wide" id="walletPanel"></div>
+    </section>
+
+    <section class="page shell" id="page-contracts">
+      <div class="section-head">
+        <div><p class="eyebrow">Documents</p><h2>Contracts and receipts</h2></div>
+      </div>
+      <div class="card wide" id="contractList"></div>
+    </section>
+
+    <section class="page shell" id="page-support">
+      <div class="card wide">
+        <p class="eyebrow">MVP support</p>
+        <h2>What is still needed for real production</h2>
+        <ul class="bullets">
+          <li>Connect Supabase/Postgres for real users and cars.</li>
+          <li>Integrate Azul with merchant credentials and a secure backend endpoint.</li>
+          <li>Integrate PayPal Authorize/Capture for deposit holds.</li>
+          <li>Add real document validation, KYC, 2FA/passkey, and audit logs.</li>
+          <li>Generate signed PDFs from the backend and store them privately.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" aria-label="RuedaRD footer">
+    <div class="footer-socials" aria-label="Social links">
+      <a class="fb" href="#" aria-label="Facebook">f</a>
+      <a class="yt" href="#" aria-label="YouTube">▶</a>
+      <a class="ig" href="#" aria-label="Instagram">◎</a>
+      <a class="in" href="#" aria-label="LinkedIn">in</a>
+    </div>
+    <nav class="footer-links" aria-label="Legal links">
+      <a href="#">Terms of Use</a>
+      <a href="#">Privacy Policy ↗</a>
+      <a href="#">Cookie Policy ↗</a>
+      <a href="#">Consumer Data Privacy Statement ↗</a>
+      <a href="#">Privacy Choices</a>
+      <a href="#">AdChoices</a>
+    </nav>
+    <p class="footer-copy">© 2026 RuedaRD. All Rights Reserved.</p>
+  </footer>
+
+  <div class="toast" id="toast"></div>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.getRegistrations().then(function(regs){ regs.forEach(function(reg){ reg.unregister(); }); });
+    }
+    if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
+  </script>
+  <script src="app.js?v=60"></script>
+  <script>
+    (function(){
+      var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');
+      var manualMode = null;
+      function systemDark(){ return !!(media && media.matches); }
+      function applyTheme(){
+        var dark = manualMode ? manualMode === 'dark' : systemDark();
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        var btn = document.getElementById('themeBtn');
+        if (!btn) return;
+        btn.textContent = dark ? '🌙' : '☀';
+        btn.setAttribute('title', manualMode ? 'Temporary manual theme' : 'Automatic system theme');
+        btn.setAttribute('aria-label', btn.getAttribute('title'));
+      }
+      function bindTheme(){
+        var oldBtn = document.getElementById('themeBtn');
+        if (oldBtn) {
+          var btn = oldBtn.cloneNode(true);
+          oldBtn.replaceWith(btn);
+          btn.addEventListener('click', function(){
+            manualMode = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+            applyTheme();
+          });
+        }
+        if (media && media.addEventListener) {
+          media.addEventListener('change', function(){ manualMode = null; applyTheme(); });
+        }
+        applyTheme();
+      }
+      if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', bindTheme);
+      else bindTheme();
+    })();
+  </script>
+</body>
+</html>
