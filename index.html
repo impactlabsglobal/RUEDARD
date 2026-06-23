@@ -8,7 +8,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css?v=60">
+  <link rel="stylesheet" href="styles.css?v=61">
   <style>
     :root{--blue:#2563EB;--yellow:#2563EB}
     .primary{background:#2563EB!important;color:#fff!important}
@@ -217,6 +217,26 @@
     [data-theme="dark"] .site-footer{background:#0B0F17!important;border-color:#263244!important;color:#98A2B3!important}
     [data-theme="dark"] .footer-copy{color:#98A2B3!important}
     @media(max-width:640px){.site-footer{padding:38px 16px 122px!important}.footer-socials{gap:18px!important}.footer-socials a{width:48px!important;height:48px!important;font-size:1.22rem!important}.footer-links{gap:10px 12px!important;font-size:.95rem!important}.footer-links a:not(:last-child)::after{margin-left:12px}}
+
+    .house-browser{display:grid!important;grid-template-columns:minmax(0,1fr) 360px!important;gap:16px!important;margin:18px 0 18px!important;align-items:stretch!important}
+    .house-search-panel{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:22px!important;padding:16px!important}
+    .house-controls{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:12px!important;align-items:end!important;margin-top:12px!important}
+    .house-controls label{margin:0!important}.house-controls .ghost{height:52px!important;white-space:nowrap!important}.house-filters{margin:14px 0 0!important}
+    .rd-map-card{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:22px!important;padding:14px!important}
+    .rd-map{height:220px!important;border-radius:18px!important;background:linear-gradient(135deg,#EAF2FF,#F8FAFC)!important;position:relative!important;overflow:hidden!important;border:1px solid #E4E7EC!important}
+    .rd-map:before{content:""!important;position:absolute!important;left:36px!important;right:30px!important;top:58px!important;height:92px!important;background:#2563EB!important;opacity:.13!important;border-radius:64% 36% 55% 45% / 42% 52% 48% 58%!important;transform:rotate(-8deg)!important}
+    .rd-map .pin{position:absolute!important;background:#101828!important;color:#FFFFFF!important;border-radius:999px!important;padding:7px 10px!important;font-size:.72rem!important;font-weight:900!important;white-space:nowrap!important}
+    .rd-map .pin:before{content:""!important;display:inline-block!important;width:8px!important;height:8px!important;background:#2563EB!important;border:2px solid #FFFFFF!important;border-radius:999px!important;margin-right:6px!important}
+    .rd-map .santo{right:34px!important;bottom:48px!important}.rd-map .punta{right:18px!important;top:66px!important}.rd-map .santiago{left:36px!important;top:54px!important}.rd-map .romana{right:76px!important;bottom:88px!important}
+    .rd-map-card p{margin:12px 4px 0!important;color:#667085!important;font-size:.9rem!important}
+    .site-footer{display:block!important;visibility:visible!important;margin-top:0!important;background:#F4F4F4!important;border-top:1px solid #DADADA!important;padding:54px 18px 118px!important}
+    .footer-demo{margin:0 0 22px!important;color:#667085!important;font-weight:850!important;letter-spacing:.04em!important;text-transform:uppercase!important;font-size:.78rem!important}
+    .footer-socials a{width:64px!important;height:64px!important;font-size:1.7rem!important;box-shadow:0 8px 20px rgba(16,24,40,.08)!important}
+    .footer-links{font-size:1.08rem!important;line-height:1.9!important}.footer-copy{font-size:1.05rem!important}
+    [data-theme="dark"] .house-search-panel,[data-theme="dark"] .rd-map-card{background:#111827!important;border-color:#263244!important}
+    [data-theme="dark"] .rd-map{background:linear-gradient(135deg,#0B0F17,#111827)!important;border-color:#263244!important}
+    @media(max-width:860px){.house-browser{grid-template-columns:1fr!important}.rd-map{height:190px!important}.house-controls{grid-template-columns:1fr!important}.house-controls .ghost{width:100%!important}}
+    @media(max-width:640px){.footer-socials a{width:58px!important;height:58px!important;font-size:1.48rem!important}.footer-links{font-size:1rem!important}.site-footer{padding-bottom:128px!important}}
   </style>
   <script>
     (function(){
@@ -320,15 +340,15 @@
       <div class="section-head">
         <div>
           <p class="eyebrow">Rueda Casa</p>
-          <h2>Homes, deposits, contracts, and owner payouts in one portal</h2>
+          <h2>Find homes in the Dominican Republic</h2>
         </div>
         <button class="primary small" id="showHouseForm" type="button">List your home</button>
       </div>
       <div class="house-hero card wide">
         <div>
-          <p class="eyebrow">No cash. No side deals.</p>
-          <h3>Tenants pay in the portal. Owners receive payouts to their account.</h3>
-          <p class="muted">Rueda Casa records photos, documents, lease terms, deposits, payments, and contract acceptance. Platform fee: 15% to cover legal support and operations.</p>
+          <p class="eyebrow">No cash. Contract first.</p>
+          <h3>Search, apply, pay deposit, and sign the lease from one simple flow.</h3>
+          <p class="muted">Owners upload photos, property papers and lease terms. Tenants pay through the portal. Rueda Casa records deposits, payments, signatures, and owner payouts. Platform fee: 15% for legal support and operations.</p>
         </div>
         <div class="house-metrics">
           <span><strong>15%</strong> platform/legal fee</span>
@@ -336,20 +356,43 @@
           <span><strong>0 cash</strong> tenant payments</span>
         </div>
       </div>
-      <div class="house-search">
-        <div class="search-pill">
-          <span>⌕</span>
-          <input id="houseQuery" placeholder="Search city, sector, bedrooms, pool...">
+      <div class="house-browser">
+        <div class="house-search-panel">
+          <div class="search-pill">
+            <span>⌕</span>
+            <input id="houseQuery" placeholder="Search city, sector, bedrooms, pool...">
+          </div>
+          <div class="house-controls">
+            <label>
+              Location
+              <select id="houseLocationFilter">
+                <option value="all">All Dominican Republic</option>
+                <option value="Santo Domingo">Santo Domingo</option>
+                <option value="Punta Cana">Punta Cana</option>
+                <option value="Santiago">Santiago</option>
+                <option value="La Romana">La Romana</option>
+                <option value="Puerto Plata">Puerto Plata</option>
+              </select>
+            </label>
+            <button class="ghost" type="button" id="houseMapBtn">Map view</button>
+          </div>
+          <div class="filters house-filters">
+            <button data-house-filter="all" class="on">All</button>
+            <button data-house-filter="apartment">Apartments</button>
+            <button data-house-filter="house">Houses</button>
+            <button data-house-filter="villa">Villas</button>
+            <button data-house-filter="premium">Premium</button>
+          </div>
         </div>
-        <button class="ghost" type="button" id="houseFilterBtn">Filters</button>
-        <button class="ghost" type="button" id="houseMapBtn">Map</button>
-      </div>
-      <div class="filters house-filters">
-        <button data-house-filter="all" class="on">All</button>
-        <button data-house-filter="apartment">Apartments</button>
-        <button data-house-filter="house">Houses</button>
-        <button data-house-filter="villa">Villas</button>
-        <button data-house-filter="premium">Premium</button>
+        <aside class="rd-map-card" aria-label="Dominican Republic map demo">
+          <div class="rd-map">
+            <span class="pin santo">Santo Domingo</span>
+            <span class="pin punta">Punta Cana</span>
+            <span class="pin santiago">Santiago</span>
+            <span class="pin romana">La Romana</span>
+          </div>
+          <p><strong>Demo map</strong> · filters by location now. Real maps can connect later with Google Maps or Mapbox.</p>
+        </aside>
       </div>
       <form class="card wide house-form" id="houseForm">
         <div class="section-head compact">
@@ -580,11 +623,12 @@
   </main>
 
   <footer class="site-footer" aria-label="RuedaRD footer">
+    <p class="footer-demo">Demo footer · social and legal links for testing</p>
     <div class="footer-socials" aria-label="Social links">
-      <a class="fb" href="#" aria-label="Facebook">f</a>
-      <a class="yt" href="#" aria-label="YouTube">▶</a>
-      <a class="ig" href="#" aria-label="Instagram">◎</a>
-      <a class="in" href="#" aria-label="LinkedIn">in</a>
+      <a class="fb" href="#" aria-label="Facebook"><span>f</span></a>
+      <a class="yt" href="#" aria-label="YouTube"><span>▶</span></a>
+      <a class="ig" href="#" aria-label="Instagram"><span>◎</span></a>
+      <a class="in" href="#" aria-label="LinkedIn"><span>in</span></a>
     </div>
     <nav class="footer-links" aria-label="Legal links">
       <a href="#">Terms of Use</a>
@@ -594,7 +638,7 @@
       <a href="#">Privacy Choices</a>
       <a href="#">AdChoices</a>
     </nav>
-    <p class="footer-copy">© 2026 RuedaRD. All Rights Reserved.</p>
+    <p class="footer-copy">© 2026 RuedaRD Demo Portal. All Rights Reserved.</p>
   </footer>
 
   <div class="toast" id="toast"></div>
@@ -604,7 +648,7 @@
     }
     if (window.caches) caches.keys().then(function(keys){ keys.forEach(function(key){ caches.delete(key); }); });
   </script>
-  <script src="app.js?v=60"></script>
+  <script src="app.js?v=61"></script>
   <script>
     (function(){
       var media = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)');

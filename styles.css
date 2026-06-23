@@ -448,3 +448,31 @@ body{font-family:Outfit,system-ui,sans-serif!important}
 [data-theme="dark"] .site-footer{background:#0B0F17!important;border-color:#263244!important;color:#98A2B3!important}
 [data-theme="dark"] .footer-copy{color:#98A2B3!important}
 @media(max-width:640px){.site-footer{padding:38px 16px 122px!important}.footer-socials{gap:18px!important}.footer-socials a{width:48px!important;height:48px!important;font-size:1.22rem!important}.footer-links{gap:10px 12px!important;font-size:.95rem!important}.footer-links a:not(:last-child)::after{margin-left:12px}}
+
+/* v61 Rueda Casa + footer polish */
+.house-browser{display:grid!important;grid-template-columns:minmax(0,1fr) 360px!important;gap:16px!important;margin:18px 0 18px!important;align-items:stretch!important}
+.house-search-panel{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:22px!important;padding:16px!important}
+.house-controls{display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;gap:12px!important;align-items:end!important;margin-top:12px!important}
+.house-controls label{margin:0!important}
+.house-controls .ghost{height:52px!important;white-space:nowrap!important}
+.house-filters{margin:14px 0 0!important}
+.rd-map-card{background:#FFFFFF!important;border:1px solid #EAECF0!important;border-radius:22px!important;padding:14px!important}
+.rd-map{height:220px!important;border-radius:18px!important;background:linear-gradient(135deg,#EAF2FF,#F8FAFC)!important;position:relative!important;overflow:hidden!important;border:1px solid #E4E7EC!important}
+.rd-map:before{content:""!important;position:absolute!important;left:36px!important;right:30px!important;top:58px!important;height:92px!important;background:#2563EB!important;opacity:.13!important;border-radius:64% 36% 55% 45% / 42% 52% 48% 58%!important;transform:rotate(-8deg)!important}
+.rd-map .pin{position:absolute!important;background:#101828!important;color:#FFFFFF!important;border-radius:999px!important;padding:7px 10px!important;font-size:.72rem!important;font-weight:900!important;white-space:nowrap!important}
+.rd-map .pin:before{content:""!important;display:inline-block!important;width:8px!important;height:8px!important;background:#2563EB!important;border:2px solid #FFFFFF!important;border-radius:999px!important;margin-right:6px!important}
+.rd-map .santo{right:34px!important;bottom:48px!important}.rd-map .punta{right:18px!important;top:66px!important}.rd-map .santiago{left:36px!important;top:54px!important}.rd-map .romana{right:76px!important;bottom:88px!important}
+.rd-map-card p{margin:12px 4px 0!important;color:#667085!important;font-size:.9rem!important}
+.site-footer{display:block!important;visibility:visible!important;margin-top:0!important;background:#F4F4F4!important;border-top:1px solid #DADADA!important;padding:54px 18px 118px!important}
+.footer-demo{margin:0 0 22px!important;color:#667085!important;font-weight:850!important;letter-spacing:.04em!important;text-transform:uppercase!important;font-size:.78rem!important}
+.footer-socials a{width:64px!important;height:64px!important;font-size:1.7rem!important;box-shadow:0 8px 20px rgba(16,24,40,.08)!important}
+.footer-socials a span{display:block!important;line-height:1!important}
+.footer-links{font-size:1.08rem!important;line-height:1.9!important}
+.footer-links a{color:#137444!important}
+.footer-copy{font-size:1.05rem!important;color:#667085!important}
+[data-theme="dark"] .house-search-panel,[data-theme="dark"] .rd-map-card{background:#111827!important;border-color:#263244!important}
+[data-theme="dark"] .rd-map{background:linear-gradient(135deg,#0B0F17,#111827)!important;border-color:#263244!important}
+[data-theme="dark"] .rd-map-card p{color:#98A2B3!important}
+[data-theme="dark"] .site-footer{background:#0B0F17!important;border-color:#263244!important}
+@media(max-width:860px){.house-browser{grid-template-columns:1fr!important}.rd-map{height:190px!important}.house-controls{grid-template-columns:1fr!important}.house-controls .ghost{width:100%!important}}
+@media(max-width:640px){.footer-socials a{width:58px!important;height:58px!important;font-size:1.48rem!important}.footer-links{font-size:1rem!important}.site-footer{padding-bottom:128px!important}}

@@ -15,6 +15,7 @@ let session = db.session || null;
 let selectedCar = null;
 let activeFilter = "all";
 let activeHouseFilter = "all";
+let activeHouseLocation = "all";
 let portalRole = "renter";
 
 function seedDb() {
@@ -29,7 +30,10 @@ function seedDb() {
     properties: [
       propertySeed("h1", "u-owner", "Evaristo Morales", "Piantini furnished apartment", "apartment", "Piantini, Santo Domingo", 2, 2, 1450, "Furnished apartment with parking, elevator, security, and maintenance included.", "premium"),
       propertySeed("h2", "u-fleet", "Impact Rent Car", "Punta Cana villa near the beach", "villa", "Punta Cana", 3, 3, 2800, "Private villa with pool, terrace, backup power, and gated access.", "premium"),
-      propertySeed("h3", "u-owner", "Evaristo Morales", "Gazcue family house", "house", "Gazcue, Santo Domingo", 4, 3, 2100, "Large house with patio, parking, and easy access to main avenues.", "standard")
+      propertySeed("h3", "u-owner", "Evaristo Morales", "Gazcue family house", "house", "Gazcue, Santo Domingo", 4, 3, 2100, "Large house with patio, parking, and easy access to main avenues.", "standard"),
+      propertySeed("h4", "u-fleet", "Impact Rent Car", "Santiago modern apartment", "apartment", "Santiago", 2, 2, 950, "Modern apartment close to restaurants, supermarkets, and clinics.", "standard"),
+      propertySeed("h5", "u-owner", "Evaristo Morales", "La Romana vacation home", "house", "La Romana", 3, 2, 1750, "Family home with patio, covered parking, and fast access to Casa de Campo road.", "standard"),
+      propertySeed("h6", "u-fleet", "Impact Rent Car", "Puerto Plata beach apartment", "apartment", "Puerto Plata", 2, 1, 1200, "Beach area apartment with balcony, furnished kitchen, and visitor parking.", "premium")
     ],
     bookings: [],
     wallets: { "u-owner": wallet(), "u-fleet": wallet() },
@@ -66,6 +70,9 @@ function normalizeDb(data) {
   data.users ||= fresh.users;
   data.cars ||= fresh.cars;
   data.properties ||= fresh.properties;
+  fresh.properties.forEach((property) => {
+    if (!data.properties.find((p) => p.id === property.id)) data.properties.push(property);
+  });
   data.bookings ||= [];
   data.wallets ||= fresh.wallets;
   data.contracts ||= [];
@@ -231,8 +238,14 @@ function initForms() {
   });
   $("#hideHouseForm")?.addEventListener("click", () => $("#houseForm")?.classList.remove("open"));
   $("#houseQuery")?.addEventListener("input", renderHouses);
-  $("#houseFilterBtn")?.addEventListener("click", () => toast("Demo filters: use the category chips below."));
-  $("#houseMapBtn")?.addEventListener("click", () => toast("Map view will connect in the backend phase."));
+  $("#houseLocationFilter")?.addEventListener("change", (e) => {
+    activeHouseLocation = e.target.value;
+    renderHouses();
+  });
+  $("#houseMapBtn")?.addEventListener("click", () => {
+    $(".rd-map-card")?.scrollIntoView({ behavior: "smooth", block: "center" });
+    toast("Demo map ready. Choose a location filter to update listings.");
+  });
   $$("[data-house-filter]").forEach((btn) => {
     btn.addEventListener("click", () => {
       activeHouseFilter = btn.dataset.houseFilter;
@@ -272,6 +285,7 @@ function renderHouses() {
       if (activeHouseFilter === "premium") return p.tier === "premium";
       return p.type === activeHouseFilter;
     })
+    .filter((p) => activeHouseLocation === "all" || p.location.toLowerCase().includes(activeHouseLocation.toLowerCase()))
     .filter((p) => !q || [p.title, p.location, p.description, p.type, `${p.beds} bed`, `${p.baths} bath`].join(" ").toLowerCase().includes(q))
     .sort((a, b) => (b.tier === "premium") - (a.tier === "premium") || b.rent - a.rent);
 
@@ -732,11 +746,12 @@ function ensureFooter() {
   footer.className = "site-footer";
   footer.setAttribute("aria-label", "RuedaRD footer");
   footer.innerHTML = `
+    <p class="footer-demo">Demo footer · social and legal links for testing</p>
     <div class="footer-socials" aria-label="Social links">
-      <a class="fb" href="#" aria-label="Facebook">f</a>
-      <a class="yt" href="#" aria-label="YouTube">▶</a>
-      <a class="ig" href="#" aria-label="Instagram">◎</a>
-      <a class="in" href="#" aria-label="LinkedIn">in</a>
+      <a class="fb" href="#" aria-label="Facebook"><span>f</span></a>
+      <a class="yt" href="#" aria-label="YouTube"><span>▶</span></a>
+      <a class="ig" href="#" aria-label="Instagram"><span>◎</span></a>
+      <a class="in" href="#" aria-label="LinkedIn"><span>in</span></a>
     </div>
     <nav class="footer-links" aria-label="Legal links">
       <a href="#">Terms of Use</a>
@@ -746,7 +761,7 @@ function ensureFooter() {
       <a href="#">Privacy Choices</a>
       <a href="#">AdChoices</a>
     </nav>
-    <p class="footer-copy">© 2026 RuedaRD. All Rights Reserved.</p>
+    <p class="footer-copy">© 2026 RuedaRD Demo Portal. All Rights Reserved.</p>
   `;
   $("main")?.after(footer);
 }
